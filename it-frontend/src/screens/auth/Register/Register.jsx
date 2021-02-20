@@ -5,7 +5,7 @@ function Register() {
   return (
     <div>
         Register
-        <Link to='/login'>Register</Link>
+        <Link to='/login'>Login</Link>
     </div>
   );
 }
