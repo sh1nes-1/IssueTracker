@@ -1,0 +1,22 @@
+{
+  "env": {
+      "es6": true,
+      "browser": true
+  },
+  "extends": [
+    "react-app",
+    "react-app/jest"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/prop-types": 0
+  }
+}
