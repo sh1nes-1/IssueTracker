@@ -1,0 +1,13 @@
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.pad-25 {
+  padding: 25px;
+}
+
+h1.ant-typography {
+  font-size: 22px;
+}

@@ -10,13 +10,13 @@ const { Sider } = Layout;
 function Sidemenu({ routes }) {
   const location = useLocation();
   const branch = matchRoutes(routes, location.pathname);
-  const currentRouteKey = branch[0]?.route.key ?? "projects";
+  const currentRouteKey = branch[0]?.route?.key?.toString() ?? "";
 
   return (
     <Sider breakpoint="lg">
       <div className="logo" />
 
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={currentRouteKey}>
+      <Menu theme="dark" mode="inline" selectedKeys={[currentRouteKey]}>
         <Menu.Item key="projects" icon={<FolderOutlined />}>
           <NavLink to="/dashboard/projects">Projects</NavLink>
         </Menu.Item>

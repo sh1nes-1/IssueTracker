@@ -1,3 +1,4 @@
+import "../../assets/styles/Dashboard.css";
 import React from 'react';
 import { Layout  } from 'antd';
 import Sidemenu from './sidemenu/Sidemenu';
