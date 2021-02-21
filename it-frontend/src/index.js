@@ -4,14 +4,14 @@ import reportWebVitals from './reportWebVitals';
 import { renderRoutes } from "react-router-config";
 
 import { ConfigProvider } from 'antd';
-import ukUA from 'antd/lib/locale/uk_UA';
+import enUS from 'antd/lib/locale/en_US';
 
 import { BrowserRouter } from 'react-router-dom';
 import routes from './config/routes';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ConfigProvider locale={ukUA}>
+    <ConfigProvider locale={enUS}>
 
       <BrowserRouter>
         {renderRoutes(routes)}

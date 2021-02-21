@@ -11,3 +11,11 @@
 h1.ant-typography {
   font-size: 22px;
 }
+
+.ant-modal-body {
+  padding-bottom: 15px;
+}
+
+.modal-form {
+  padding-top: 20px;
+}

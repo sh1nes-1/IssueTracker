@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Layout, Row, Col, Card, Avatar, Skeleton, Button  } from 'antd';
 import { Link } from 'react-router-dom';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import CreateProjectModal from './create/CreateProject';
 
 const { Title } = Typography;
 const { Meta } = Card;
@@ -25,11 +26,7 @@ function Projects() {
       <Row justify="space-between">  
         <Title>Projects</Title>
 
-        <Link to="/dashboard/projects/create">
-          <Button>
-            <PlusCircleOutlined /> Create Project
-          </Button>
-        </Link>
+        <CreateProjectModal />
       </Row>
 
       <Row gutter={[16, 16]}>

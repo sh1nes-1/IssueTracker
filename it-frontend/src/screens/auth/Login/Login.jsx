@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 
 const layout = {
   labelCol: {
-    span: 8,
+    span: 6,
   },
   wrapperCol: {
-    span: 16,
+    span: 17,
     width: '2000px'
   },
 };
 const tailLayout = {
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    offset: 6,
+    span: 17,
   },
 };
 
@@ -27,7 +27,7 @@ function Login() {
 
   return (
     <Layout>
-      <Row justify="center" align="middle" type="flex" className="fullHeight">
+      <Row justify="center" align="middle" className="fullHeight">
       
         <Card title="Login" className="col d-flex justify-content-center" style={{ width: 440 }}>
         <Form {...layout} form={form} onFinish={onFinish}>        
