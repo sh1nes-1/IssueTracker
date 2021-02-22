@@ -3,3 +3,9 @@
 .fullHeight {
   min-height: 100vh;
 }
+
+.availableHeight {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}

@@ -3,8 +3,8 @@
 namespace App\Http\Requests\Project;
 
 use App\Http\Responses\Project\CreateProjectResponse;
-use App\Models\Project\Project;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateProjectRequest extends FormRequest
 {
@@ -26,7 +26,7 @@ class CreateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:32'
+            'name' => 'required|string|min:3|max:32|unique:projects,name,NULL,id,user_id,'.Auth::id(),
         ];
     }
 

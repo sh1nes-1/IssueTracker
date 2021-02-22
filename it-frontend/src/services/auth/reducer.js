@@ -2,31 +2,30 @@ import * as actionTypes from './actionTypes';
 import Immutable from 'seamless-immutable';
 
 const initialState = Immutable({
-  processing: false,
-  error: false,
-
+  isProcessing: false,
+  isError: false,
 });
 
 export default function authReducer(state=initialState, {type, ...action}) {
   switch (type) {
     case actionTypes.SIGN_IN_REQUEST:
       return state.merge({
-        processing: true,
-        error: false
+        isProcessing: true,
+        isError: false
       });
     case actionTypes.SIGN_IN_SUCCESS:
       return state.merge({
-          processing: false,
-          error: false,
+        isProcessing: false,
+        isError: false,
       });
     case actionTypes.SIGN_IN_FAIL:
       return state.merge({
-          processing: false,
-          error: true
+        isProcessing: false,
+        isError: true
       });
     case actionTypes.SIGN_IN_ERROR:
       return state.merge({
-          processing: false,
+        isProcessing: false,
       });
       
     default:
