@@ -37,9 +37,9 @@ export class HttpService {
   }
 
   get(url, data, successCb, errorCb) {
-    const queryString = new URLSearchParams(data).toString();
+    const queryString = data ? '?' + new URLSearchParams(data).toString() : '';
 
-    return fetch(ROOT_URL+url+'?'+queryString, {
+    return fetch(ROOT_URL+url+queryString, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',

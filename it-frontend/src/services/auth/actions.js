@@ -18,7 +18,8 @@ export function signIn(email, password) {
 
           dispatch({ 
             type: appActionTypes.LOGIN_SUCCESS, 
-            user: response.user 
+            access_token: response.access_token,
+            user: response.user
           });
             
           // maybe some automatic redirect work

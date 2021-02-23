@@ -21,7 +21,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
         Route::post('login', [AuthController::class, 'login']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
-        Route::post('me', [AuthController::class, 'me']);
+        Route::get('profile', [AuthController::class, 'profile']);
     });
 
     Route::group(['prefix' => 'projects'], function () {

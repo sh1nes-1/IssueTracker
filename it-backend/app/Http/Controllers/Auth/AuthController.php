@@ -39,9 +39,14 @@ class AuthController extends Controller
      *
      * @return JsonResponse
      */
-    public function me()
+    public function profile()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+
+        return response()->json([
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
     }
 
     /**

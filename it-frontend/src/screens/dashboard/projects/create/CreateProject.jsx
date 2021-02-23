@@ -51,7 +51,7 @@ function CreateProjectModal({ createProject, getProjects, isProcessing, isSucces
   });
 
   return (
-    <div>
+    <React.Fragment>
       <Button 
         onClick={showModal} 
         disabled={isProcessing}
@@ -75,7 +75,7 @@ function CreateProjectModal({ createProject, getProjects, isProcessing, isSucces
           </Form.Item>
         </Form>
       </Modal>
-    </div>
+    </React.Fragment>
   );
 }
 
