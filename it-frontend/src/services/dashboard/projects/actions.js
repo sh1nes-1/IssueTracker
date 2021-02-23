@@ -4,7 +4,7 @@ import * as actionTypes from './actionTypes';
 export function createProject(name) {
   return function (dispatch) {
     try {
-      dispatch({type : actionTypes.CREATE_PROJECT_REQUEST });
+      dispatch({ type: actionTypes.CREATE_PROJECT_REQUEST });
 
       HttpService.post('/projects/', { name: name }, 
         () => dispatch({ type: actionTypes.CREATE_PROJECT_SUCCESS }), 
@@ -12,7 +12,7 @@ export function createProject(name) {
       );
 
     } catch (error) {
-      dispatch({type : actionTypes.CREATE_PROJECT_ERROR });
+      dispatch({ type: actionTypes.CREATE_PROJECT_ERROR });
     }
   }
 }
@@ -20,7 +20,7 @@ export function createProject(name) {
 export function getProjects() {
   return function (dispatch) {
     try {
-      dispatch({type : actionTypes.GET_PROJECTS_REQUEST });
+      dispatch({ type: actionTypes.GET_PROJECTS_REQUEST });
 
       HttpService.get('/projects/', null, 
         (response) => {
@@ -33,7 +33,7 @@ export function getProjects() {
       );
 
     } catch (error) {
-      dispatch({type : actionTypes.GET_PROJECTS_ERROR });
+      dispatch({ type: actionTypes.GET_PROJECTS_ERROR });
     }
   }
 }

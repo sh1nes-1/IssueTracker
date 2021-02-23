@@ -1,0 +1,34 @@
+import HttpService from "services/HttpService";
+import * as actionTypes from './actionTypes';
+import * as appActionTypes from '../app/actionTypes';
+import history from '../../history';
+
+export function signIn(email, password) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.SIGN_IN_REQUEST });
+
+      HttpService.post('/auth/login/', { email, password }, 
+        (response) => {
+          localStorage.setItem('user', response.user);
+          localStorage.setItem('jwt_access_token', response.access_token);
+          HttpService.setToken(response.access_token);
+
+          dispatch({ type: actionTypes.SIGN_IN_SUCCESS });
+
+          dispatch({ 
+            type: appActionTypes.LOGIN_SUCCESS, 
+            user: response.user 
+          });
+            
+          // maybe some automatic redirect work
+          history.push('/dashboard/projects');
+        }, 
+        () => dispatch({ type: actionTypes.SIGN_IN_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.SIGN_IN_ERROR });
+    }
+  }
+}

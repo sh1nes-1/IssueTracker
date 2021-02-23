@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Input, Form, Modal } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { actions } from '../../../../services/';
+import { actions } from 'services';
 import { usePrevious } from "utils";
 
 const layout = {

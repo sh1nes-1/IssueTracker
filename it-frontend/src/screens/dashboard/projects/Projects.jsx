@@ -3,7 +3,7 @@ import { Typography, Layout, Row, Col, Card, Avatar, Skeleton, Empty  } from 'an
 import { Link } from 'react-router-dom';
 import CreateProjectModal from './create/CreateProject';
 import { connect } from 'react-redux';
-import { actions } from '../../../services/';
+import { actions } from 'services';
 import moment from 'moment';
 import 'moment/locale/en-gb'
 

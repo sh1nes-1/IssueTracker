@@ -6,16 +6,17 @@ import { renderRoutes } from "react-router-config";
 import { ConfigProvider } from 'antd';
 import enUS from 'antd/lib/locale/en_US';
 
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import routes from './config/routes';
+import history from './history';
 
 ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider locale={enUS}>
 
-      <BrowserRouter>
+      <Router history={history}>
         {renderRoutes(routes)}
-      </BrowserRouter>
+      </Router>
 
     </ConfigProvider>
   </React.StrictMode>,
