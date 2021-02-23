@@ -1,6 +1,6 @@
 import history from '../../history';
 import * as actionTypes from './actionTypes';
-const { default: HttpService } = require("services/HttpService");
+import HttpService from "services/HttpService";
 
 export function retrieve() {
   return function (dispatch) {
@@ -14,10 +14,7 @@ export function retrieve() {
             user: response.user
           });
         }, 
-        () => {
-          dispatch({ type: actionTypes.GET_ACCOUNT_FAIL });
-          dispatch(logout());
-        }
+        () => dispatch({ type: actionTypes.GET_ACCOUNT_FAIL })
       );
 
     } catch (error) {
