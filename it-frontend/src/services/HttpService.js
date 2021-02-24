@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 export class HttpService {
   constructor() {
     this.access_token      = null;
+    this.refresh_token     = null;
     this.get               = this.get.bind(this);
     this.post              = this.post.bind(this);
     this.isAuthTokenValid  = this.isAuthTokenValid.bind(this)
@@ -12,7 +13,7 @@ export class HttpService {
     this.logoutFunc        = null;
   }
 
-  async post(url, data, successCb, errorCb, tryRefreshToken = true) {
+  async post(url, data, successCb, errorCb, tryRefreshToken = true, customToken = null) {
     if (tryRefreshToken) {
       await this.tryRefreshToken();
     }
@@ -22,7 +23,7 @@ export class HttpService {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.access_token}`
+          'Authorization': `Bearer ${customToken ?? this.access_token}`
         },
         body: JSON.stringify(data)
     })
@@ -33,6 +34,7 @@ export class HttpService {
       )
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
+          console.log(response.json);
           return response.json;
         }
 
@@ -48,10 +50,14 @@ export class HttpService {
       });
   }
 
-  async get(url, data, successCb, errorCb, tryRefreshToken = true) {
+  async get(url, data, successCb, errorCb, tryRefreshToken = true, customToken = null) {
+    console.log(`get ${url}`);
+
     if (tryRefreshToken) {
       await this.tryRefreshToken();
     }
+
+    console.log(`continue ${url}`);
 
     const queryString = data ? '?' + new URLSearchParams(data).toString() : '';
 
@@ -59,7 +65,7 @@ export class HttpService {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Authorization': `Bearer ${this.access_token}`
+        'Authorization': `Bearer ${customToken ?? this.access_token}`
       }
     })
       .then(async (response) => Object.create({
@@ -77,6 +83,7 @@ export class HttpService {
       .then(response => successCb ? successCb(response) : Promise.resolve(response))
       .catch(error => {
         if (error?.message === 'Unauthenticated.' && this.logoutFunc) {
+          console.log(`logout ${url}`);
           this.logoutFunc();
         }
 
@@ -86,6 +93,10 @@ export class HttpService {
 
   setToken(access_token) {
     this.access_token = access_token;
+  }
+
+  setRefreshToken(refresh_token) {
+    this.refresh_token = refresh_token;
   }
 
   isAuthTokenValid() {

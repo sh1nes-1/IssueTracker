@@ -11,8 +11,11 @@ export function signIn(email, password) {
       HttpService.post('/auth/login/', { email, password }, 
         (response) => {
           localStorage.setItem('user', response.user);
-          localStorage.setItem('jwt_access_token', response.access_token);
+          localStorage.setItem('access_token', response.access_token);
+          localStorage.setItem('refresh_token', response.refresh_token);
+
           HttpService.setToken(response.access_token);
+          HttpService.setRefreshToken(response.refresh_token);
 
           dispatch({ type: actionTypes.SIGN_IN_SUCCESS });
 

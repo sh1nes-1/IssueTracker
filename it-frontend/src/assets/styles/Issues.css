@@ -1,0 +1,45 @@
+.header * {
+  font-family: 'Rubik', sans-serif;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.gray {
+  color: #bfbfbf;
+}
+
+.accent {
+  color: black;
+}
+
+.project-settings {
+  font-size: 16px;
+}
+
+.ant-space-item {
+  line-height: normal;
+}
+
+.ant-select-selector, .ant-select-selection-search {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;    
+}
+
+.environment .ant-select-arrow {
+  margin-top: -8px;
+  font-size: 14px;
+}
+
+.period .ant-select-arrow {  
+  margin-top: -9px;
+  font-size: 14px;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  padding: 0 11px !important;
+}

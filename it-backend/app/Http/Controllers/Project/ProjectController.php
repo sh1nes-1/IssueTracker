@@ -11,7 +11,7 @@ class ProjectController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth.check');
     }
 
     public function index(GetAllProjectsRequest $request)
