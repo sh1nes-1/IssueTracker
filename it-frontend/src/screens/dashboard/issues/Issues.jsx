@@ -1,10 +1,11 @@
 import 'assets/styles/Issues.css';
-import { Layout, Typography, Row, Col, Space, Menu, Select } from 'antd';
 import React from 'react';
-import { SettingOutlined } from '@ant-design/icons';
+import { Layout, Typography, Row, Col, Select, Input } from 'antd';
+import IssuesHeader from './components/IssuesHeader';
+import IssuesTable from './components/IssuesTable';
 
-const { Header, Content } = Layout;
-const { Title } = Typography;
+const { Content } = Layout;
+const { Title, Text } = Typography;
 const { Option } = Select;
 
 function Issues() {
@@ -12,47 +13,40 @@ function Issues() {
     console.log('project settings');
   }
 
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
+
   return (
     <Layout>
-      <Header className="header">
-        <Row className="d-flex" align="middle">
-          <Col span={8}>
-            <Space className="title accent">
-              robot
-              <SettingOutlined className="project-settings gray" onClick={showProjectSettings} />
-            </Space>
-          </Col>
+      <IssuesHeader onProjectSettingsClick={showProjectSettings} />
 
-          <Col span={8}>
-            <Select
-              placeholder="All Environments"
-              mode="multiple"
-              className="environment title fullWidth"
-              bordered={false}
-              showSearch={false}
-              showArrow 
-            >
-              <Option value="production">production</Option>
-              <Option value="development">development</Option>
-            </Select>         
+      <Content className="issues-content">
+        <Row justify="center" align="middle">
+          <Col span={7}>
+            <Title className="issues-title">
+              Issues&nbsp;
+              <span className="sans-serif bolder">(</span>
+              <span>123</span>
+              <span className="sans-serif bolder">)</span>
+            </Title>
           </Col>
-
-          <Col span={8}>
-            <Select              
-              placeholder="Last 14 Days"
-              className="period title gray fullWidth"
-              bordered={false}
-              showSearch={false}
-              showArrow 
-            >
-              <Option value="7">Last 7 Days</Option>
-              <Option value="14">Last 14 Days</Option>
+          <Col span={3}>
+            <Select defaultValue="last_seen" className="sort-by-select" onChange={handleChange} bordered={true}>
+              <Option value="last_seen">
+                Sort by: <Text className="bolder">Last Seen</Text>
+              </Option>
+              <Option value="first_seen">
+                Sort by: <Text className="bolder">First Seen</Text>
+              </Option>
             </Select>
           </Col>
+          <Col span={14}>
+            <Input.Search placeholder="Search issues" enterButton />
+          </Col>
         </Row>
-      </Header>
-      <Content className="pad-25">
-        <Title>Issues (123)</Title>
+        
+        <IssuesTable />
       </Content>
     </Layout>
   );
