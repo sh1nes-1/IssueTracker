@@ -31,7 +31,7 @@ async function refreshToken() {
             localStorage.setItem('refresh_token', response.refresh_token);
 
             HttpService.setToken(response.access_token);
-            HttpService.setToken(response.refresh_token);
+            HttpService.setRefreshToken(response.refresh_token);
 
             refreshTokenPromise = null;
             resolve();

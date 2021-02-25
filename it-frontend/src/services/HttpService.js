@@ -42,6 +42,8 @@ export class HttpService {
       })
       .then(response => successCb ? successCb(response) : Promise.resolve(response))
       .catch(error => {
+        console.log(`Got error: ${error}`);
+
         if (error?.message === 'Unauthenticated.' && this.logoutFunc) {
           this.logoutFunc();
         }
@@ -82,8 +84,9 @@ export class HttpService {
       })
       .then(response => successCb ? successCb(response) : Promise.resolve(response))
       .catch(error => {
+        console.log(`Got error: ${error}`);
+
         if (error?.message === 'Unauthenticated.' && this.logoutFunc) {
-          console.log(`logout ${url}`);
           this.logoutFunc();
         }
 
