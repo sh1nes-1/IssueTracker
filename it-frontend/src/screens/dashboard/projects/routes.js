@@ -1,4 +1,4 @@
-import Projects from "./Projects";
+import Projects from "./list/Projects";
 
 const projects_config = [
   {

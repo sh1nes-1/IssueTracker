@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Layout, Row, Col, Card, Avatar, Skeleton, Empty  } from 'antd';
 import { Link } from 'react-router-dom';
-import CreateProjectModal from './create/CreateProject';
+import CreateProjectModal from '../create/CreateProject';
 import { connect } from 'react-redux';
 import { actions } from 'services';
 import moment from 'moment';

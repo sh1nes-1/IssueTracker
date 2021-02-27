@@ -7,7 +7,7 @@ function IssueItem(issue) {
   return (
     <div className="issue-item">
       <Row className="issue-item-header">
-        <Link to="#" className="issue-item-exception gray">
+        <Link to="/dashboard/issues/1" className="issue-item-exception gray">
           <span className="issue-exception-title">
             RedisException
           </span>

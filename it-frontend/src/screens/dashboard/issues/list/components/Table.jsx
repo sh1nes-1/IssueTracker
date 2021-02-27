@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'antd';
-import IssueItem from './IssueItem';
+import IssueItem from './Item';
 
 const { Column } = Table;
 

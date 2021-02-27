@@ -1,8 +1,8 @@
 import 'assets/styles/Issues.css';
 import React from 'react';
 import { Layout, Typography, Row, Col, Select, Input } from 'antd';
-import IssuesHeader from './components/IssuesHeader';
-import IssuesTable from './components/IssuesTable';
+import IssuesHeader from './components/Header';
+import IssuesTable from './components/Table';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
