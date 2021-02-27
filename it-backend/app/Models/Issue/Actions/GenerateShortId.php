@@ -2,25 +2,25 @@
 
 namespace App\Models\Issue\Actions;
 
-use App\Models\Issue\Issue;
-use App\Models\ProgrammingLanguage;
 use App\Models\Project\Project;
 use Illuminate\Support\Str;
 
 class GenerateShortId
 {
     private $project_id;
+    private $issue_id;
     private $project;
     private $short_id;
 
-    public function __construct($project_id)
+    public function __construct($project_id, $issue_id)
     {
         $this->project_id = $project_id;
+        $this->issue_id = $issue_id;
     }
 
-    public static function perform($project_id)
+    public static function perform($project_id, $issue_id)
     {
-        return (new static($project_id))->handle();
+        return (new static($project_id, $issue_id))->handle();
     }
 
     public function handle()
@@ -53,18 +53,21 @@ class GenerateShortId
 
     public function generateShortId()
     {
-        $this->short_id = Str::slug($this->project->name);
+        $project_slug = Str::slug($this->project->name);
 
-        if (strlen($this->short_id) > 20) {
-            $words = explode('-', $this->short_id);
-            $this->short_id = '';
+        if (strlen($project_slug) > 20) {
+            $words = explode('-', $project_slug);
+            $project_slug = '';
 
             foreach ($words as $word) {
                 if (strlen($word) > 0) {
-                    $this->short_id .= $word[0];
+                    $project_slug .= $word[0];
                 }
             }
         }
+
+        $symbol_id = base_convert($this->issue_id, 10, 36);
+        $this->short_id = strtoupper($project_slug . '-' . $symbol_id);
 
         return $this;
     }

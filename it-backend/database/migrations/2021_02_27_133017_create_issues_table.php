@@ -19,7 +19,7 @@ class CreateIssuesTable extends Migration
             $table->id();
             $table->foreignId('project_environment_id')->constrained();
             $table->foreignId('programming_language_id')->constrained();
-            $table->string('short_id');
+            $table->string('short_id')->nullable();
             $table->string('level')->default(IssueLevel::ERROR);
             $table->string('exception_name');
             $table->string('filename');
