@@ -78,6 +78,9 @@ function Issues({ location }) {
 
         <IssuesTable 
           issues={data}
+          loading={false}
+          currentPage={params['page'] ?? 1}
+          totalCount={6}
           />
       </Content>
     </Layout>

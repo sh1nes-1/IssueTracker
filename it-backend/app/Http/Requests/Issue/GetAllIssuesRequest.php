@@ -49,7 +49,7 @@ class GetAllIssuesRequest extends FormRequest
             ], 422);
         }
 
-        $issues_formatted = GetAllIssuesResponse::from($response['issues'])->toArray();
+        $issues_formatted = GetAllIssuesResponse::from($response['issues'], $response['total_count'])->toArray();
         return response()->json($issues_formatted, 200);
     }
 }

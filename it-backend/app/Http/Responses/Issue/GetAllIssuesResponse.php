@@ -6,21 +6,24 @@ namespace App\Http\Responses\Issue;
 class GetAllIssuesResponse
 {
     private $issues;
+    private $total_count;
 
-    public function __construct($issues)
+    public function __construct($issues, $total_count)
     {
         $this->issues = $issues->map(\Closure::fromCallable([$this, 'mapIssue']));
+        $this->total_count = $total_count;
     }
 
-    public static function from($issues)
+    public static function from($issues, $total_count)
     {
-        return new static($issues);
+        return new static($issues, $total_count);
     }
 
     public function toArray()
     {
         return [
-            'issues' => $this->issues,
+            'issues'      => $this->issues,
+            'total_count' => $this->total_count,
         ];
     }
 

@@ -6,10 +6,13 @@ use App\Models\Project\Project;
 
 class GetProjectIssues
 {
+    const ISSUES_PER_PAGE = 25;
+
     private $project_id;
     private $parameters;
     private $project;
     private $issues;
+    private $total_count;
 
     public function __construct($project_id, $parameters)
     {
@@ -30,6 +33,7 @@ class GetProjectIssues
             return [
                 'status_code' => 200,
                 'issues' => $this->issues,
+                'total_count' => $this->total_count,
             ];
         }
         catch (\Exception $exception) {
@@ -60,6 +64,8 @@ class GetProjectIssues
             $issues_query->whereIn('project_environment_id', $environments_ids_arr);
         }
 
+        $this->total_count = $issues_query->count();
+        $issues_query->paginate(self::ISSUES_PER_PAGE);
         $this->issues = $issues_query->get();
 
         return $this;
