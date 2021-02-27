@@ -3,7 +3,7 @@
 }
 
 .gray {
-  color: #bfbfbf;
+  color: #5c5c5c;
 }
 
 .accent {
@@ -104,16 +104,56 @@
   padding: 0 !important;
 }
 
-.issue-item {
-  padding: 5px;
+a {
+  -webkit-transition: width 0s;
+  -moz-transition: width 0s;
+    -o-transition: width 0s;
+       transition: width 0s;
 }
 
-.issue-item * {
-  line-height: normal !important;
+a:hover .issue-class-path {
+  color: rgb(144, 144, 144);
+}
+
+a:hover .issue-exception-title {
+  color: #0f72cf;
+}
+
+.issue-item {
+  padding: 5px;
+  overflow: hidden;
+}
+
+.issue-item .issue-item-header * {
+  line-height: normal;  
 }
 
 .issue-item-exception {
   font-family: 'Rubik', 'Nunito', sans-serif;
   font-size: 16px;
   font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.issue-exception-title {
+  color: #1890ff;
+}
+
+.issue-class-path {
+  color: rgb(144, 144, 144);
+  font-weight: 400;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.issue-exception-message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.issue-parameters {
+  font-size: 12px;
 }
