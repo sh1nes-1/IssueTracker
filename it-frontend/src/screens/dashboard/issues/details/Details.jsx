@@ -1,12 +1,23 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Row, Col, Typography, Space } from 'antd';
+import DetailsHeader from './components/Header';
+import IssueInfo from './components/Info';
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 function Details() {
+  const showProjectSettings = () => {
+    console.log('project settings');
+  }
+
   return (
     <Layout>
-      Details!
+      <DetailsHeader onProjectSettingsClick={showProjectSettings} />
+      
+      <Content className="issue-details-content">
+        <IssueInfo />
+        
+      </Content>
     </Layout>
   );
 }

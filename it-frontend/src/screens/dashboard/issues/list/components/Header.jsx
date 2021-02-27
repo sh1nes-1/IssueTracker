@@ -1,4 +1,4 @@
-import 'assets/styles/Issues.css';
+import 'assets/styles/IssuesList.css';
 import { Layout, Row, Col, Space, Select } from 'antd';
 import React from 'react';
 import { SettingOutlined } from '@ant-design/icons';

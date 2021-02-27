@@ -1,0 +1,39 @@
+/* Header */
+
+.project-settings {
+  font-size: 16px;
+}
+
+.issue-details-content {
+  padding: 20px 30px;
+  font-weight: 400;
+}
+
+.header-param-title {
+  margin: 0;
+}
+
+.header-param {
+  font-size: 16px;
+}
+
+.issue-details-info {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.issue-details-title {
+  line-height: normal !important;
+  margin-bottom: 0 !important;
+  letter-spacing: 0 !important;
+  font-weight: 500 !important;
+}
+
+.issue-details-path {
+  line-height: normal !important;
+  margin-bottom: 0 !important;
+  letter-spacing: 0 !important;
+  font-weight: 300 !important;  
+  color: #5c5c5c !important;
+}

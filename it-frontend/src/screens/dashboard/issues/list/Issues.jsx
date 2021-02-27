@@ -1,4 +1,4 @@
-import 'assets/styles/Issues.css';
+import 'assets/styles/IssuesList.css';
 import React from 'react';
 import { Layout, Typography, Row, Col, Select, Input } from 'antd';
 import IssuesHeader from './components/Header';

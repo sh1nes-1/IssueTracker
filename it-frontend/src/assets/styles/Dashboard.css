@@ -12,6 +12,30 @@
   padding: 25px;
 }
 
+.title {
+  font-size: 18px;
+}
+
+.gray {
+  color: #5c5c5c;
+}
+
+.light-gray {
+  color: rgb(144, 144, 144);
+}
+
+.accent {
+  color: rgb(43, 29, 56);
+}
+
+.bolder {
+  font-weight: 600;
+}
+
+.sans-serif {
+  font-family: sans-serif;
+}
+
 h1.ant-typography {
   font-size: 22px;
 }

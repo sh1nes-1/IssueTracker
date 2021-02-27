@@ -11,7 +11,7 @@ function IssueItem(issue) {
           <span className="issue-exception-title">
             RedisException
           </span>
-          <span className="issue-class-path">
+          <span className="issue-class-path light-gray">
             /app/Models/Robots/Documents/validate/Jobs/ValidateDocument.php in App\Models\Robots\Documents\validate\Jobs\ValidateDocument::performTask
           </span>
         </Link>     
