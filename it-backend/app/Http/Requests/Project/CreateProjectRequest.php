@@ -3,11 +3,14 @@
 namespace App\Http\Requests\Project;
 
 use App\Http\Responses\Project\CreateProjectResponse;
+use App\Models\Project\Environment\Actions\CreateProjectEnvironment;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 class CreateProjectRequest extends FormRequest
 {
+    const DEFAULT_PROJECT_ENVIRONMENT = 'development';
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -33,7 +36,9 @@ class CreateProjectRequest extends FormRequest
     public function perform()
     {
         $project = auth()->user()->projects()->create($this->validated());
-        $project_formatted = CreateProjectResponse::from($project)->toArray();
+        CreateProjectEnvironment::perform(self::DEFAULT_PROJECT_ENVIRONMENT, $project->id);
+
+        $project_formatted = CreateProjectResponse::from($project->refresh())->toArray();
         return response()->json($project_formatted, 201);
     }
 }
