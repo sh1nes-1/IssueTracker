@@ -19,4 +19,9 @@ class Issue extends Model
         'message',
         'is_resolved',
     ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

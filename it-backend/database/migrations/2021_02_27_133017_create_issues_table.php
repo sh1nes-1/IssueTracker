@@ -24,7 +24,7 @@ class CreateIssuesTable extends Migration
             $table->string('exception_name');
             $table->string('filename');
             $table->text('message');
-            $table->boolean('is_resolved');
+            $table->boolean('is_resolved')->default(false);
             $table->timestamps();
         });
     }

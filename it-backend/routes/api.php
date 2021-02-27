@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Issue\IssueController;
 use App\Http\Controllers\Project\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,9 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::group(['prefix' => 'projects'], function () {
         Route::get('/', [ProjectController::class, 'index']);
         Route::post('/', [ProjectController::class, 'create']);
+    });
+
+    Route::group(['prefix' => 'issues'], function () {
+        Route::post('/', [IssueController::class, 'createEvent']);
     });
 });
