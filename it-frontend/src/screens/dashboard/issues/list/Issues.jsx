@@ -1,5 +1,5 @@
 import 'assets/styles/IssuesList.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from 'antd';
 import IssuesHeader from './components/Header';
 import IssuesTable from './components/Table';
@@ -33,7 +33,9 @@ const data = [
 ];
 
 function Issues({ location }) {
-  const params = queryString.parse(location.search);
+  const params = queryString.parse(location.search);  
+
+  const [currentPage, setCurrentPage] = useState(params['page'] ?? 1);
 
   useEffect(() => {
 
@@ -53,6 +55,11 @@ function Issues({ location }) {
 
   const onSearch = value => {
     console.log(`search: ${value}`);
+  }
+
+  const onPageChanged = page => {
+    setCurrentPage(page);
+    console.log(`page: ${page}`);
   }
 
   // TODO: remove this temp check
@@ -79,8 +86,9 @@ function Issues({ location }) {
         <IssuesTable 
           issues={data}
           loading={false}
-          currentPage={params['page'] ?? 1}
-          totalCount={6}
+          currentPage={currentPage}
+          totalCount={600}
+          onPageChanged={onPageChanged}
           />
       </Content>
     </Layout>
