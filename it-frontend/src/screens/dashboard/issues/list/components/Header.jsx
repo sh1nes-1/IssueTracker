@@ -6,13 +6,13 @@ import { SettingOutlined } from '@ant-design/icons';
 const { Header } = Layout;
 const { Option } = Select;
 
-function IssuesHeader({ onProjectSettingsClick }) {
+function IssuesHeader({ projectTitle, environments, onProjectSettingsClick, onEnvironmentsChange }) {
   return (
     <Header className="header">
       <Row className="d-flex" align="middle">
         <Col span={8}>
           <Space className="title accent">
-            robot
+            {projectTitle}
             <SettingOutlined className="project-settings gray" onClick={onProjectSettingsClick} />
           </Space>
         </Col>
@@ -25,9 +25,9 @@ function IssuesHeader({ onProjectSettingsClick }) {
             bordered={false}
             showSearch={false}
             showArrow 
+            onChange={onEnvironmentsChange}
           >
-            <Option value="production">production</Option>
-            <Option value="development">development</Option>
+            {environments.map(env => <Option key={env.id} value={env.id}>{env.name}</Option>)}
           </Select>         
         </Col>
 

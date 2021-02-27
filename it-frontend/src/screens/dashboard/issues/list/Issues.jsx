@@ -1,52 +1,84 @@
 import 'assets/styles/IssuesList.css';
-import React from 'react';
-import { Layout, Typography, Row, Col, Select, Input } from 'antd';
+import React, { useEffect } from 'react';
+import { Layout } from 'antd';
 import IssuesHeader from './components/Header';
 import IssuesTable from './components/Table';
+import queryString from 'query-string';
+import { Redirect } from 'react-router-dom';
+import IssuesContentHeader from './components/ContentHeader';
 
 const { Content } = Layout;
-const { Title, Text } = Typography;
-const { Option } = Select;
 
-function Issues() {
+const data = [
+  {
+    key: '1',
+    issue: 'John Brown',
+    events: 32,
+  },
+  {
+    key: '2',
+    issue: 'Jim Green',
+    events: 42,
+  },
+  {
+    key: '3',
+    issue: 'Joe Black',
+    events: 32,
+  },
+  {
+    key: '4',
+    issue: 'Disabled User',
+    events: 99,
+  },
+];
+
+function Issues({ location }) {
+  const params = queryString.parse(location.search);
+
+  useEffect(() => {
+
+  }, []);
+
   const showProjectSettings = () => {
     console.log('project settings');
   }
 
-  function handleChange(value) {
-    console.log(`selected ${value}`);
+  const onEnvironmentsChange = env_ids => {
+    console.log(env_ids);
+  }
+
+  const onSortBy = value => {
+    console.log(`sort by: ${value}`)
+  }
+
+  const onSearch = value => {
+    console.log(`search: ${value}`);
+  }
+
+  // TODO: remove this temp check
+  if (!('project_id' in params)) {
+    return <Redirect to='/dashboard/projects'/>
   }
 
   return (
     <Layout>
-      <IssuesHeader onProjectSettingsClick={showProjectSettings} />
+      <IssuesHeader 
+        onProjectSettingsClick={showProjectSettings}
+        projectTitle="robot"
+        environments={[{id: 1, name: 'development'}]}
+        onEnvironmentsChange={onEnvironmentsChange}
+        />
 
       <Content className="issues-content">
-        <Row justify="center" align="middle">
-          <Col span={7}>
-            <Title className="issues-title">
-              Issues&nbsp;
-              <span className="sans-serif bolder">(</span>
-              <span>123</span>
-              <span className="sans-serif bolder">)</span>
-            </Title>
-          </Col>
-          <Col span={3}>
-            <Select defaultValue="last_seen" className="sort-by-select" onChange={handleChange} bordered={true}>
-              <Option value="last_seen">
-                Sort by: <Text className="bolder">Last Seen</Text>
-              </Option>
-              <Option value="first_seen">
-                Sort by: <Text className="bolder">First Seen</Text>
-              </Option>
-            </Select>
-          </Col>
-          <Col span={14}>
-            <Input.Search placeholder="Search issues" enterButton />
-          </Col>
-        </Row>
-        
-        <IssuesTable />
+        <IssuesContentHeader 
+          issuesCount={123} 
+          onSortBy={onSortBy} 
+          onSearch={onSearch}
+          />
+
+        <IssuesTable 
+          issues={data}
+          />
       </Content>
     </Layout>
   );
