@@ -19,7 +19,7 @@ class GetAllIssuesRequest extends FormRequest
     public function authorize()
     {
         $project_id = $this->get('project_id');
-        return auth()->user()->projects()->find($project_id) != null;
+        return auth()->user()->hasProject($project_id);
     }
 
     /**

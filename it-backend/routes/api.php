@@ -28,6 +28,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::group(['prefix' => 'projects'], function () {
         Route::get('/', [ProjectController::class, 'index']);
         Route::post('/', [ProjectController::class, 'create']);
+        Route::get('/{id}', [ProjectController::class, 'get']);
     });
 
     Route::group(['prefix' => 'issues'], function () {
