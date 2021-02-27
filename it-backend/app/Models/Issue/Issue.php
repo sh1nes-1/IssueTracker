@@ -2,6 +2,7 @@
 
 namespace App\Models\Issue;
 
+use App\Models\ProgrammingLanguage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +24,10 @@ class Issue extends Model
     public function events()
     {
         return $this->hasMany(Event::class);
+    }
+
+    public function programmingLanguage()
+    {
+        return $this->belongsTo(ProgrammingLanguage::class);
     }
 }
