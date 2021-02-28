@@ -80,6 +80,9 @@ class CreateEvent
             $environment->increment('issues_count');
         }
 
+        // set updated_at => now()
+        $this->issue->touch();
+
         return $this;
     }
 

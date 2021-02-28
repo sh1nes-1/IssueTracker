@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
             $table->foreignId('issue_id')->constrained();
             $table->text('stacktrace');
             $table->timestamps();
+            $table->index(['created_at']);
         });
     }
 

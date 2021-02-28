@@ -21,11 +21,12 @@ class CreateIssuesTable extends Migration
             $table->foreignId('programming_language_id')->constrained();
             $table->string('short_id')->nullable();
             $table->string('level')->default(IssueLevel::ERROR);
-            $table->string('exception_name');
-            $table->string('filename');
-            $table->text('message');
+            $table->string('exception_name', 255)->index();
+            $table->string('filename', 500)->index();
+            $table->string('message', 600)->index();
             $table->boolean('is_resolved')->default(false);
             $table->timestamps();
+            $table->index(['created_at', 'updated_at']);
         });
     }
 

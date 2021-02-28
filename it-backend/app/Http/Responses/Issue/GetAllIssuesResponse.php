@@ -39,7 +39,7 @@ class GetAllIssuesResponse
             'events'         => $issue->events()->count(),
             'is_resolved'    => $issue->is_resolved,
             'first_seen'     => $issue->created_at,
-            'last_seen'      => $issue->events()->latest()->first()->created_at,
+            'last_seen'      => $issue->updated_at,
             'programming_language' => $issue->programmingLanguage->name,
         ];
     }

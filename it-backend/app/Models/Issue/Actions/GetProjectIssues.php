@@ -3,6 +3,7 @@
 namespace App\Models\Issue\Actions;
 
 use App\Models\Project\Project;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class GetProjectIssues
@@ -57,12 +58,36 @@ class GetProjectIssues
 
     public function getIssues()
     {
-        $issues_query = $this->project->issues()->latest();
+        $issues_query = $this->project->issues();
 
         $environments_ids = $this->parameters['environments_ids'] ?? null;
         if ($environments_ids) {
             $environments_ids_arr = explode(',', $environments_ids);
             $issues_query->whereIn('project_environment_id', $environments_ids_arr);
+        }
+
+        $search = $this->parameters['search'] ?? null;
+        if (!empty(trim($search))) {
+            $issues_query->where(function($query) use ($search) {
+                $query->where('exception_name', 'LIKE', "%$search%")
+                   ->orWhere('filename', 'LIKE', "%$search%")
+                   ->orWhere('message', 'LIKE', "%$search%");
+            });
+        }
+
+        $sort_by = $this->parameters['sort_by'] ?? 'last_seen';
+        if ($sort_by === 'last_seen') {
+            $issues_query->latest();
+        }
+
+        $date_from = $this->parameters['date_from'] ?? null;
+        if (!empty($date_from)) {
+            $issues_query->where('issues.created_at', '>', Carbon::createFromFormat('Y-m-d H:i:s', $date_from)->toDateTimeString());
+        }
+
+        $date_to = $this->parameters['date_to'] ?? null;
+        if (!empty($date_to)) {
+            $issues_query->where('issues.updated_at', '<', Carbon::createFromFormat('Y-m-d H:i:s', $date_to)->toDateTimeString());
         }
 
         $this->total_count = $issues_query->count();

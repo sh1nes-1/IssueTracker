@@ -41,7 +41,7 @@ class GetAllIssuesRequest extends FormRequest
     public function perform()
     {
         $project_id = $this->get('project_id');
-        $response = GetProjectIssues::perform($project_id, $this->validated());
+        $response = GetProjectIssues::perform($project_id, $this->all());
         if ($response['status_code'] !== 200) {
             return response()->json([
                 'message' => 'Failed to get issues. Please try again later.',

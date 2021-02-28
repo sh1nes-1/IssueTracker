@@ -2,11 +2,24 @@ import 'assets/styles/IssuesList.css';
 import { Layout, Row, Col, Space, Select, Skeleton } from 'antd';
 import React from 'react';
 import { SettingOutlined } from '@ant-design/icons';
+import moment from 'moment';
+import 'moment/locale/uk';
 
 const { Header } = Layout;
 const { Option } = Select;
 
-function IssuesHeader({ isLoading, project, onProjectSettingsClick, onEnvironmentsChange }) {
+// avoid collisions (value used as react key)
+const PERIOD_DAYS = [7, 14, 30];
+const PERIOD_MONTHS = [3, 6, 12];
+
+function IssuesHeader({ isLoading, project, onProjectSettingsClick, onEnvironmentsChange, onDateFromChange }) {
+  const onPeriodChange = value => {
+    const [amount, unit] = value.split(' ');
+    const dateFrom = moment().subtract(amount, unit).format('YYYY-MM-DD LTS');
+    console.log(`DateFrom: ${value} ${amount} ${unit} ${dateFrom}`);
+    onDateFromChange(dateFrom);
+  }
+
   return (
     <Header className="header">
       <Row className="d-flex" align="middle">
@@ -41,10 +54,12 @@ function IssuesHeader({ isLoading, project, onProjectSettingsClick, onEnvironmen
             className="period title gray fullWidth"
             bordered={false}
             showSearch={false}
-            showArrow 
+            showArrow
+            onChange={onPeriodChange}
+            defaultValue="14 days"
           >
-            <Option value="7">Last 7 Days</Option>
-            <Option value="14">Last 14 Days</Option>
+            {PERIOD_DAYS.map(days => <Option key={days} value={days + ' days'}>Last {days} Days</Option>)}
+            {PERIOD_MONTHS.map(months => <Option key={months} value={months + ' months'}>Last {months} Months</Option>)}
           </Select>
         </Col>
       </Row>

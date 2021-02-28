@@ -8,6 +8,8 @@ import { Redirect } from 'react-router-dom';
 import IssuesContentHeader from './components/ContentHeader';
 import { connect } from 'react-redux';
 import { actions } from 'services';
+import moment from 'moment';
+import 'moment/locale/uk';
 
 const { Content } = Layout;
 
@@ -16,12 +18,23 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
   const project_id = params['project_id'] ?? null;
 
   const [currentPage, setCurrentPage] = useState(params['page'] ?? 1);
+  const [sortBy, setSortBy] = useState('last_seen');
+  const [search, setSearch] = useState('');
+  const [dateFrom, setDateFrom] = useState(moment().subtract(14, 'days').format('YYYY-MM-DD LTS'));
+  const [environments, setEnvironments] = useState([]);
 
   useEffect(() => {
     if (project_id) {
-      getIssues(project_id);
+      getIssues({ 
+        project_id: project_id, 
+        sort_by: sortBy, 
+        search: search, 
+        page: currentPage, 
+        date_from: dateFrom,
+        environments_ids: environments.join(',')
+      });
     }
-  }, [project_id, getIssues]);
+  }, [project_id, getIssues, sortBy, search, currentPage, dateFrom, environments]);
 
   useEffect(() => {
     if (!project || project.id.toString() !== project_id) {
@@ -31,23 +44,6 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
 
   const showProjectSettings = () => {
     console.log('project settings');
-  }
-
-  const onEnvironmentsChange = env_ids => {
-    console.log(env_ids);
-  }
-
-  const onSortBy = value => {
-    console.log(`sort by: ${value}`)
-  }
-
-  const onSearch = value => {
-    console.log(`search: ${value}`);
-  }
-
-  const onPageChanged = page => {
-    setCurrentPage(page);
-    console.log(`page: ${page}`);
   }
 
   // TODO: remove this temp check
@@ -61,14 +57,15 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
         onProjectSettingsClick={showProjectSettings}
         isLoading={isProcessingProject}
         project={project}
-        onEnvironmentsChange={onEnvironmentsChange}
+        onEnvironmentsChange={values => setEnvironments(values)}
+        onDateFromChange={value => setDateFrom(value)}
         />
 
       <Content className="issues-content">
         <IssuesContentHeader 
           issuesCount={totalIssuesCount} 
-          onSortBy={onSortBy} 
-          onSearch={onSearch}
+          onSortBy={value => setSortBy(value)} 
+          onSearch={value => setSearch(value)}
           />
 
         <IssuesTable 
@@ -76,7 +73,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
           loading={isProcessingIssues}
           currentPage={currentPage}
           totalCount={totalIssuesCount}
-          onPageChanged={onPageChanged}
+          onPageChanged={page => setCurrentPage(page)}
           />
       </Content>
     </Layout>
@@ -100,7 +97,7 @@ function mapStateToProps({ issues }) {
 function mapDispatchToProps(dispatch) {
   return {
     getProjectInfo: (project_id) => dispatch(actions.IssuesActions.getProjectInfo(project_id)),
-    getIssues: (project_id) => dispatch(actions.IssuesActions.getIssues(project_id)),
+    getIssues: (options) => dispatch(actions.IssuesActions.getIssues(options)),
   }
 }
 

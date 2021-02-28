@@ -22,12 +22,12 @@ export function getProjectInfo(project_id) {
   }
 }
 
-export function getIssues(project_id) {
+export function getIssues(options) {
   return function (dispatch) {
     try {
       dispatch({ type: actionTypes.GET_ISSUES_REQUEST });
 
-      HttpService.get('/issues/', { project_id }, 
+      HttpService.get('/issues/', options, 
         (response) => {
           dispatch({ 
             type: actionTypes.GET_ISSUES_SUCCESS,
