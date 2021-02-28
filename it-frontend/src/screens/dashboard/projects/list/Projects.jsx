@@ -40,19 +40,19 @@ function Projects({ getProjects, isProcessing, projects }) {
       </Row>
       
       {hasProjects ? 
+        <Row gutter={[16, 16]}>
+          {projects.map(mapProject)}
+        </Row> : 
+
+        isProcessing ?
+
           <Row gutter={[16, 16]}>
-            {projects.map(mapProject)}
-          </Row> : 
+            {mapProject(loadingProject)}
+          </Row> :
 
-          isProcessing ?
-
-            <Row gutter={[16, 16]}>
-              {mapProject(loadingProject)}
-            </Row> :
-
-            <Row justify="center" align="middle" className="availableHeight">
-              <Empty />
-            </Row>
+          <Row justify="center" align="middle" className="availableHeight">
+            <Empty />
+          </Row>
       }
      
     </Layout>

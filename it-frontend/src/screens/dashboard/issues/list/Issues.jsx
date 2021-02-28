@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { actions } from 'services';
 import moment from 'moment';
 import 'moment/locale/uk';
+import history from '../../../../history';
 
 const { Content } = Layout;
 
@@ -43,10 +44,9 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
   }, [project, project_id, getProjectInfo]);
 
   const showProjectSettings = () => {
-    console.log('project settings');
+    history.push(`/dashboard/settings/?project_id=${project_id}`);
   }
 
-  // TODO: remove this temp check
   if (!project_id) {
     return <Redirect to='/dashboard/projects'/>
   }
