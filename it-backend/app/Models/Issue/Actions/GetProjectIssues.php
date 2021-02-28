@@ -3,6 +3,7 @@
 namespace App\Models\Issue\Actions;
 
 use App\Models\Project\Project;
+use Illuminate\Support\Facades\Log;
 
 class GetProjectIssues
 {
@@ -56,7 +57,7 @@ class GetProjectIssues
 
     public function getIssues()
     {
-        $issues_query = $this->project->issues();
+        $issues_query = $this->project->issues()->latest();
 
         $environments_ids = $this->parameters['environments_ids'] ?? null;
         if ($environments_ids) {

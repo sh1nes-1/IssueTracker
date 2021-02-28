@@ -18,6 +18,7 @@ class CreateProjectEnvironmentsTable extends Migration
             $table->foreignId('project_id')->constrained();
             $table->string('name');
             $table->string('secret_key');
+            $table->integer('issues_count')->default(0);
             $table->timestamps();
         });
     }

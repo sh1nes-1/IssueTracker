@@ -4,6 +4,7 @@ namespace App\Models\Issue\Actions;
 
 use App\Models\Issue\Issue;
 use App\Models\ProgrammingLanguage;
+use App\Models\Project\Environment\ProjectEnvironment;
 
 class CreateEvent
 {
@@ -66,17 +67,17 @@ class CreateEvent
             ->first();
 
         if (!$this->issue) {
-            $this->issue = Issue::query()->create($this->parameters);
+            $environment = ProjectEnvironment::query()->find($this->parameters['project_environment_id']);
+            $env_issue_id = $environment->issues_count + 1;
 
-            $short_id_response = GenerateShortId::perform($this->parameters['project_id'], $this->issue->id);
+            $short_id_response = GenerateShortId::perform($this->parameters['project_id'], $env_issue_id);
             if ($short_id_response['status_code'] !== 200) {
-                $this->issue->delete();
                 throw new \Exception('Failed to generate short id for project!');
             }
 
-            $this->issue->update([
-               'short_id' => $short_id_response['short_id'],
-            ]);
+            $this->parameters['short_id'] = $short_id_response['short_id'];
+            $this->issue = Issue::query()->create($this->parameters);
+            $environment->increment('issues_count');
         }
 
         return $this;
