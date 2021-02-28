@@ -16,7 +16,6 @@ function IssuesHeader({ isLoading, project, onProjectSettingsClick, onEnvironmen
   const onPeriodChange = value => {
     const [amount, unit] = value.split(' ');
     const dateFrom = moment().subtract(amount, unit).format('YYYY-MM-DD LTS');
-    console.log(`DateFrom: ${value} ${amount} ${unit} ${dateFrom}`);
     onDateFromChange(dateFrom);
   }
 

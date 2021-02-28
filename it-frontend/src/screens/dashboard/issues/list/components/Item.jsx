@@ -3,11 +3,11 @@ import { Row, Col, Space } from 'antd';
 import { Link } from 'react-router-dom';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
-import 'moment/locale/uk';
+import 'moment/locale/en-gb';
 
 function IssueItem(issue) {
-  const first_seen = moment(issue.first_seen).format('L LTS');
-  const last_seen = moment(issue.last_seen).format('L LTS');
+  const first_seen = moment(issue.first_seen).locale('en').fromNow();
+  const last_seen = moment(issue.last_seen).locale('en').fromNow().replace('ago', 'old');
 
   return (
     <div className="issue-item" key={issue.id}>
