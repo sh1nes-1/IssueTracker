@@ -69,6 +69,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
           />
 
         <IssuesTable 
+          project_id={project_id}
           issues={issues}
           loading={isProcessingIssues}
           currentPage={currentPage}

@@ -4,7 +4,7 @@ import IssueItem from './Item';
 
 const { Column } = Table;
 
-function IssuesTable({ loading, currentPage, issues, totalCount, onPageChanged }) {  
+function IssuesTable({ project_id, loading, currentPage, issues, totalCount, onPageChanged }) {  
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
@@ -21,7 +21,7 @@ function IssuesTable({ loading, currentPage, issues, totalCount, onPageChanged }
       loading={loading}
       pagination={{ current: currentPage, pageSize: 25, total: totalCount, showSizeChanger: false, onChange: onPageChanged }}
     >
-      <Column title="Issue" dataIndex="issue" key="issue" width="95%" render={(_, issue) => IssueItem(issue)} />
+      <Column title="Issue" dataIndex="issue" key="issue" width="95%" render={(_, issue) => IssueItem(project_id, issue)} />
       <Column title="Events" dataIndex="events" key="events" width="5%" align="center" />
     </Table>
   );
