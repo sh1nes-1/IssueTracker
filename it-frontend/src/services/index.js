@@ -2,6 +2,7 @@
 import * as AppActions from './app/actions';
 import * as AuthActions from './auth/actions';
 import * as ProjectActions from './dashboard/projects/actions';
+import * as IssuesActions from './dashboard/issues/actions';
 
 //import actionTypes
 import * as AppActionTypes from './app/actionTypes';
@@ -12,6 +13,7 @@ export const actions =  {
   AppActions,
   AuthActions,
   ProjectActions,
+  IssuesActions,
 };
 
 export const ActionTypes = {

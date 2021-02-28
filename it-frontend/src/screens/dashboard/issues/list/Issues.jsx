@@ -6,40 +6,28 @@ import IssuesTable from './components/Table';
 import queryString from 'query-string';
 import { Redirect } from 'react-router-dom';
 import IssuesContentHeader from './components/ContentHeader';
+import { connect } from 'react-redux';
+import { actions } from 'services';
 
 const { Content } = Layout;
 
-const data = [
-  {
-    key: '1',
-    issue: 'John Brown',
-    events: 32,
-  },
-  {
-    key: '2',
-    issue: 'Jim Green',
-    events: 42,
-  },
-  {
-    key: '3',
-    issue: 'Joe Black',
-    events: 32,
-  },
-  {
-    key: '4',
-    issue: 'Disabled User',
-    events: 99,
-  },
-];
-
-function Issues({ location }) {
-  const params = queryString.parse(location.search);  
+function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, getIssues, isProcessingProject, isProcessingIssues }) {
+  const params = queryString.parse(location.search);
+  const project_id = params['project_id'] ?? null;
 
   const [currentPage, setCurrentPage] = useState(params['page'] ?? 1);
 
   useEffect(() => {
+    if (project_id) {
+      getIssues(project_id);
+    }
+  }, [project_id, getIssues]);
 
-  }, []);
+  useEffect(() => {
+    if (!project || project.id.toString() !== project_id) {
+      getProjectInfo(project_id);
+    }
+  }, [project, project_id, getProjectInfo]);
 
   const showProjectSettings = () => {
     console.log('project settings');
@@ -63,7 +51,7 @@ function Issues({ location }) {
   }
 
   // TODO: remove this temp check
-  if (!('project_id' in params)) {
+  if (!project_id) {
     return <Redirect to='/dashboard/projects'/>
   }
 
@@ -71,23 +59,23 @@ function Issues({ location }) {
     <Layout>
       <IssuesHeader 
         onProjectSettingsClick={showProjectSettings}
-        projectTitle="robot"
-        environments={[{id: 1, name: 'development'}]}
+        isLoading={isProcessingProject}
+        project={project}
         onEnvironmentsChange={onEnvironmentsChange}
         />
 
       <Content className="issues-content">
         <IssuesContentHeader 
-          issuesCount={123} 
+          issuesCount={totalIssuesCount} 
           onSortBy={onSortBy} 
           onSearch={onSearch}
           />
 
         <IssuesTable 
-          issues={data}
-          loading={false}
+          issues={issues}
+          loading={isProcessingIssues}
           currentPage={currentPage}
-          totalCount={600}
+          totalCount={totalIssuesCount}
           onPageChanged={onPageChanged}
           />
       </Content>
@@ -95,4 +83,25 @@ function Issues({ location }) {
   );
 }
 
-export default Issues;
+
+function mapStateToProps({ issues }) {
+  return {
+    isProcessingProject: issues.isProcessingProject,
+    isErrorProject: issues.isErrorProject,
+    project: issues.project,
+
+    isProcessingIssues: issues.isProcessingIssues,
+    isErrorIssues: issues.isErrorIssues,
+    issues: issues.issues,
+    totalIssuesCount: issues.totalIssuesCount,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getProjectInfo: (project_id) => dispatch(actions.IssuesActions.getProjectInfo(project_id)),
+    getIssues: (project_id) => dispatch(actions.IssuesActions.getIssues(project_id)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Issues);

@@ -58,7 +58,7 @@ class GetProjectIssues
     {
         $issues_query = $this->project->issues();
 
-        $environments_ids = $this->parameters['environments_ids'];
+        $environments_ids = $this->parameters['environments_ids'] ?? null;
         if ($environments_ids) {
             $environments_ids_arr = explode(',', $environments_ids);
             $issues_query->whereIn('project_environment_id', $environments_ids_arr);

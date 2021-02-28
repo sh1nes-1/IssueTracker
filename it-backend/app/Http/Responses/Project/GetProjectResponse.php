@@ -22,9 +22,11 @@ class GetProjectResponse
     public function toArray()
     {
         return [
-            'id'           => $this->project->id,
-            'name'         => $this->project->name,
-            'environments' => $this->environments,
+            'project' => [
+                'id'           => $this->project->id,
+                'name'         => $this->project->name,
+                'environments' => $this->environments,
+            ]
         ];
     }
 

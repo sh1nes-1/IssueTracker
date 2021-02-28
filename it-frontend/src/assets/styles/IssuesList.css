@@ -1,5 +1,10 @@
 /* Header */
 
+.project-title .ant-skeleton-title {
+  margin: 0;
+  height: 18px;
+}
+
 .project-settings {
   font-size: 16px;
 }

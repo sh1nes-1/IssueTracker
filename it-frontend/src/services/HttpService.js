@@ -42,7 +42,7 @@ export class HttpService {
       })
       .then(response => successCb ? successCb(response) : Promise.resolve(response))
       .catch(error => {
-        console.log(`Got error: ${error}`);
+        console.log(`Got error: ${JSON.stringify(error)}`);
 
         if (error?.message === 'Unauthenticated.' && this.logoutFunc) {
           this.logoutFunc();
