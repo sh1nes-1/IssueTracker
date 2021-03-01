@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Issue\IssueController;
+use App\Http\Controllers\Project\Environment\EnvironmentController;
 use App\Http\Controllers\Project\ProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,12 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
         Route::get('/', [ProjectController::class, 'index']);
         Route::post('/', [ProjectController::class, 'create']);
         Route::get('/{id}', [ProjectController::class, 'get']);
+        Route::post('/{id}', [ProjectController::class, 'update']);
+    });
+
+    Route::group(['prefix' => 'environments'], function () {
+        Route::post('/', [EnvironmentController::class, 'create']);
+        Route::post('/{id}', [EnvironmentController::class, 'update']);
     });
 
     Route::group(['prefix' => 'issues'], function () {

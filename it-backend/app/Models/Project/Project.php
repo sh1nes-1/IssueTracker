@@ -4,6 +4,7 @@ namespace App\Models\Project;
 
 use App\Models\Issue\Issue;
 use App\Models\Project\Environment\ProjectEnvironment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,11 @@ class Project extends Model
         'user_id',
         'name',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function environments()
     {
