@@ -21,6 +21,12 @@
   font-size: 14px;
 }
 
+.environment .ant-select-selection-overflow {
+  max-width: 95%;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
 .period .ant-select-arrow {  
   margin-top: -9px;
   font-size: 14px;

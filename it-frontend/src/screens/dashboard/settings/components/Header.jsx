@@ -9,7 +9,7 @@ function SettingsHeader({ isLoading, project }) {
       <Row className="d-flex" align="middle">
         <Col span={8}>
           <Space className="title accent">
-            <Skeleton className="project-title" loading={isLoading} title={{ width: '150px' }} paragraph={false}>
+            <Skeleton className="project-title" loading={isLoading && !project} title={{ width: '150px' }} paragraph={false}>
               {project ? project.name : ''}
             </Skeleton>
           </Space>

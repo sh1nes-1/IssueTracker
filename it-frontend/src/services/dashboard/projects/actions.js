@@ -6,7 +6,7 @@ export function createProject(name) {
     try {
       dispatch({ type: actionTypes.CREATE_PROJECT_REQUEST });
 
-      HttpService.post('/projects/', { name: name }, 
+      HttpService.post('/projects/', { name }, 
         () => dispatch({ type: actionTypes.CREATE_PROJECT_SUCCESS }), 
         () => dispatch({ type: actionTypes.CREATE_PROJECT_FAIL })
       );
@@ -55,6 +55,23 @@ export function getProjectInfo(project_id) {
 
     } catch (error) {
       dispatch({ type: actionTypes.GET_PROJECT_INFO_ERROR });
+    }
+  }
+}
+
+
+export function updateProject(project_id, name) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.UPDATE_PROJECT_REQUEST });
+
+      HttpService.post(`/projects/${project_id}`, { name }, 
+        () => dispatch({ type: actionTypes.UPDATE_PROJECT_SUCCESS }), 
+        () => dispatch({ type: actionTypes.UPDATE_PROJECT_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.UPDATE_PROJECT_ERROR });
     }
   }
 }

@@ -12,3 +12,8 @@ export const GET_PROJECT_INFO_REQUEST = 'get_project_info.get_project_info_reque
 export const GET_PROJECT_INFO_SUCCESS = 'get_project_info.get_project_info_success';
 export const GET_PROJECT_INFO_FAIL    = 'get_project_info.get_project_info_fail';
 export const GET_PROJECT_INFO_ERROR   = 'get_project_info.get_project_info_error';
+
+export const UPDATE_PROJECT_REQUEST = 'update_project.update_project_request';
+export const UPDATE_PROJECT_SUCCESS = 'update_project.update_project_success';
+export const UPDATE_PROJECT_FAIL    = 'update_project.update_project_fail';
+export const UPDATE_PROJECT_ERROR   = 'update_project.update_project_error';

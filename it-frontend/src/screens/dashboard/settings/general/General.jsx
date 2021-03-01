@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Typography, Card, Form, Input, message } from 'antd';
 import { connect } from 'react-redux';
 import { actions } from 'services';
+import { usePrevious } from "utils";
 
 const { Title } = Typography;
 
@@ -14,23 +15,35 @@ const layout = {
   },
 };
 
-function General({ isProcessingProject, project }) {
+function General({ isProcessingProject, project, updateProject, isProcessingChangeName, isSuccessChangeName, isErrorChangeName, getProjects, getProjectInfo }) {
   const [projectNameForm] = Form.useForm();
+  const prevIsProcessingChangeName = usePrevious(isProcessingChangeName);
 
   useEffect(() => {
     if (project) {
       projectNameForm.setFieldsValue({
-        name: project.name
+        project_name: project.name
       });
     }
   }, [projectNameForm, project]);
 
-  const onFinish = (values) => {
-    // TODO: useEffect isSuccess
-    message.success('This is a success message');
-  };
+  useEffect(() => {
+    if (prevIsProcessingChangeName !== undefined && prevIsProcessingChangeName !== isProcessingChangeName) {
+      if (isSuccessChangeName) {
+        message.success('Project successfully updated!');
+        getProjects();        
+        getProjectInfo(project.id);
+      }
 
-  console.log(`project: ${JSON.stringify(project)}`);
+      if (isErrorChangeName) {
+        message.error('Failed to update project');
+      }
+    }
+  });
+
+  const onFinish = (values) => {
+    updateProject(project?.id, values.project_name)
+  };
 
   return (
     <React.Fragment>
@@ -49,11 +62,11 @@ function General({ isProcessingProject, project }) {
             colon={false}
             labelAlign="left"
             label="Name"
-            name="name"
+            name="project_name"
             rules={[{ required: true, message: 'Please input project name!' }]}
           >
             <Input 
-              disabled={isProcessingProject} 
+              disabled={isProcessingProject || isProcessingChangeName}
               autoComplete="off"
             />
           </Form.Item>
@@ -68,12 +81,18 @@ function mapStateToProps({ projects }) {
     isProcessingProject: projects.isProcessingProject,
     isErrorProject: projects.isErrorProject,
     project: projects.project,
+
+    isProcessingChangeName: projects.isProcessingUpdate,
+    isErrorChangeName: projects.isErrorUpdate,
+    isSuccessChangeName: projects.isSuccessUpdate,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    
+    updateProject: (project_id, name) => dispatch(actions.ProjectActions.updateProject(project_id, name)),
+    getProjectInfo: (project_id) => dispatch(actions.ProjectActions.getProjectInfo(project_id)),
+    getProjects: () => dispatch(actions.ProjectActions.getProjects()),
   }
 }
 
