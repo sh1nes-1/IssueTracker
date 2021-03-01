@@ -1,15 +1,17 @@
 import React from 'react';
-import { Layout, Row, Col, Space } from 'antd';
+import { Layout, Row, Col, Space, Skeleton } from 'antd';
 
 const { Header } = Layout;
 
-function SettingsHeader() {
+function SettingsHeader({ isLoading, project }) {
   return (
     <Header>
       <Row className="d-flex" align="middle">
         <Col span={8}>
           <Space className="title accent">
-            robot
+            <Skeleton className="project-title" loading={isLoading} title={{ width: '150px' }} paragraph={false}>
+              {project ? project.name : ''}
+            </Skeleton>
           </Space>
         </Col>
       </Row>

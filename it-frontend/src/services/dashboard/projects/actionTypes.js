@@ -7,3 +7,8 @@ export const GET_PROJECTS_REQUEST = 'get_projects.get_projects_request';
 export const GET_PROJECTS_SUCCESS = 'get_projects.get_projects_success';
 export const GET_PROJECTS_FAIL    = 'get_projects.get_projects_fail';
 export const GET_PROJECTS_ERROR   = 'get_projects.get_projects_error';
+
+export const GET_PROJECT_INFO_REQUEST = 'get_project_info.get_project_info_request';
+export const GET_PROJECT_INFO_SUCCESS = 'get_project_info.get_project_info_success';
+export const GET_PROJECT_INFO_FAIL    = 'get_project_info.get_project_info_fail';
+export const GET_PROJECT_INFO_ERROR   = 'get_project_info.get_project_info_error';

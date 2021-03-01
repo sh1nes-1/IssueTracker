@@ -2,15 +2,12 @@ import React from 'react';
 import { Typography, Row, List } from 'antd';
 import CreateEnvironmentModal from './components/CreateEnvironment';
 import EnvironmentItem from './components/EnvironmentItem';
+import { connect } from 'react-redux';
+import { actions } from 'services';
 
 const { Title } = Typography;
 
-const environments = [
-  { id: 1, name: 'development' },
-  { id: 2, name: 'release' },
-];
-
-function Environments() {
+function Environments({ isProcessingProject, project }) {
   return (
     <React.Fragment>
       <Row justify="space-between">  
@@ -22,8 +19,9 @@ function Environments() {
       </Row>
 
       <List
+       loading={isProcessingProject}
        bordered 
-       dataSource={environments} 
+       dataSource={project?.environments} 
        rowKey="id" 
        renderItem={EnvironmentItem}
        className="environments-list"
@@ -34,4 +32,18 @@ function Environments() {
   );
 }
 
-export default Environments;
+function mapStateToProps({ projects }) {
+  return {
+    isProcessingProject: projects.isProcessingProject,
+    isErrorProject: projects.isErrorProject,
+    project: projects.project,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Environments);

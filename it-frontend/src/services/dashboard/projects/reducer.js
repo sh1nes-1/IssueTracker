@@ -9,6 +9,10 @@ const initialState = Immutable({
   isProcessingGet: false,  
   isErrorGet: false,
   projects: [],
+
+  isProcessingProject: false,
+  isErrorProject: false,  
+  project: null,
 });
 
 export default function projectsReducer(state=initialState, {type, ...action}) {
@@ -54,6 +58,29 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
       return state.merge({
         isProcessingGet: false,
       });
+
+
+    case actionTypes.GET_PROJECT_INFO_REQUEST:
+      return state.merge({
+        isProcessingProject: true,
+        isErrorProject: false,        
+      });
+    case actionTypes.GET_PROJECT_INFO_SUCCESS:
+      return state.merge({
+        isProcessingProject: false,
+        project: action.project,
+      });
+    case actionTypes.GET_PROJECT_INFO_FAIL:
+      return state.merge({
+        isProcessingProject: false,
+        isErrorProject: true,
+        project: null,
+      });
+    case actionTypes.GET_PROJECT_INFO_ERROR:
+      return state.merge({
+        isProcessingProject: false,
+      });
+
 
     default:
       return state;

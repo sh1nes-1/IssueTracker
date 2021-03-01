@@ -82,11 +82,11 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
 }
 
 
-function mapStateToProps({ issues }) {
+function mapStateToProps({ issues, projects }) {
   return {
-    isProcessingProject: issues.isProcessingProject,
-    isErrorProject: issues.isErrorProject,
-    project: issues.project,
+    isProcessingProject: projects.isProcessingProject,
+    isErrorProject: projects.isErrorProject,
+    project: projects.project,
 
     isProcessingIssues: issues.isProcessingIssues,
     isErrorIssues: issues.isErrorIssues,
@@ -97,7 +97,7 @@ function mapStateToProps({ issues }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getProjectInfo: (project_id) => dispatch(actions.IssuesActions.getProjectInfo(project_id)),
+    getProjectInfo: (project_id) => dispatch(actions.ProjectActions.getProjectInfo(project_id)),
     getIssues: (options) => dispatch(actions.IssuesActions.getIssues(options)),
   }
 }
