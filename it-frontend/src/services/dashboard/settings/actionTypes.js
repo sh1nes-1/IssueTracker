@@ -1,0 +1,4 @@
+export const CREATE_PROJECT_ENVIRONMENT_REQUEST = 'create_project_environment.create_project_environment_request';
+export const CREATE_PROJECT_ENVIRONMENT_SUCCESS = 'create_project_environment.create_project_environment_success';
+export const CREATE_PROJECT_ENVIRONMENT_FAIL    = 'create_project_environment.create_project_environment_fail';
+export const CREATE_PROJECT_ENVIRONMENT_ERROR   = 'create_project_environment.create_project_environment_error';

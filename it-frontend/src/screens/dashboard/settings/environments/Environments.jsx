@@ -3,7 +3,6 @@ import { Typography, Row, List } from 'antd';
 import CreateEnvironmentModal from './components/CreateEnvironment';
 import EnvironmentItem from './components/EnvironmentItem';
 import { connect } from 'react-redux';
-import { actions } from 'services';
 
 const { Title } = Typography;
 
@@ -15,7 +14,7 @@ function Environments({ isProcessingProject, project }) {
           Environments
         </Title>
 
-        <CreateEnvironmentModal />
+        <CreateEnvironmentModal project_id={project?.id} />
       </Row>
 
       <List
@@ -25,9 +24,7 @@ function Environments({ isProcessingProject, project }) {
        rowKey="id" 
        renderItem={EnvironmentItem}
        className="environments-list"
-      >
-        
-      </List>
+       />
     </React.Fragment>
   );
 }
@@ -40,10 +37,5 @@ function mapStateToProps({ projects }) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Environments);
+export default connect(mapStateToProps)(Environments);
