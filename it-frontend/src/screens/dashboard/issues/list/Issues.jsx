@@ -44,7 +44,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
   }, [project, project_id, getProjectInfo]);
 
   const showProjectSettings = () => {
-    history.push(`/dashboard/settings/?project_id=${project_id}`);
+    history.push(`/dashboard/settings/general?project_id=${project_id}`);
   }
 
   if (!project_id) {

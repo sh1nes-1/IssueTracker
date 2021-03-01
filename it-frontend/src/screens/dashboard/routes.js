@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import projects_config from "./projects/routes";
 import issues_config from "./issues/routes";
-import Settings from "./settings/Settings";
+import settings_config from "./settings/routes";
 
 const dashboard_config = [
   {
@@ -12,12 +12,8 @@ const dashboard_config = [
     routes: [
       ...projects_config,
       ...issues_config,
+      ...settings_config,    
       {
-        key: "settings",
-        path: "/dashboard/settings",
-        component: Settings
-      },      
-      {        
         path: "/dashboard",
         component: () => <Redirect to="/dashboard/projects"/>
       }

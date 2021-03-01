@@ -51,3 +51,7 @@ h1.ant-typography {
 .ant-layout-header {
   background-color: #fff;
 }
+
+.project-settings {
+  font-size: 16px;
+}

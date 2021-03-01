@@ -29,7 +29,7 @@ function Sidemenu({ routes }) {
         </Menu.Item>
         
         <Menu.Item key="settings" icon={<SettingOutlined />} disabled={!isProjectSelected}>
-          <NavLink to={`/dashboard/settings${location.search}`}>Settings</NavLink>
+          <NavLink to={`/dashboard/settings/general${location.search}`}>Settings</NavLink>
         </Menu.Item>
       </Menu>
     </Sider>
