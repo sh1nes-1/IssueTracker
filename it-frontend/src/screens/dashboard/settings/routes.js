@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
+import EnvironmentSettings from './environment/Environment';
 import Environments from "./environments/Environments";
 import General from './general/General';
 import Settings from "./Settings";
@@ -24,6 +25,12 @@ const settings_config = [
         exact: true,
         component: Environments
       },
+      {
+        key: "settings",
+        subkey: "environments",
+        path: "/dashboard/settings/environments/:id",
+        component: EnvironmentSettings
+      },      
       {
         path: "/dashboard/settings",
         component: () => <Redirect to="/dashboard/"/>

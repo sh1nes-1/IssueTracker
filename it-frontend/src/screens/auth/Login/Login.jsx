@@ -42,37 +42,36 @@ function Login({ signIn, isProcessing, isError }) {
       <Row justify="center" align="middle" className="fullHeight">
       
         <Card title="Login" className="col d-flex justify-content-center" style={{ width: 500 }}>
-        <Form {...layout} form={form} onFinish={onFinish}>        
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              { type: 'email', message: 'The input is not valid E-mail!' }, 
-              { required: true, message: 'Please input your email!' }
-            ]}
-          >
-            <Input />
-          </Form.Item>
+          <Form {...layout} form={form} onFinish={onFinish}>        
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                { type: 'email', message: 'The input is not valid E-mail!' }, 
+                { required: true, message: 'Please input your email!' }
+              ]}
+            >
+              <Input />
+            </Form.Item>
 
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password />
-          </Form.Item>
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: 'Please input your password!' }]}
+            >
+              <Input.Password />
+            </Form.Item>
 
-          <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" disabled={isProcessing}>
-              Submit
-            </Button>
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit" disabled={isProcessing}>
+                Submit
+              </Button>
 
-            <Button type="link" htmlType="button">
-              <Link to='/register'>Register</Link>
-            </Button>
-          </Form.Item>
-        </Form>
-          
+              <Button type="link" htmlType="button">
+                <Link to='/register'>Register</Link>
+              </Button>
+            </Form.Item>
+          </Form>
         </Card>
 
       </Row>

@@ -1,7 +1,7 @@
 import "../../assets/styles/Dashboard.css";
 import React from 'react';
 import { Layout  } from 'antd';
-import Sidemenu from './sidemenu/Sidemenu';
+import Sidemenu from './components/sidemenu/Sidemenu';
 import { renderRoutes } from "react-router-config";
 
 function Dashboard({ route }) {

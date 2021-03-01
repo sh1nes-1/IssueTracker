@@ -2,3 +2,29 @@
   padding: 20px 30px;
   font-weight: 400;
 }
+
+.settings-title {
+  line-height: normal !important;
+  margin-bottom: 0 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+.setting-card {
+  margin-top: 15px;
+}
+
+.setting-card .ant-form-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 0;
+}
+
+.environments-list {
+  margin-top: 20px;
+  background-color: white;
+}
+
+.environment-list-item {
+  cursor: pointer;
+}

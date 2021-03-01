@@ -66,7 +66,8 @@ function CreateProjectModal({ createProject, getProjects, isProcessing, isSucces
         okButtonProps={{ disabled: isProcessing }}
       >
         <Form {...layout} form={form} onFinish={handleSubmit} className="modal-form">
-          <Form.Item            
+          <Form.Item
+            colon={false}
             label="Project name"
             name="project_name"
             rules={[{ required: true, message: 'Please enter your project name!' }]}
