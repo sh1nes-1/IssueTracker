@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { Typography, Card, Form, Input, message, Button } from 'antd';
 import { connect } from 'react-redux';
 import { actions } from 'services';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
+import { usePrevious } from 'utils';
+import queryString from 'query-string';
 
 const { Title } = Typography;
 
@@ -22,16 +24,21 @@ const tailLayout = {
   },
 };
 
-function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isError, environment }) {
+function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpdate, isSuccessUpdate, isErrorUpdate, isError, environment, getProjectInfo, updateEnvironment }) {
   const [envNameForm] = Form.useForm();
   const [secretKeyForm] = Form.useForm();
+  const prevIsProcessingUpdate = usePrevious(isProcessingUpdate);
   // @ts-ignore
   const { id } = useParams();
   const environment_id = id;
 
+  const location = useLocation();
+  const params = queryString.parse(location.search);
+  const project_id = params['project_id'] ?? null;
+
   useEffect(() => {
     if (!environment || environment.id.toString() !== environment_id) {
-      getEnvironmentInfo(environment_id);
+      getEnvironmentInfo(environment_id);      
     }
   }, [environment, environment_id, getEnvironmentInfo]);
 
@@ -47,9 +54,22 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isError, enviro
     });
   }, [secretKeyForm, environment]);
 
+  useEffect(() => {
+    if (prevIsProcessingUpdate !== undefined && prevIsProcessingUpdate !== isProcessingUpdate) {
+      if (isSuccessUpdate) {
+        message.success('Environment successfully updated!');
+        getEnvironmentInfo(environment_id, true);
+        getProjectInfo(project_id);
+      }
+
+      if (isErrorUpdate) {
+        message.error('Failed to update environment');
+      }
+    }
+  });  
+
   const onEnvNameSubmit = (values) => {
-    // TODO: useEffect isSuccess
-    message.success('This is a success message');
+    updateEnvironment(environment_id, values.environment_name);
   };
 
   const generateNewSecretKey = () => {
@@ -76,7 +96,7 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isError, enviro
             name="environment_name"
             rules={[{ required: true, message: 'Please input environment name!' }]}            
           >
-            <Input disabled={isProcessing} autoComplete="off" />
+            <Input disabled={isProcessingUpdate || isProcessing} autoComplete="off" />
           </Form.Item>
         </Form>
       </Card>
@@ -116,12 +136,18 @@ function mapStateToProps({ settings }) {
     isProcessing: settings.isProcessingEnvironment,
     isError: settings.isErrorEnvironment,
     environment: settings.environment,
+
+    isProcessingUpdate: settings.isProcessingUpdate,
+    isErrorUpdate: settings.isErrorUpdate,
+    isSuccessUpdate: settings.isSuccessUpdate,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getEnvironmentInfo: (environment_id) => dispatch(actions.SettingsActions.getEnvironmentInfo(environment_id)),
+    getProjectInfo: (project_id) => dispatch(actions.ProjectActions.getProjectInfo(project_id)),
+    getEnvironmentInfo: (environment_id, silent = false) => dispatch(actions.SettingsActions.getEnvironmentInfo(environment_id, silent)),
+    updateEnvironment: (environment_id, name) => dispatch(actions.SettingsActions.updateEnvironment(environment_id, name)),
   }
 }
 

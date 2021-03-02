@@ -9,6 +9,10 @@ const initialState = Immutable({
   isProcessingEnvironment: false,
   isErrorEnvironment: false,
   environment: null,
+
+  isProcessingUpdate: false,
+  isSuccessUpdate: false,
+  isErrorUpdate: false,  
 });
 
 export default function projectsReducer(state=initialState, {type, ...action}) {
@@ -41,6 +45,11 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
         isErrorEnvironment: false,  
         environment: null,
       });
+    case actionTypes.GET_ENVIRONMENT_INFO_SILENT:
+      return state.merge({
+        isProcessingEnvironment: true,
+        isErrorEnvironment: false,
+      });      
     case actionTypes.GET_ENVIRONMENT_INFO_SUCCESS:
       return state.merge({
         isProcessingEnvironment: false,
@@ -56,6 +65,27 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
       return state.merge({
         isProcessingEnvironment: false,
       });
+
+    case actionTypes.UPDATE_ENVIRONMENT_REQUEST:
+      return state.merge({
+        isProcessingUpdate: true,
+        isErrorUpdate: false,
+        isSuccessUpdate: false
+      });
+    case actionTypes.UPDATE_ENVIRONMENT_SUCCESS:
+      return state.merge({
+        isProcessingUpdate: false,
+        isSuccessUpdate: true
+      });
+    case actionTypes.UPDATE_ENVIRONMENT_FAIL:
+      return state.merge({
+        isProcessingUpdate: false,
+        isErrorUpdate: true
+      });
+    case actionTypes.UPDATE_ENVIRONMENT_ERROR:
+      return state.merge({
+        isProcessingUpdate: false,
+      });      
 
     default:
       return state;

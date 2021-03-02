@@ -17,10 +17,14 @@ export function createProjectEnvironment(project_id, name) {
   }
 }
 
-export function getEnvironmentInfo(environment_id) {
+export function getEnvironmentInfo(environment_id, silent = false) {
   return function (dispatch) {
     try {
-      dispatch({ type: actionTypes.GET_ENVIRONMENT_INFO_REQUEST });
+      if (silent) {
+        dispatch({ type: actionTypes.GET_ENVIRONMENT_INFO_SILENT });
+      } else {
+        dispatch({ type: actionTypes.GET_ENVIRONMENT_INFO_REQUEST });
+      }
 
       HttpService.get(`/environments/${environment_id}`, null, 
         (response) => {
@@ -34,6 +38,22 @@ export function getEnvironmentInfo(environment_id) {
 
     } catch (error) {
       dispatch({ type: actionTypes.GET_ENVIRONMENT_INFO_ERROR });
+    }
+  }
+}
+
+export function updateEnvironment(environment_id, name) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.UPDATE_ENVIRONMENT_REQUEST });
+
+      HttpService.post(`/environments/${environment_id}`, { name }, 
+        () => dispatch({ type: actionTypes.UPDATE_ENVIRONMENT_SUCCESS }), 
+        () => dispatch({ type: actionTypes.UPDATE_ENVIRONMENT_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.UPDATE_ENVIRONMENT_ERROR });
     }
   }
 }
