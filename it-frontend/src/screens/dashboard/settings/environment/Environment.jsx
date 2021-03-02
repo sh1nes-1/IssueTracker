@@ -36,19 +36,15 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isError, enviro
   }, [environment, environment_id, getEnvironmentInfo]);
 
   useEffect(() => {
-    if (environment) {
-      envNameForm.setFieldsValue({
-        environment_name: environment.name
-      });
-    }
+    envNameForm.setFieldsValue({
+      environment_name: environment?.name ?? ''
+    });
   }, [envNameForm, environment]);
 
   useEffect(() => {
-    if (environment) {
-      secretKeyForm.setFieldsValue({
-        secret_key: environment.secret_key
-      });
-    }
+    secretKeyForm.setFieldsValue({
+      secret_key: environment?.secret_key ?? ''
+    });
   }, [secretKeyForm, environment]);
 
   const onEnvNameSubmit = (values) => {

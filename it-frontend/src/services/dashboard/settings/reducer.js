@@ -38,7 +38,8 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
     case actionTypes.GET_ENVIRONMENT_INFO_REQUEST:
       return state.merge({
         isProcessingEnvironment: true,
-        isErrorEnvironment: false,        
+        isErrorEnvironment: false,  
+        environment: null,
       });
     case actionTypes.GET_ENVIRONMENT_INFO_SUCCESS:
       return state.merge({
