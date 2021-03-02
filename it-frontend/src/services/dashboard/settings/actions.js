@@ -16,3 +16,24 @@ export function createProjectEnvironment(project_id, name) {
     }
   }
 }
+
+export function getEnvironmentInfo(environment_id) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.GET_ENVIRONMENT_INFO_REQUEST });
+
+      HttpService.get(`/environments/${environment_id}`, null, 
+        (response) => {
+          dispatch({ 
+            type: actionTypes.GET_ENVIRONMENT_INFO_SUCCESS,
+            environment: response.environment,
+          })
+        }, 
+        () => dispatch({ type: actionTypes.GET_ENVIRONMENT_INFO_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.GET_ENVIRONMENT_INFO_ERROR });
+    }
+  }
+}

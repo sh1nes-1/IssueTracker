@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Card, Form, Input, message, Button } from 'antd';
+import { connect } from 'react-redux';
+import { actions } from 'services';
+import { useParams } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -19,9 +22,34 @@ const tailLayout = {
   },
 };
 
-function EnvironmentSettings() {
+function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isError, environment }) {
   const [envNameForm] = Form.useForm();
   const [secretKeyForm] = Form.useForm();
+  // @ts-ignore
+  const { id } = useParams();
+  const environment_id = id;
+
+  useEffect(() => {
+    if (!environment || environment.id.toString() !== environment_id) {
+      getEnvironmentInfo(environment_id);
+    }
+  }, [environment, environment_id, getEnvironmentInfo]);
+
+  useEffect(() => {
+    if (environment) {
+      envNameForm.setFieldsValue({
+        environment_name: environment.name
+      });
+    }
+  }, [envNameForm, environment]);
+
+  useEffect(() => {
+    if (environment) {
+      secretKeyForm.setFieldsValue({
+        secret_key: environment.secret_key
+      });
+    }
+  }, [secretKeyForm, environment]);
 
   const onEnvNameSubmit = (values) => {
     // TODO: useEffect isSuccess
@@ -49,10 +77,10 @@ function EnvironmentSettings() {
             colon={false}
             labelAlign="left"
             label="Name"
-            name="name"
-            rules={[{ required: true, message: 'Please input environment name!' }]}
+            name="environment_name"
+            rules={[{ required: true, message: 'Please input environment name!' }]}            
           >
-            <Input autoComplete="off" />
+            <Input disabled={isProcessing} autoComplete="off" />
           </Form.Item>
         </Form>
       </Card>
@@ -68,6 +96,7 @@ function EnvironmentSettings() {
             colon={false}
             labelAlign="left"
             label="Secret key"
+            name="secret_key"
           >
             <Input disabled={true} autoComplete="off" />
           </Form.Item>
@@ -86,4 +115,18 @@ function EnvironmentSettings() {
   );
 }
 
-export default EnvironmentSettings;
+function mapStateToProps({ settings }) {
+  return {
+    isProcessing: settings.isProcessingEnvironment,
+    isError: settings.isErrorEnvironment,
+    environment: settings.environment,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getEnvironmentInfo: (environment_id) => dispatch(actions.SettingsActions.getEnvironmentInfo(environment_id)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EnvironmentSettings);
