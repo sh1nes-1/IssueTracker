@@ -13,3 +13,8 @@ export const UPDATE_ENVIRONMENT_REQUEST = 'update_environment.update_environment
 export const UPDATE_ENVIRONMENT_SUCCESS = 'update_environment.update_environment_success';
 export const UPDATE_ENVIRONMENT_FAIL    = 'update_environment.update_environment_fail';
 export const UPDATE_ENVIRONMENT_ERROR   = 'update_environment.update_environment_error';
+
+export const GENERATE_NEW_SECRET_REQUEST = 'generate_new_secret.generate_new_secret_request';
+export const GENERATE_NEW_SECRET_SUCCESS = 'generate_new_secret.generate_new_secret_success';
+export const GENERATE_NEW_SECRET_FAIL    = 'generate_new_secret.generate_new_secret_fail';
+export const GENERATE_NEW_SECRET_ERROR   = 'generate_new_secret.generate_new_secret_error';

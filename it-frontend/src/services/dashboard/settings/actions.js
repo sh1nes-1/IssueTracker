@@ -57,3 +57,24 @@ export function updateEnvironment(environment_id, name) {
     }
   }
 }
+
+export function generateNewSecretKey(environment_id) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.GENERATE_NEW_SECRET_REQUEST });
+
+      HttpService.post(`/environments/${environment_id}/generateNewSecret`, null, 
+      (response) => {
+        dispatch({ 
+          type: actionTypes.GENERATE_NEW_SECRET_SUCCESS,
+          environment: response.environment,
+        })
+      },
+        () => dispatch({ type: actionTypes.GENERATE_NEW_SECRET_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.GENERATE_NEW_SECRET_ERROR });
+    }
+  }
+}

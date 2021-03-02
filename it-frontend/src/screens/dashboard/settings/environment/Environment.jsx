@@ -24,7 +24,7 @@ const tailLayout = {
   },
 };
 
-function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpdate, isSuccessUpdate, isErrorUpdate, isError, environment, getProjectInfo, updateEnvironment }) {
+function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpdate, isSuccessUpdate, isErrorUpdate, isError, environment, getProjectInfo, updateEnvironment, generateNewSecretKey }) {
   const [envNameForm] = Form.useForm();
   const [secretKeyForm] = Form.useForm();
   const prevIsProcessingUpdate = usePrevious(isProcessingUpdate);
@@ -72,8 +72,8 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpd
     updateEnvironment(environment_id, values.environment_name);
   };
 
-  const generateNewSecretKey = () => {
-    console.log('Generated!');
+  const generateSecretKey = () => {
+    generateNewSecretKey(environment_id);
   }
 
   return (
@@ -107,7 +107,7 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpd
         className="setting-card"
         size="small"
       >
-        <Form {...layout} form={secretKeyForm} onFinish={generateNewSecretKey}>        
+        <Form {...layout} form={secretKeyForm} onFinish={generateSecretKey}>        
           <Form.Item
             colon={false}
             labelAlign="left"
@@ -148,6 +148,7 @@ function mapDispatchToProps(dispatch) {
     getProjectInfo: (project_id) => dispatch(actions.ProjectActions.getProjectInfo(project_id)),
     getEnvironmentInfo: (environment_id, silent = false) => dispatch(actions.SettingsActions.getEnvironmentInfo(environment_id, silent)),
     updateEnvironment: (environment_id, name) => dispatch(actions.SettingsActions.updateEnvironment(environment_id, name)),
+    generateNewSecretKey: (environment_id) => dispatch(actions.SettingsActions.generateNewSecretKey(environment_id)),
   }
 }
 
