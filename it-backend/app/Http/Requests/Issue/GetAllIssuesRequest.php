@@ -6,7 +6,6 @@ use App\Http\Responses\Issue\GetAllIssuesResponse;
 use App\Models\Issue\Actions\GetProjectIssues;
 use App\Models\Project\Project;
 use App\Rules\CsvArrayRule;
-use App\Rules\ExistingProjectEnvironments;
 use Illuminate\Foundation\Http\FormRequest;
 
 class GetAllIssuesRequest extends FormRequest

@@ -90,6 +90,12 @@ class GetProjectIssues
             $issues_query->where('issues.updated_at', '<', Carbon::createFromFormat('Y-m-d H:i:s', $date_to)->toDateTimeString());
         }
 
+        $is_resolved = $this->parameters['is_resolved'] ?? null;
+        if ($is_resolved !== null) {
+            $is_resolved = filter_var($is_resolved, FILTER_VALIDATE_BOOLEAN);
+            $issues_query->where('is_resolved', $is_resolved);
+        }
+
         $this->total_count = $issues_query->count();
         $issues_query->paginate(self::ISSUES_PER_PAGE);
         $this->issues = $issues_query->get();

@@ -20,9 +20,10 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
 
   const [currentPage, setCurrentPage] = useState(params['page'] ?? 1);
   const [sortBy, setSortBy] = useState('last_seen');
+  const [status, setStatus] = useState('unresolved');
   const [search, setSearch] = useState('');
   const [dateFrom, setDateFrom] = useState(moment().subtract(14, 'days').format('YYYY-MM-DD LTS'));
-  const [environments, setEnvironments] = useState([]);
+  const [environments, setEnvironments] = useState([]);  
 
   useEffect(() => {
     if (project_id) {
@@ -32,10 +33,11 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
         search: search, 
         page: currentPage, 
         date_from: dateFrom,
-        environments_ids: environments.join(',')
+        environments_ids: environments.join(','),
+        is_resolved: status === 'all' ? '' : status === 'resolved',
       });
     }
-  }, [project_id, getIssues, sortBy, search, currentPage, dateFrom, environments]);
+  }, [project_id, getIssues, sortBy, search, currentPage, dateFrom, environments, status]);
 
   useEffect(() => {
     if (!project || project.id.toString() !== project_id) {
@@ -66,6 +68,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
           issuesCount={totalIssuesCount} 
           onSortBy={value => setSortBy(value)} 
           onSearch={value => setSearch(value)}
+          onSelectStatus={value => setStatus(value)}
           />
 
         <IssuesTable 

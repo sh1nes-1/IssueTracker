@@ -4,7 +4,7 @@ import { Typography, Row, Col, Select, Input } from 'antd';
 const { Title, Text } = Typography;
 const { Option } = Select;
 
-function IssuesContentHeader({ issuesCount, onSortBy, onSearch }) {
+function IssuesContentHeader({ issuesCount, onSortBy, onSearch, onSelectStatus }) {
   return (
     <Row justify="center" align="middle">
       <Col span={7}>
@@ -29,7 +29,20 @@ function IssuesContentHeader({ issuesCount, onSortBy, onSearch }) {
           </Option>
         </Select>
       </Col>
-      <Col span={14}>
+      <Col span={3}>
+        <Select defaultValue="unresolved" className="sort-by-select" onChange={onSelectStatus} bordered={true}>        
+          <Option value="unresolved">
+            <Text className="bolder">Unresolved</Text>
+          </Option>
+          <Option value="resolved">
+            <Text className="bolder">Resolved</Text>
+          </Option>
+          <Option value="all">
+            <Text className="bolder">All</Text>
+          </Option>          
+        </Select>
+      </Col>      
+      <Col span={11}>
         <Input.Search 
           placeholder="Search issues" 
           enterButton 
