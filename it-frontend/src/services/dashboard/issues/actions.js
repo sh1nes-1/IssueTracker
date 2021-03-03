@@ -22,3 +22,24 @@ export function getIssues(options) {
     }
   }
 }
+
+export function getIssueInfo(issue_id) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.GET_ISSUE_INFO_REQUEST });
+
+      HttpService.get(`/issues/${issue_id}`, null, 
+        (response) => {
+          dispatch({ 
+            type: actionTypes.GET_ISSUE_INFO_SUCCESS,
+            issue: response.issue,
+          })
+        }, 
+        () => dispatch({ type: actionTypes.GET_ISSUE_INFO_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.GET_ISSUE_INFO_ERROR });
+    }
+  }
+}

@@ -12,7 +12,7 @@ function IssueItem(project_id, issue) {
   return (
     <div className="issue-item" key={issue.id}>
       <Row className="issue-item-header">
-        <Link to={`/dashboard/issues/1?project_id=${project_id}`} className="issue-item-exception gray">
+        <Link to={`/dashboard/issues/${issue.id}?project_id=${project_id}`} className="issue-item-exception gray">
           <span className="issue-exception-title">
             {issue.exception_name}
           </span>

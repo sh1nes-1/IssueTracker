@@ -1,20 +1,24 @@
 import React from 'react';
-import { Row, Col, Typography, Badge, Space } from 'antd';
+import { Row, Col, Typography, Badge, Space, Skeleton } from 'antd';
 
 const { Title } = Typography;
 
-function IssueInfo() {
+function IssueInfo({ issue, isLoading }) {
   return (
     <Row>
-      <Col span={20}>
+      <Col span={18}>
         <div className="issue-details-info">
           <Space>
             <Title className="issue-details-title">
-              GuzzleHttp\Exception\ServerException
+              <Skeleton loading={isLoading} title={{ width: '150px' }} paragraph={false}>
+                {issue?.exception_name ?? ''}
+              </Skeleton>
             </Title>
 
             <Title className="issue-details-path">
-              /app/Models/Robots/Rides/monitor/Actions/MonitorRide.php in App\Models\Robots\Rides\monitor\Actions\MonitorRide::monitor
+              <Skeleton loading={isLoading} title={{ width: '400px' }} paragraph={false}>
+                {issue?.filename ?? ''}
+              </Skeleton>
             </Title>
           </Space>
         </div>
@@ -22,19 +26,19 @@ function IssueInfo() {
         <Badge
           dot={true} 
           status='error'
-          text='Server error: `GET https://maps.googleapis.com/maps/api/directions/json?alternatives=true&origin=36.11155821887'
+          text={isLoading ? 'Loading...' : issue?.message}
           />
       </Col>
 
-      <Col span={4}>
+      <Col span={6}>
         <Row justify='space-between' className="align-right"> 
-          <Col span={12}>
+          <Col span={16}>
             <h4 className="header-param-title light-gray">ISSUE #</h4>
-            <span className="header-param">ROBOT-2TQ</span>
+            <span className="header-param">{issue?.short_id ?? 'LOADING...'}</span>
           </Col>
-          <Col span={12}>
-            <h4 className="header-param-title light-gray">Events</h4>
-            <span className="header-param">14</span>
+          <Col span={8}>
+            <h4 className="header-param-title light-gray">Events</h4>            
+            <span className="header-param">{issue?.events ?? 0}</span>            
           </Col>
         </Row>       
       </Col>

@@ -33,3 +33,7 @@
   font-weight: 300 !important;  
   color: #5c5c5c !important;
 }
+
+.issue-details-info .ant-skeleton-title {
+  margin: 0;
+}
