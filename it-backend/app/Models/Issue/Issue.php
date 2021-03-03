@@ -3,6 +3,7 @@
 namespace App\Models\Issue;
 
 use App\Models\ProgrammingLanguage;
+use App\Models\Project\Environment\ProjectEnvironment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,5 +30,15 @@ class Issue extends Model
     public function programmingLanguage()
     {
         return $this->belongsTo(ProgrammingLanguage::class);
+    }
+
+    public function projectEnvironment()
+    {
+        return $this->belongsTo(ProjectEnvironment::class);
+    }
+
+    public function isUserAuthorized($user_id)
+    {
+        return $this->projectEnvironment->isUserAuthorized($user_id);
     }
 }

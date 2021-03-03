@@ -1,0 +1,55 @@
+<?php
+
+
+namespace App\Http\Responses\Issue;
+
+class GetIssueResponse
+{
+    private $issue;
+    private $event;
+    private $prev_event;
+    private $next_event;
+
+    public function __construct($issue, $event)
+    {
+        $this->issue = $issue;
+        $this->event = $event;
+        $this->prev_event = $issue->events()->where('id', '<', $event->id)->orderByDesc('id')->first();
+        $this->next_event = $issue->events()->where('id', '>', $event->id)->orderBy('id')->first();
+    }
+
+    public static function from($issue, $event)
+    {
+        return new static($issue, $event);
+    }
+
+    public function toArray()
+    {
+        $issue = $this->issue;
+        $event = $this->event;
+        $prev_event_id = empty($next_event) ? null : $next_event->id;
+        $next_event_id = empty($prev_event) ? null : $prev_event->id;
+
+        return [
+            'issue' => [
+                'id'             => $issue->id,
+                'short_id'       => $issue->short_id,
+                'level'          => $issue->level,
+                'exception_name' => $issue->exception_name,
+                'filename'       => $issue->filename,
+                'message'        => $issue->message,
+                'events'         => $issue->events()->count(),
+                'is_resolved'    => $issue->is_resolved,
+                'first_seen'     => $issue->created_at,
+                'last_seen'      => $issue->updated_at,
+                'programming_language' => $issue->programmingLanguage->name,
+                'event' => [
+                    'id'         => $event->id,
+                    'stacktrace' => $event->stacktrace
+                ],
+                'prev_event_id' => $prev_event_id,
+                'next_event_id' => $next_event_id,
+            ]
+        ];
+    }
+}

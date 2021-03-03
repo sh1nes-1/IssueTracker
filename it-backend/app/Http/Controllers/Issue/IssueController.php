@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Issue;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Issue\CreateEventRequest;
 use App\Http\Requests\Issue\GetAllIssuesRequest;
+use App\Http\Requests\Issue\GetIssueRequest;
 
 class IssueController extends Controller
 {
@@ -20,6 +21,11 @@ class IssueController extends Controller
     }
 
     public function createEvent(CreateEventRequest $request)
+    {
+        return $request->perform();
+    }
+
+    public function get(GetIssueRequest $request)
     {
         return $request->perform();
     }
