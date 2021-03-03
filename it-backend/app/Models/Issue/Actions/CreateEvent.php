@@ -63,6 +63,7 @@ class CreateEvent
             ->where('exception_name', $this->parameters['exception_name'])
             ->where('filename', $this->parameters['filename'])
             ->where('message', $this->parameters['message'])
+            ->where('is_resolved', false)
             ->orderByDesc('created_at')
             ->first();
 

@@ -1,5 +1,6 @@
 import Issues from "./list/Issues";
 import Details from "./details/Details";
+import EventInfo from "./details/event/Info";
 
 const issues_config = [
   {
@@ -11,8 +12,14 @@ const issues_config = [
   {
     key: "issues",
     path: "/dashboard/issues/:id/",
-    exact: true,
-    component: Details
+    component: Details,
+    routes: [
+      {
+        key: "issues",
+        path: "/dashboard/issues/:id/events/:eventId",
+        component: EventInfo,
+      }
+    ]    
   }
 ];
 
