@@ -48,7 +48,7 @@ class GetIssueRequest extends FormRequest
         }
 
         $event = $events_query->first();
-        if (!$event) {
+        if (empty($event)) {
             return response()->json(['message' => 'Event not found in given issue'], 404);
         }
 

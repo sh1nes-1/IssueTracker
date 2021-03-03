@@ -27,8 +27,8 @@ class GetIssueResponse
     {
         $issue = $this->issue;
         $event = $this->event;
-        $prev_event_id = empty($next_event) ? null : $next_event->id;
-        $next_event_id = empty($prev_event) ? null : $prev_event->id;
+        $prev_event_id = empty($this->prev_event) ? null : $this->prev_event->id;
+        $next_event_id = empty($this->next_event) ? null : $this->next_event->id;
 
         return [
             'issue' => [
