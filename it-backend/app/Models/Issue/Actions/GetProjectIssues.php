@@ -96,6 +96,12 @@ class GetProjectIssues
             $issues_query->where('is_resolved', $is_resolved);
         }
 
+        $is_ignored = $this->parameters['is_ignored'] ?? null;
+        if ($is_ignored !== null) {
+            $is_ignored = filter_var($is_ignored, FILTER_VALIDATE_BOOLEAN);
+            $issues_query->where('is_ignored', $is_ignored);
+        }
+
         $this->total_count = $issues_query->count();
         $issues_query->paginate(self::ISSUES_PER_PAGE);
         $this->issues = $issues_query->get();

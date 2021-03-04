@@ -43,3 +43,43 @@ export function getIssueInfo(issue_id) {
     }
   }
 }
+
+export function resolveIssues(issues_ids) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.RESOLVE_ISSUE_REQUEST });
+
+      HttpService.post(`/issues/resolve`, { issues: issues_ids }, 
+        (response) => {
+          dispatch({ 
+            type: actionTypes.RESOLVE_ISSUE_SUCCESS,
+          })
+        }, 
+        () => dispatch({ type: actionTypes.RESOLVE_ISSUE_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.RESOLVE_ISSUE_ERROR });
+    }
+  }
+}
+
+export function ignoreIssues(issues_ids) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.IGNORE_ISSUE_REQUEST });
+
+      HttpService.post(`/issues/ignore`, { issues: issues_ids }, 
+        (response) => {
+          dispatch({ 
+            type: actionTypes.IGNORE_ISSUE_SUCCESS,
+          })
+        }, 
+        () => dispatch({ type: actionTypes.IGNORE_ISSUE_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.IGNORE_ISSUE_ERROR });
+    }
+  }
+}

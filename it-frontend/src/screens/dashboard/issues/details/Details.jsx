@@ -49,7 +49,7 @@ function Details({ route, issue, isProcessing, getIssueInfo, project, getProject
       
       <Content className="issue-details-content">
         <IssueInfo issue={issue} isLoading={isProcessing} />
-        <IssueActions />
+        <IssueActions project_id={project_id} issue_id={issue_id} />
 
         {renderRoutes(route.routes)}
       </Content>

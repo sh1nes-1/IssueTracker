@@ -45,11 +45,11 @@ class Issue extends Model
 
     public function resolve()
     {
-        $this->update(['is_resolved' => true]);
+        $this->fill(['is_resolved' => true]);
     }
 
     public function ignore()
     {
-        $this->update(['is_ignored' => true]);
+        $this->fill(['is_ignored' => true]);
     }
 }

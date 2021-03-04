@@ -10,6 +10,14 @@ const initialState = Immutable({
   isProcessingIssue: false,
   isErrorIssue: false,  
   issue: null,
+
+  isProcessingResolve: false,
+  isErrorResolve: false,  
+  isSuccessResolve: false,
+
+  isProcessingIgnore: false,
+  isErrorIgnore: false,  
+  isSuccessIgnore: false,  
 });
 
 export default function projectsReducer(state=initialState, {type, ...action}) {
@@ -55,7 +63,51 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
     case actionTypes.GET_ISSUE_INFO_ERROR:
       return state.merge({
         isProcessingIssue: false,
+      });
+
+
+    case actionTypes.RESOLVE_ISSUE_REQUEST:
+      return state.merge({
+        isProcessingResolve: true,
+        isErrorResolve: false,
+        isSuccessResolve: false, 
+      });
+    case actionTypes.RESOLVE_ISSUE_SUCCESS:
+      return state.merge({
+        isProcessingResolve: false,
+        isSuccessResolve: true,
+      });
+    case actionTypes.RESOLVE_ISSUE_FAIL:
+      return state.merge({
+        isProcessingResolve: false,
+        isErrorResolve: true,
+      });
+    case actionTypes.RESOLVE_ISSUE_ERROR:
+      return state.merge({
+        isProcessingResolve: false,
       });      
+
+
+    case actionTypes.IGNORE_ISSUE_REQUEST:
+      return state.merge({
+        isProcessingIgnore: true,
+        isErrorIgnore: false,
+        isSuccessIgnore: false,
+      });
+    case actionTypes.IGNORE_ISSUE_SUCCESS:
+      return state.merge({
+        isProcessingIgnore: false,
+        isSuccessIgnore: true,
+      });
+    case actionTypes.IGNORE_ISSUE_FAIL:
+      return state.merge({
+        isProcessingIgnore: false,
+        isErrorIgnore: true,
+      });
+    case actionTypes.IGNORE_ISSUE_ERROR:
+      return state.merge({
+        isProcessingIgnore: false,
+      });
 
     default:
       return state;
