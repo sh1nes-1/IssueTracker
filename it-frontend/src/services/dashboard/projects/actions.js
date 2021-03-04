@@ -75,3 +75,12 @@ export function updateProject(project_id, name) {
     }
   }
 }
+
+export function setProjectLocal(project) {
+  return function (dispatch) {
+    dispatch({ 
+      type: actionTypes.SET_PROJECT_LOCAL,
+      project: project, 
+    });
+  }
+}

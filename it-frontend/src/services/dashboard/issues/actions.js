@@ -75,3 +75,12 @@ export function ignoreIssues(issues_ids) {
     }
   }
 }
+
+export function setIssueLocal(issue) {
+  return function (dispatch) {
+    dispatch({ 
+      type: actionTypes.SET_ISSUE_LOCAL,
+      issue: issue, 
+    });
+  }
+}

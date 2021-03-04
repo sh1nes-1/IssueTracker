@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { actions } from 'services';
 import { usePrevious } from "utils";
 
-function IssueActions({ issue, isProcessingResolve, isErrorResolve, isSuccessResolve, isProcessingIgnore, isErrorIgnore, isSuccessIgnore, ignoreIssues, resolveIssues, getIssueInfo }) {
+function IssueActions({ issue, isProcessingResolve, isErrorResolve, isSuccessResolve, isProcessingIgnore, isErrorIgnore, isSuccessIgnore, ignoreIssues, resolveIssues, setIssueLocal }) {
   const prevIsProcessingResolve = usePrevious(isProcessingResolve);
   const prevIsProcessingIgnore = usePrevious(isProcessingIgnore);
 
@@ -13,7 +13,10 @@ function IssueActions({ issue, isProcessingResolve, isErrorResolve, isSuccessRes
     if (prevIsProcessingResolve !== undefined && prevIsProcessingResolve !== isProcessingResolve) {
       if (isSuccessResolve) {
         message.success('Issue successfully resolved!');
-        getIssueInfo(issue.id);
+        setIssueLocal({ 
+          ...issue, 
+          is_resolved: true 
+        });
       } else if (isErrorResolve) {
         message.error('Failed to resolve issue');
       }
@@ -22,7 +25,10 @@ function IssueActions({ issue, isProcessingResolve, isErrorResolve, isSuccessRes
     if (prevIsProcessingIgnore !== undefined && prevIsProcessingIgnore !== isProcessingIgnore) {
       if (isSuccessIgnore) {
         message.success('Issue successfully ignored!');
-        getIssueInfo(issue.id);
+        setIssueLocal({ 
+          ...issue, 
+          is_ignored: true 
+        });
       } else if (isErrorIgnore) {
         message.error('Failed to ignore issue');
       }
@@ -67,7 +73,7 @@ function mapDispatchToProps(dispatch) {
   return {
     ignoreIssues: (issues_ids) => dispatch(actions.IssuesActions.ignoreIssues(issues_ids)),
     resolveIssues: (issues_ids) => dispatch(actions.IssuesActions.resolveIssues(issues_ids)),
-    getIssueInfo: (issue_id) => dispatch(actions.IssuesActions.getIssueInfo(issue_id)),
+    setIssueLocal: (issue) => dispatch(actions.IssuesActions.setIssueLocal(issue)),
   }
 }
 

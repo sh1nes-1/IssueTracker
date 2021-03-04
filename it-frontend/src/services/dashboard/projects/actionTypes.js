@@ -17,3 +17,5 @@ export const UPDATE_PROJECT_REQUEST = 'update_project.update_project_request';
 export const UPDATE_PROJECT_SUCCESS = 'update_project.update_project_success';
 export const UPDATE_PROJECT_FAIL    = 'update_project.update_project_fail';
 export const UPDATE_PROJECT_ERROR   = 'update_project.update_project_error';
+
+export const SET_PROJECT_LOCAL = 'set_project_local';

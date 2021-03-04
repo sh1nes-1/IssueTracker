@@ -15,7 +15,7 @@ const layout = {
   },
 };
 
-function General({ isProcessingProject, project, updateProject, isProcessingChangeName, isSuccessChangeName, isErrorChangeName, getProjects, getProjectInfo }) {
+function General({ isProcessingProject, project, updateProject, isProcessingChangeName, isSuccessChangeName, isErrorChangeName, getProjects, setProjectLocal }) {
   const [projectNameForm] = Form.useForm();
   const prevIsProcessingChangeName = usePrevious(isProcessingChangeName);
 
@@ -31,8 +31,7 @@ function General({ isProcessingProject, project, updateProject, isProcessingChan
     if (prevIsProcessingChangeName !== undefined && prevIsProcessingChangeName !== isProcessingChangeName) {
       if (isSuccessChangeName) {
         message.success('Project successfully updated!');
-        getProjects();        
-        getProjectInfo(project.id);
+        getProjects();
       }
 
       if (isErrorChangeName) {
@@ -42,7 +41,11 @@ function General({ isProcessingProject, project, updateProject, isProcessingChan
   });
 
   const onFinish = (values) => {
-    updateProject(project?.id, values.project_name)
+    updateProject(project?.id, values.project_name);
+    setProjectLocal({
+      ...project,
+      name: values.project_name
+    });
   };
 
   return (
@@ -91,7 +94,7 @@ function mapStateToProps({ projects }) {
 function mapDispatchToProps(dispatch) {
   return {
     updateProject: (project_id, name) => dispatch(actions.ProjectActions.updateProject(project_id, name)),
-    getProjectInfo: (project_id) => dispatch(actions.ProjectActions.getProjectInfo(project_id)),
+    setProjectLocal: (project) => dispatch(actions.ProjectActions.setProjectLocal(project)),
     getProjects: () => dispatch(actions.ProjectActions.getProjects()),
   }
 }
