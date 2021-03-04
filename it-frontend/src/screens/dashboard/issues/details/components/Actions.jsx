@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { actions } from 'services';
 import { usePrevious } from "utils";
 
-function IssueActions({ issue, isProcessingResolve, isErrorResolve, isSuccessResolve, isProcessingIgnore, isErrorIgnore, isSuccessIgnore, ignoreIssues, resolveIssues, setIssueLocal }) {
+function IssueActions({ isLoadingIssue, issue, isProcessingResolve, isErrorResolve, isSuccessResolve, isProcessingIgnore, isErrorIgnore, isSuccessIgnore, ignoreIssues, resolveIssues, setIssueLocal }) {
   const prevIsProcessingResolve = usePrevious(isProcessingResolve);
   const prevIsProcessingIgnore = usePrevious(isProcessingIgnore);
 
@@ -41,14 +41,14 @@ function IssueActions({ issue, isProcessingResolve, isErrorResolve, isSuccessRes
         <Button 
           icon={<CheckOutlined />} 
           onClick={() => resolveIssues([issue?.id])} 
-          disabled={isProcessingResolve || !issue || issue.is_resolved}
+          disabled={isProcessingResolve || isLoadingIssue || issue?.is_resolved}
           > 
           Resolve
         </Button>
         <Button 
           icon={<StopOutlined />} 
           onClick={() => ignoreIssues([issue?.id])} 
-          disabled={isProcessingIgnore || !issue || issue.is_ignored}
+          disabled={isProcessingIgnore || isLoadingIssue || issue?.is_ignored}
           >
           Ignore
         </Button>
