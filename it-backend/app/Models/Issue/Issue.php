@@ -20,6 +20,7 @@ class Issue extends Model
         'filename',
         'message',
         'is_resolved',
+        'is_ignored',
     ];
 
     public function events()
@@ -45,5 +46,10 @@ class Issue extends Model
     public function resolve()
     {
         $this->update(['is_resolved' => true]);
+    }
+
+    public function ignore()
+    {
+        $this->update(['is_ignored' => true]);
     }
 }

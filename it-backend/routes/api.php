@@ -45,5 +45,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
         Route::get('/{id}', [IssueController::class, 'get']);
         Route::post('/', [IssueController::class, 'createEvent']);
         Route::post('/resolve', [IssueController::class, 'resolve']);
+        Route::post('/ignore', [IssueController::class, 'ignore']);
     });
 });

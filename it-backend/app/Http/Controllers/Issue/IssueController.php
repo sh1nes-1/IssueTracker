@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Issue\CreateEventRequest;
 use App\Http\Requests\Issue\GetAllIssuesRequest;
 use App\Http\Requests\Issue\GetIssueRequest;
+use App\Http\Requests\Issue\IgnoreIssuesRequest;
 use App\Http\Requests\Issue\ResolveIssuesRequest;
 
 class IssueController extends Controller
@@ -32,6 +33,11 @@ class IssueController extends Controller
     }
 
     public function resolve(ResolveIssuesRequest $request)
+    {
+        return $request->perform();
+    }
+
+    public function ignore(IgnoreIssuesRequest $request)
     {
         return $request->perform();
     }
