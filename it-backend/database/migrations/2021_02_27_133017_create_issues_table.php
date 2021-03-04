@@ -25,6 +25,7 @@ class CreateIssuesTable extends Migration
             $table->string('filename', 500)->index();
             $table->string('message', 600)->index();
             $table->boolean('is_resolved')->default(false);
+            $table->boolean('is_ignored')->default(false);
             $table->timestamps();
             $table->index(['created_at', 'updated_at']);
         });

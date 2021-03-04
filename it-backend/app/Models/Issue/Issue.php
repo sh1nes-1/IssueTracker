@@ -41,4 +41,9 @@ class Issue extends Model
     {
         return $this->projectEnvironment->isUserAuthorized($user_id);
     }
+
+    public function resolve()
+    {
+        $this->update(['is_resolved' => true]);
+    }
 }
