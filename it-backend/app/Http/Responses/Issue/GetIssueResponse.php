@@ -40,6 +40,7 @@ class GetIssueResponse
                 'message'        => $issue->message,
                 'events'         => $issue->events()->count(),
                 'is_resolved'    => $issue->is_resolved,
+                'is_ignored'     => $issue->is_ignored,
                 'first_seen'     => $issue->created_at,
                 'last_seen'      => $issue->updated_at,
                 'programming_language' => $issue->programmingLanguage->name,

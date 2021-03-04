@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { actions } from 'services';
 import { usePrevious } from "utils";
 
-function IssueActions({ project_id, issue_id, isProcessingResolve, isErrorResolve, isSuccessResolve, isProcessingIgnore, isErrorIgnore, isSuccessIgnore, ignoreIssues, resolveIssues, getProjectInfo }) {
+function IssueActions({ issue, isProcessingResolve, isErrorResolve, isSuccessResolve, isProcessingIgnore, isErrorIgnore, isSuccessIgnore, ignoreIssues, resolveIssues, getIssueInfo }) {
   const prevIsProcessingResolve = usePrevious(isProcessingResolve);
   const prevIsProcessingIgnore = usePrevious(isProcessingIgnore);
 
@@ -13,10 +13,8 @@ function IssueActions({ project_id, issue_id, isProcessingResolve, isErrorResolv
     if (prevIsProcessingResolve !== undefined && prevIsProcessingResolve !== isProcessingResolve) {
       if (isSuccessResolve) {
         message.success('Issue successfully resolved!');
-        getProjectInfo(project_id);
-      }
-
-      if (isErrorResolve) {
+        getIssueInfo(issue.id);
+      } else if (isErrorResolve) {
         message.error('Failed to resolve issue');
       }
     }
@@ -24,30 +22,28 @@ function IssueActions({ project_id, issue_id, isProcessingResolve, isErrorResolv
     if (prevIsProcessingIgnore !== undefined && prevIsProcessingIgnore !== isProcessingIgnore) {
       if (isSuccessIgnore) {
         message.success('Issue successfully ignored!');
-        getProjectInfo(project_id);
-      }
-
-      if (isErrorIgnore) {
+        getIssueInfo(issue.id);
+      } else if (isErrorIgnore) {
         message.error('Failed to ignore issue');
       }
     }
   });
-  
-  const resolveIssue = () => {
-    resolveIssues([issue_id]);
-  }
-  
-  const ignoreIssue = () => {
-    ignoreIssues([issue_id]);
-  }
 
   return (
     <React.Fragment>
       <Space style={{ marginTop: '10px' }}>
-        <Button icon={<CheckOutlined />} onClick={resolveIssue} disabled={isProcessingResolve}> 
+        <Button 
+          icon={<CheckOutlined />} 
+          onClick={() => resolveIssues([issue?.id])} 
+          disabled={isProcessingResolve || !issue || issue.is_resolved}
+          > 
           Resolve
         </Button>
-        <Button icon={<StopOutlined />} onClick={ignoreIssue} disabled={isProcessingIgnore}>
+        <Button 
+          icon={<StopOutlined />} 
+          onClick={() => ignoreIssues([issue?.id])} 
+          disabled={isProcessingIgnore || !issue || issue.is_ignored}
+          >
           Ignore
         </Button>
       </Space>
@@ -71,7 +67,7 @@ function mapDispatchToProps(dispatch) {
   return {
     ignoreIssues: (issues_ids) => dispatch(actions.IssuesActions.ignoreIssues(issues_ids)),
     resolveIssues: (issues_ids) => dispatch(actions.IssuesActions.resolveIssues(issues_ids)),
-    getProjectInfo: (project_id) => dispatch(actions.ProjectActions.getProjectInfo(project_id)),
+    getIssueInfo: (issue_id) => dispatch(actions.IssuesActions.getIssueInfo(issue_id)),
   }
 }
 

@@ -35,6 +35,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
         date_from: dateFrom,
         environments_ids: environments.join(','),
         is_resolved: status === 'all' ? '' : status === 'resolved',
+        is_ignored: false,
       });
     }
   }, [project_id, getIssues, sortBy, search, currentPage, dateFrom, environments, status]);

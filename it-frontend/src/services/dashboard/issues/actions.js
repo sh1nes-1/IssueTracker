@@ -50,11 +50,7 @@ export function resolveIssues(issues_ids) {
       dispatch({ type: actionTypes.RESOLVE_ISSUE_REQUEST });
 
       HttpService.post(`/issues/resolve`, { issues: issues_ids }, 
-        (response) => {
-          dispatch({ 
-            type: actionTypes.RESOLVE_ISSUE_SUCCESS,
-          })
-        }, 
+        () => dispatch({ type: actionTypes.RESOLVE_ISSUE_SUCCESS }),
         () => dispatch({ type: actionTypes.RESOLVE_ISSUE_FAIL })
       );
 
@@ -70,11 +66,7 @@ export function ignoreIssues(issues_ids) {
       dispatch({ type: actionTypes.IGNORE_ISSUE_REQUEST });
 
       HttpService.post(`/issues/ignore`, { issues: issues_ids }, 
-        (response) => {
-          dispatch({ 
-            type: actionTypes.IGNORE_ISSUE_SUCCESS,
-          })
-        }, 
+        () => dispatch({ type: actionTypes.IGNORE_ISSUE_SUCCESS }),
         () => dispatch({ type: actionTypes.IGNORE_ISSUE_FAIL })
       );
 
