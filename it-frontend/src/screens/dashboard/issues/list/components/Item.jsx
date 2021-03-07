@@ -1,9 +1,10 @@
 import React from 'react';
-import { Row, Col, Space } from 'antd';
+import { Row, Col, Space, Badge } from 'antd';
 import { Link } from 'react-router-dom';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/en-gb';
+import { mapIssueLevel } from 'utils';
 
 function IssueItem(project_id, issue) {
   const first_seen = moment(issue.first_seen).locale('en').fromNow();
@@ -21,8 +22,12 @@ function IssueItem(project_id, issue) {
           </span>
         </Link>     
       </Row>
-      <Row className="issue-exception-message">      
-        {issue.message}
+      <Row className="issue-exception-message">
+        <Badge
+          dot={true} 
+          status={mapIssueLevel(issue.level)}
+          text={issue.message}          
+          />
       </Row>
       <Row className="issue-parameters gray d-flex" align="middle">
         <Col>

@@ -7,3 +7,14 @@ export function usePrevious(value) {
   });
   return ref.current;
 }
+
+export function mapIssueLevel(level) {
+  switch (level) {
+    case 'error':
+      return 'error';
+    case 'warning':
+      return 'warning';
+    default:
+      return 'default';
+  }
+}

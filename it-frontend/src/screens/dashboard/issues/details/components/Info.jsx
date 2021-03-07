@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Typography, Badge, Space, Skeleton } from 'antd';
+import { mapIssueLevel } from 'utils';
 
 const { Title } = Typography;
 
@@ -25,7 +26,7 @@ function IssueInfo({ issue, isLoading }) {
 
         <Badge
           dot={true} 
-          status='error'
+          status={mapIssueLevel(issue?.level)}
           text={isLoading ? 'Loading...' : issue?.message}
           />
       </Col>
