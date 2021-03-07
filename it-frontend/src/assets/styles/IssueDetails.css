@@ -37,3 +37,38 @@
 .issue-details-info .ant-skeleton-title {
   margin: 0;
 }
+
+.event-navigation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.exception-code-card {
+  margin-top: 30px;
+  border: 1px solid #dedede;
+}
+
+.exception-code-card .ant-card-body {  
+  padding: 10px;
+}
+
+.exception-code-card pre {
+  margin: 0;
+}
+
+.event-stacktrace {
+  margin-top: 40px;
+  padding-left: 15px;  
+}
+
+.stacktrace-content {
+  overflow: scroll;
+  height: 600px;
+}
+
+.details-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

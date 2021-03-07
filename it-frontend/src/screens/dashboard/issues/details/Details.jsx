@@ -10,7 +10,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import queryString from 'query-string';
 import history from '../../../../history';
 
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 function Details({ route, issue, isProcessing, getIssueInfo, project, getProjectInfo }) {
   // @ts-ignore
@@ -53,6 +53,10 @@ function Details({ route, issue, isProcessing, getIssueInfo, project, getProject
 
         {renderRoutes(route.routes)}
       </Content>
+
+      <Footer className="details-footer">      
+        Sh1ne &copy; {(new Date().getFullYear())}
+      </Footer>
     </Layout>
   );
 }
