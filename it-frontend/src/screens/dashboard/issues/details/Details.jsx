@@ -28,9 +28,6 @@ function Details({ route, issue, getIssueInfo, project, getProjectInfo }) {
   const isIssueLoaded = issue && issue.id.toString() === issue_id ; // eslint-disable-next-line eqeqeq  
   const isEventLoaded = isIssueLoaded && issue.event.id == event_id; 
 
-
-  console.log(`Event ID: ${JSON.stringify(event_id)}`);
-
   useEffect(() => {
     if (!project || project.id.toString() !== project_id) {
       getProjectInfo(project_id);
@@ -43,12 +40,11 @@ function Details({ route, issue, getIssueInfo, project, getProjectInfo }) {
     }
   }, [issue, issue_id, getIssueInfo, event_id, isEventLoaded, isIssueLoaded, currentRouteKey]);
 
-  if (!project_id) {
+  if (!project_id || (isIssueLoaded && issue.project_id.toString() !== project_id)) {
     return <Redirect to='/dashboard/projects'/>
   }
 
   if (!currentRouteKey && isIssueLoaded) {
-    console.log('Redirect');
     return <Redirect to={`/dashboard/issues/${issue_id}/events/${issue.event.id}?project_id=${project_id}`} />
   }
 

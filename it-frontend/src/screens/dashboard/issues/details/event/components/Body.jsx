@@ -26,7 +26,7 @@ function EventBody({ issue }) {
       
       <Card title="Crashed in ReactFragment.php at line 37" size="small" className="exception-code-card">
         <SyntaxHighlighter 
-          language="php" 
+          language={issue?.programming_language}
           style={googlecode}
           showLineNumbers={true} 
           startingLineNumber={37}          
