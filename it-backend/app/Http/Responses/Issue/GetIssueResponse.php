@@ -33,6 +33,7 @@ class GetIssueResponse
         return [
             'issue' => [
                 'id'             => $issue->id,
+                'project_id'     => $issue->projectEnvironment->project_id,
                 'short_id'       => $issue->short_id,
                 'level'          => $issue->level,
                 'exception_name' => $issue->exception_name,
@@ -46,7 +47,8 @@ class GetIssueResponse
                 'programming_language' => $issue->programmingLanguage->name,
                 'event' => [
                     'id'         => $event->id,
-                    'stacktrace' => $event->stacktrace
+                    'stacktrace' => $event->stacktrace,
+                    'created_at' => $event->created_at,
                 ],
                 'prev_event_id' => $prev_event_id,
                 'next_event_id' => $next_event_id,

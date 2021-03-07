@@ -16,6 +16,7 @@ const issues_config = [
     routes: [
       {
         key: "issues",
+        subkey: "event",
         path: "/dashboard/issues/:id/events/:eventId",
         component: EventInfo,
       }

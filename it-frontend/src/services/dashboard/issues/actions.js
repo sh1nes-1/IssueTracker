@@ -23,12 +23,12 @@ export function getIssues(options) {
   }
 }
 
-export function getIssueInfo(issue_id) {
+export function getIssueInfo(issue_id, event_id = undefined) {
   return function (dispatch) {
     try {
       dispatch({ type: actionTypes.GET_ISSUE_INFO_REQUEST });
 
-      HttpService.get(`/issues/${issue_id}`, null, 
+      HttpService.get(`/issues/${issue_id}`, { event_id }, 
         (response) => {
           dispatch({ 
             type: actionTypes.GET_ISSUE_INFO_SUCCESS,

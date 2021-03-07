@@ -53,13 +53,13 @@ export class HttpService {
   }
 
   async get(url, data, successCb, errorCb, tryRefreshToken = true, customToken = null) {
-    console.log(`get ${url}`);
-
     if (tryRefreshToken) {
       await this.tryRefreshToken();
     }
 
-    console.log(`continue ${url}`);
+    if (data) {
+      Object.keys(data).forEach((k) => (data[k] === null || data[k] === undefined) && delete data[k]);
+    }
 
     const queryString = data ? '?' + new URLSearchParams(data).toString() : '';
 

@@ -1,24 +1,43 @@
-import { Button, Col, Row, Space } from 'antd';
+import { Button, Col, Row, Space, Typography } from 'antd';
 import React from 'react';
 import { StepBackwardOutlined, StepForwardOutlined } from '@ant-design/icons';
+import history from '../../../../../../history';
+import moment from 'moment';
+import 'moment/locale/en-gb';
 
-function EventHeader() {
+const { Title } = Typography;
+
+function EventHeader({ issue, isLoading }) {
+  const onPrevClick = () => {
+    history.push(`/dashboard/issues/${issue.id}/events/${issue.prev_event_id}?project_id=${issue.project_id}`);
+  }
+
+  const onNextClick = () => {
+    history.push(`/dashboard/issues/${issue.id}/events/${issue.next_event_id}?project_id=${issue.project_id}`);
+  }
+
   return (
     <React.Fragment>
       <Row>
         <Col span={20}>
           <Row>
-            Event Info
+            <Title>
+              Event #{issue?.event?.id}
+            </Title>
           </Row>        
           <Row>
-            Mar 1, 2021 11:02:50 PM
+            {moment(issue?.event?.created_at).locale('en').format('MMMM Do YYYY, h:mm:ss a')}
           </Row>
         </Col>
         <Col span={4}>
           <div className="event-navigation availableHeight">
             <Space className="align-right">
-            <Button><StepBackwardOutlined /> PREV</Button>
-            <Button><StepForwardOutlined /> NEXT</Button>
+              <Button disabled={!issue?.prev_event_id || isLoading} onClick={onPrevClick}>
+                <StepBackwardOutlined /> PREV
+              </Button>
+              <Button disabled={!issue?.next_event_id || isLoading} onClick={onNextClick}>
+                <StepForwardOutlined /> NEXT
+              </Button>
             </Space>
           </div>
         </Col>
