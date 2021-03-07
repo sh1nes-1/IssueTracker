@@ -54,6 +54,11 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
     return <Redirect to='/dashboard/projects'/>
   }
 
+  // need to filter because resolve just setting status of issue locally
+  const filtered_issues = issues
+    .filter(issue => !issue.is_ignored)
+    .filter(issue => status === 'unresolved' ? !issue.is_resolved : true);
+
   return (
     <Layout>
       <IssuesHeader 
@@ -74,7 +79,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
 
         <IssuesTable 
           project_id={project_id}
-          issues={issues}
+          issues={filtered_issues}
           loading={isProcessingIssues}
           currentPage={currentPage}
           totalCount={totalIssuesCount}

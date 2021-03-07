@@ -34,7 +34,8 @@ function IssueItem(project_id, issue) {
           <Space align="center" size='middle'>
             <span>{issue.short_id}</span>
             <span><ClockCircleOutlined /> {first_seen} - {last_seen}</span>
-            <span>{issue.programming_language}</span>
+            <span>{issue.is_resolved ? 'resolved' : 'unresolved' }</span>
+            <span>{issue.programming_language}</span>            
           </Space>
         </Col>
       </Row>

@@ -9,9 +9,10 @@ function IssuesTable({ project_id, loading, currentPage, issues, totalCount, onP
   const [selectedKeys, setSelectedKeys] = useState([]);
 
   const rowSelection = {
+    selectedRowKeys: selectedKeys,
     onChange: (selectedRowKeys, _) => {      
       setSelectedKeys(selectedRowKeys);
-    }
+    }    
   };
 
   return (
@@ -26,7 +27,7 @@ function IssuesTable({ project_id, loading, currentPage, issues, totalCount, onP
         pagination={{ current: currentPage, pageSize: 25, total: totalCount, showSizeChanger: false, onChange: onPageChanged }}
       >
         <Column 
-          title={() => TableActions(selectedKeys)} 
+          title={() => <TableActions selectedKeys={selectedKeys} clearSelection={() => setSelectedKeys([])} />} 
           dataIndex="issue" 
           key="issue" 
           width="95%" 

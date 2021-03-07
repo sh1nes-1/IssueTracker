@@ -42,6 +42,11 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
       return state.merge({
         isProcessingIssues: false,
       });
+
+    case actionTypes.SET_ISSUES_LOCAL:
+      return state.merge({
+        issues: action.issues,
+      });
       
 
     case actionTypes.GET_ISSUE_INFO_REQUEST:

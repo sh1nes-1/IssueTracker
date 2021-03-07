@@ -18,4 +18,5 @@ export const RESOLVE_ISSUE_SUCCESS = 'resolve_issue.resolve_issue_success';
 export const RESOLVE_ISSUE_FAIL    = 'resolve_issue.resolve_issue_fail';
 export const RESOLVE_ISSUE_ERROR   = 'resolve_issue.resolve_issue_error';
 
+export const SET_ISSUES_LOCAL = 'set_issues_local';
 export const SET_ISSUE_LOCAL = 'set_issue_local';
