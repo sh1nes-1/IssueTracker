@@ -17,6 +17,9 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->foreignId('issue_id')->constrained();
             $table->text('stacktrace');
+            $table->text('source_code_fragment')->default(NULL);
+            $table->integer('fragment_starting_line')->default(-1);
+            $table->integer('line');
             $table->timestamps();
             $table->index(['created_at']);
         });

@@ -6,6 +6,7 @@ use App\Models\Issue\Actions\CreateEvent;
 use App\Models\Issue\IssueLevel;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class CreateEventRequest extends FormRequest
 {
@@ -35,6 +36,9 @@ class CreateEventRequest extends FormRequest
             'filename' => 'required|min:1',
             'message' => 'required|min:1',
             'stacktrace' => 'required|min:1',
+            'source_code_fragment' => 'nullable',
+            'fragment_starting_line' => 'nullable|numeric',
+            'line' => 'required|numeric',
         ];
     }
 

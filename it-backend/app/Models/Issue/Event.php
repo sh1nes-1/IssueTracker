@@ -12,5 +12,8 @@ class Event extends Model
     protected $fillable = [
         'issue_id',
         'stacktrace',
+        'source_code_fragment',
+        'fragment_starting_line',
+        'line',
     ];
 }

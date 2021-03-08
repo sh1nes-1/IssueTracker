@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Issue;
 
 use App\Http\Responses\Issue\GetIssueResponse;
-use App\Models\Issue\Event;
 use App\Models\Issue\Issue;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class GetIssueRequest extends FormRequest
 {

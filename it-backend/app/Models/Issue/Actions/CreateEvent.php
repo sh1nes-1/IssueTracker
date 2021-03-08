@@ -5,6 +5,7 @@ namespace App\Models\Issue\Actions;
 use App\Models\Issue\Issue;
 use App\Models\ProgrammingLanguage;
 use App\Models\Project\Environment\ProjectEnvironment;
+use Illuminate\Support\Facades\DB;
 
 class CreateEvent
 {
@@ -23,14 +24,19 @@ class CreateEvent
 
     public function handle()
     {
+        DB::beginTransaction();
         try {
             $this->findOrCreateProgrammingLang()->findOrCreateIssue()->createEvent();
+
+            DB::commit();
 
             return [
                 'status_code' => 200,
             ];
         }
         catch (\Exception $exception) {
+            DB::rollBack();
+
             return [
                 'status_code' => 422,
                 'error' => $exception->getMessage(),
@@ -95,6 +101,9 @@ class CreateEvent
 
         $this->issue->events()->create([
             'stacktrace' => $this->parameters['stacktrace'],
+            'source_code_fragment' => $this->parameters['source_code_fragment'] ?? null,
+            'fragment_starting_line' => $this->parameters['fragment_starting_line'] ?? -1,
+            'line' => $this->parameters['line'],
         ]);
 
         return $this;

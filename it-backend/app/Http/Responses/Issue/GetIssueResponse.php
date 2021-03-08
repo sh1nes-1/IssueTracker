@@ -48,6 +48,9 @@ class GetIssueResponse
                 'event' => [
                     'id'         => $event->id,
                     'stacktrace' => $event->stacktrace,
+                    'source_code_fragment' => $event->source_code_fragment,
+                    'fragment_starting_line' => $event->fragment_starting_line,
+                    'line' => $event->line,
                     'created_at' => $event->created_at,
                 ],
                 'prev_event_id' => $prev_event_id,
