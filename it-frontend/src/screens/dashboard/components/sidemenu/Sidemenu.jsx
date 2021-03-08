@@ -1,10 +1,12 @@
 import React from 'react';
-import { Layout, Menu  } from 'antd';
-import { FolderOutlined, ContainerOutlined, SettingOutlined } from '@ant-design/icons';
+import {  Layout, Menu  } from 'antd';
+import { FolderOutlined, ContainerOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom'
 import { matchRoutes } from "react-router-config";
 import queryString from 'query-string';
+import LogoutModal from './LogoutModal';
+import { logout } from 'services/startup';
 
 const { Sider } = Layout;
 
@@ -14,6 +16,10 @@ function Sidemenu({ routes }) {
   const currentRouteKey = branch[0]?.route?.key?.toString() ?? "";
   const params = queryString.parse(location.search);
   const isProjectSelected = 'project_id' in params;
+
+  const onLogout = () => {
+    logout();
+  }
 
   return (
     <Sider breakpoint="lg">
@@ -30,6 +36,10 @@ function Sidemenu({ routes }) {
         
         <Menu.Item key="settings" icon={<SettingOutlined />} disabled={!isProjectSelected}>
           <NavLink to={`/dashboard/settings/general${location.search}`}>Settings</NavLink>
+        </Menu.Item>
+
+        <Menu.Item key="logout" icon={<LogoutOutlined />}>
+          <LogoutModal onLogout={onLogout} />
         </Menu.Item>
       </Menu>
     </Sider>

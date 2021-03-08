@@ -55,3 +55,13 @@ h1.ant-typography {
 .project-settings {
   font-size: 16px;
 }
+
+.ant-menu-item span::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: transparent;
+  content: '';
+}

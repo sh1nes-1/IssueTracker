@@ -23,8 +23,10 @@ export function retrieve() {
   }
 }
 
+// i think that it does not used
 export function logout() {
-  localStorage.removeItem('jwt_access_token');
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
   localStorage.removeItem('user');
   history.replace('/login');
   window.location.reload();

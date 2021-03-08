@@ -3,10 +3,11 @@ import history from '../history';
 
 let refreshTokenPromise = null;
 
-function logout() {
+export function logout() {
   console.log('Logout!');
   HttpService.setToken(null);
-  localStorage.removeItem('jwt_access_token');
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
   localStorage.removeItem('user');
   history.replace('/login');
 }

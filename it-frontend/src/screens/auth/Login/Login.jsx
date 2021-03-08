@@ -67,9 +67,9 @@ function Login({ signIn, isProcessing, isError }) {
                 Submit
               </Button>
 
-              <Button type="link" htmlType="button">
+              {/* <Button type="link" htmlType="button">
                 <Link to='/register'>Register</Link>
-              </Button>
+              </Button> */}
             </Form.Item>
           </Form>
         </Card>
