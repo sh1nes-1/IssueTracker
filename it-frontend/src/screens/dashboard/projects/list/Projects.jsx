@@ -62,7 +62,7 @@ function Projects({ getProjects, isProcessing, projects }) {
 function mapProject(project) {
   return (
     <Col key={project.id} span={6}>
-      <Link to={`/dashboard/issues/?project_id=${project.id}`}>
+      <Link to={`/dashboard/issues/?project_id=${project.id}`} className={project?.loading ? 'disabled-link' : ''}>
         <Card size="small" hoverable={true}>
           <Skeleton loading={project?.loading} avatar active paragraph={{ rows: 1 }}>
             <Meta
