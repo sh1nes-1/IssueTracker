@@ -44,12 +44,12 @@ export function getIssueInfo(issue_id, event_id = undefined) {
   }
 }
 
-export function resolveIssues(issues_ids) {
+export function resolveIssues(issues_ids, resolve = true) {
   return function (dispatch) {
     try {
       dispatch({ type: actionTypes.RESOLVE_ISSUE_REQUEST });
 
-      HttpService.post(`/issues/resolve`, { issues: issues_ids }, 
+      HttpService.post(`/issues/resolve`, { issues: issues_ids, resolve }, 
         () => dispatch({ type: actionTypes.RESOLVE_ISSUE_SUCCESS }),
         () => dispatch({ type: actionTypes.RESOLVE_ISSUE_FAIL })
       );
@@ -60,12 +60,12 @@ export function resolveIssues(issues_ids) {
   }
 }
 
-export function ignoreIssues(issues_ids) {
+export function ignoreIssues(issues_ids, ignore = true) {
   return function (dispatch) {
     try {
       dispatch({ type: actionTypes.IGNORE_ISSUE_REQUEST });
 
-      HttpService.post(`/issues/ignore`, { issues: issues_ids }, 
+      HttpService.post(`/issues/ignore`, { issues: issues_ids, ignore }, 
         () => dispatch({ type: actionTypes.IGNORE_ISSUE_SUCCESS }),
         () => dispatch({ type: actionTypes.IGNORE_ISSUE_FAIL })
       );

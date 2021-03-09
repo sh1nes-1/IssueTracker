@@ -6,7 +6,6 @@ import { basename } from 'path';
 
 function CodeFragment({ issue }) {
   const issueLine = issue?.event?.line;
-  console.log(issue?.event?.source_code_fragment);
 
   return (
     <Card title={`Crashed in ${basename(issue?.filename)} at line ${issueLine}`} size="small" className="exception-code-card">

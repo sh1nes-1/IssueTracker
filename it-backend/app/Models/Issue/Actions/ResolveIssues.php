@@ -9,16 +9,18 @@ class ResolveIssues
     private $user;
     private $issues_ids;
     private $issues;
+    private $resolve;
 
-    public function __construct($user, $issues_ids)
+    public function __construct($user, $issues_ids, $resolve)
     {
         $this->user = $user;
         $this->issues_ids = $issues_ids;
+        $this->resolve = $resolve;
     }
 
-    public static function perform($user, $issues_ids)
+    public static function perform($user, $issues_ids, $resolve)
     {
-        return (new static($user, $issues_ids))->handle();
+        return (new static($user, $issues_ids, $resolve))->handle();
     }
 
     public function handle()
@@ -56,7 +58,7 @@ class ResolveIssues
     public function resolve()
     {
         foreach ($this->issues as $issue) {
-            $issue->resolve();
+            $issue->resolve($this->resolve);
         }
 
         return $this;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, message, Space } from 'antd';
 import { CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
@@ -8,14 +8,17 @@ import { usePrevious } from "utils";
 function IssueActions({ isLoadingIssue, issue, isProcessingResolve, isErrorResolve, isSuccessResolve, isProcessingIgnore, isErrorIgnore, isSuccessIgnore, ignoreIssues, resolveIssues, setIssueLocal }) {
   const prevIsProcessingResolve = usePrevious(isProcessingResolve);
   const prevIsProcessingIgnore = usePrevious(isProcessingIgnore);
+  
+  const resolveBtnText = issue?.is_resolved ? 'Unresolve' : 'Resolve';
+  const ignoreBtnText = issue?.is_ignored ? 'Unignore' : 'Ignore';
 
   useEffect(() => {
     if (prevIsProcessingResolve !== undefined && prevIsProcessingResolve !== isProcessingResolve) {
       if (isSuccessResolve) {
-        message.success('Issue successfully resolved!');
+        message.success(`Issue successfully ${resolveBtnText.toLowerCase()}d!`);
         setIssueLocal({ 
           ...issue, 
-          is_resolved: true 
+          is_resolved: !issue.is_resolved,
         });
       } else if (isErrorResolve) {
         message.error('Failed to resolve issue');
@@ -24,10 +27,10 @@ function IssueActions({ isLoadingIssue, issue, isProcessingResolve, isErrorResol
 
     if (prevIsProcessingIgnore !== undefined && prevIsProcessingIgnore !== isProcessingIgnore) {
       if (isSuccessIgnore) {
-        message.success('Issue successfully ignored!');
+        message.success(`Issue successfully ${ignoreBtnText.toLowerCase()}d!`);
         setIssueLocal({ 
           ...issue, 
-          is_ignored: true 
+          is_ignored: !issue.is_ignored,
         });
       } else if (isErrorIgnore) {
         message.error('Failed to ignore issue');
@@ -35,22 +38,38 @@ function IssueActions({ isLoadingIssue, issue, isProcessingResolve, isErrorResol
     }
   });
 
+  const onResolveBtnClick = () => {
+    if (resolveBtnText === 'Resolve') {
+      resolveIssues([issue?.id])
+    } else {
+      resolveIssues([issue?.id], false)
+    }
+  }
+
+  const onIgnoreBtnClick = () => {
+    if (ignoreBtnText === 'Ignore') {
+      ignoreIssues([issue?.id])
+    } else {
+      ignoreIssues([issue?.id], false)
+    }
+  }
+
   return (
     <React.Fragment>
       <Space style={{ marginTop: '10px' }}>
         <Button 
           icon={<CheckOutlined />} 
-          onClick={() => resolveIssues([issue?.id])} 
-          disabled={isProcessingResolve || isLoadingIssue || issue?.is_resolved}
+          onClick={onResolveBtnClick} 
+          disabled={isProcessingResolve || isLoadingIssue}
           > 
-          Resolve
+          {resolveBtnText}
         </Button>
         <Button 
           icon={<StopOutlined />} 
-          onClick={() => ignoreIssues([issue?.id])} 
-          disabled={isProcessingIgnore || isLoadingIssue || issue?.is_ignored}
+          onClick={onIgnoreBtnClick} 
+          disabled={isProcessingIgnore || isLoadingIssue}
           >
-          Ignore
+          {ignoreBtnText}
         </Button>
       </Space>
     </React.Fragment>
@@ -71,8 +90,8 @@ function mapStateToProps({ issues }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    ignoreIssues: (issues_ids) => dispatch(actions.IssuesActions.ignoreIssues(issues_ids)),
-    resolveIssues: (issues_ids) => dispatch(actions.IssuesActions.resolveIssues(issues_ids)),
+    ignoreIssues: (issues_ids, ignore) => dispatch(actions.IssuesActions.ignoreIssues(issues_ids, ignore)),
+    resolveIssues: (issues_ids, resolve) => dispatch(actions.IssuesActions.resolveIssues(issues_ids, resolve)),
     setIssueLocal: (issue) => dispatch(actions.IssuesActions.setIssueLocal(issue)),
   }
 }

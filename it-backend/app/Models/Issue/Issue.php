@@ -43,13 +43,13 @@ class Issue extends Model
         return $this->projectEnvironment->isUserAuthorized($user_id);
     }
 
-    public function resolve()
+    public function resolve($resolve = true)
     {
-        $this->fill(['is_resolved' => true])->save();
+        $this->fill(['is_resolved' => $resolve])->save();
     }
 
-    public function ignore()
+    public function ignore($ignore = true)
     {
-        $this->fill(['is_ignored' => true])->save();
+        $this->fill(['is_ignored' => $ignore])->save();
     }
 }

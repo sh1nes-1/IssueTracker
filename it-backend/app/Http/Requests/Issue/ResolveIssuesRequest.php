@@ -27,13 +27,18 @@ class ResolveIssuesRequest extends FormRequest
         return [
             'issues' => 'required|array',
             'issues.*' => 'exists:issues,id',
+            'resolve' => 'nullable',
         ];
     }
 
     public function perform()
     {
         $user = auth()->user();
-        $response = ResolveIssues::perform($user, $this->get('issues'));
+
+        $resolve = $this->get('resolve') ?? true;
+        $resolve = filter_var($resolve, FILTER_VALIDATE_BOOLEAN);
+
+        $response = ResolveIssues::perform($user, $this->get('issues'), $resolve);
         if ($response['status_code'] !== 200) {
             return response()->json([
                 'message' => 'Failed to resolve issues. Please try again later.',

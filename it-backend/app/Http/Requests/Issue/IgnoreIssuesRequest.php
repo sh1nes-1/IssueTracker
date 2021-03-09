@@ -27,13 +27,18 @@ class IgnoreIssuesRequest extends FormRequest
         return [
             'issues' => 'required|array',
             'issues.*' => 'exists:issues,id',
+            'ignore' => 'nullable',
         ];
     }
 
     public function perform()
     {
         $user = auth()->user();
-        $response = IgnoreIssues::perform($user, $this->get('issues'));
+
+        $ignore = $this->get('ignore') ?? true;
+        $ignore = filter_var($ignore, FILTER_VALIDATE_BOOLEAN);
+
+        $response = IgnoreIssues::perform($user, $this->get('issues'), $ignore);
         if ($response['status_code'] !== 200) {
             return response()->json([
                 'message' => 'Failed to ignore issues. Please try again later.',

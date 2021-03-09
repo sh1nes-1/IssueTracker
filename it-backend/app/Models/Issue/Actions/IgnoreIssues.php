@@ -9,16 +9,18 @@ class IgnoreIssues
     private $user;
     private $issues_ids;
     private $issues;
+    private $ignore;
 
-    public function __construct($user, $issues_ids)
+    public function __construct($user, $issues_ids, $ignore)
     {
         $this->user = $user;
         $this->issues_ids = $issues_ids;
+        $this->ignore = $ignore;
     }
 
-    public static function perform($user, $issues_ids)
+    public static function perform($user, $issues_ids, $ignore)
     {
-        return (new static($user, $issues_ids))->handle();
+        return (new static($user, $issues_ids, $ignore))->handle();
     }
 
     public function handle()
@@ -56,7 +58,7 @@ class IgnoreIssues
     public function resolve()
     {
         foreach ($this->issues as $issue) {
-            $issue->ignore();
+            $issue->ignore($this->ignore);
         }
 
         return $this;
