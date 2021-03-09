@@ -19,12 +19,3 @@
   padding-right: 10px;
   margin-bottom: 0;
 }
-
-.environments-list {
-  margin-top: 20px;
-  background-color: white;
-}
-
-.environment-list-item {
-  cursor: pointer;
-}

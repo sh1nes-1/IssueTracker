@@ -69,3 +69,12 @@ h1.ant-typography {
 .disabled-link {
   pointer-events: none;
 }
+
+.my-list {
+  margin-top: 20px;
+  background-color: white;
+}
+
+.pointer-list-item {
+  cursor: pointer;
+}

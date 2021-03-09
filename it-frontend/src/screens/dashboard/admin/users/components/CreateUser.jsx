@@ -17,7 +17,7 @@ const layout = {
   },
 };
 
-function CreateUserModal({ createUser, isProcessing, isSuccess, isError, errorsCreateUser }) {
+function CreateUserModal({ createUser, isProcessing, isSuccess, isError, errorsCreateUser, getUsers }) {
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
   const prevIsProcessing = usePrevious(isProcessing);
@@ -46,7 +46,7 @@ function CreateUserModal({ createUser, isProcessing, isSuccess, isError, errorsC
       if (isSuccess) {
         message.success('User successfully created!');
         hideModal();
-        //getUsers();
+        getUsers();
       }
   
       if (isError && errorsCreateUser) {
@@ -133,6 +133,7 @@ function mapStateToProps({ admin }) {
 function mapDispatchToProps(dispatch) {
   return {
     createUser: (user) => dispatch(actions.AdminActions.createUser(user)),
+    getUsers: () => dispatch(actions.AdminActions.getUsers()),
   }
 }
 

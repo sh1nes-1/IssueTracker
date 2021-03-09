@@ -23,3 +23,33 @@ export function createUser(user) {
     }
   }
 }
+
+export function getUsers() {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.GET_USERS_REQUEST });
+
+      HttpService.get('/users/', null, 
+        (response) => {
+          dispatch({ 
+            type: actionTypes.GET_USERS_SUCCESS, 
+            users: response.users 
+          });
+        }, 
+        () => dispatch({ type: actionTypes.GET_USERS_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.GET_USERS_ERROR });
+    }
+  }
+}
+
+export function setSelectedUser(user) {
+  return function (dispatch) {
+    dispatch({ 
+      type: actionTypes.SELECT_USER_LOCAL, 
+      selectedUser: user,
+    });
+  }
+}

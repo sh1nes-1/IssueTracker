@@ -23,7 +23,7 @@ function Environments({ isProcessingProject, project }) {
        dataSource={project?.environments} 
        rowKey="id" 
        renderItem={EnvironmentItem}
-       className="environments-list"
+       className="my-list"
        />
     </React.Fragment>
   );

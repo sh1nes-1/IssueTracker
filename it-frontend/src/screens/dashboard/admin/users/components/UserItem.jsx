@@ -1,13 +1,12 @@
 import React from 'react';
-import { List } from 'antd';
+import { List, Row } from 'antd';
 import history from '../../../../../history';
-import { useLocation } from 'react-router-dom'
+import { setSelectedUser } from 'services/dashboard/admin/actions';
 
 function EnvironmentItem(item) {
-  const location = useLocation()
-
   const onClick = () => {
-    history.push(`/dashboard/settings/environments/${item.id}${location.search}`);
+    setSelectedUser(item);
+    history.push(`/dashboard/admin/users/${item.id}`);
   }
 
   return (
@@ -16,7 +15,9 @@ function EnvironmentItem(item) {
       key={item.id} 
       onClick={onClick}
     >
-      {item.name}
+      <Row>
+        {item.name}
+      </Row>
     </List.Item>
   );
 }
