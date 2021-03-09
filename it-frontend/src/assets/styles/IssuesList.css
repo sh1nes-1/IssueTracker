@@ -9,11 +9,11 @@
   line-height: normal;
 }
 
-.ant-select-selector, .ant-select-selection-search {
+.borderless .ant-select-selector, .borderless .ant-select-selection-search {
   padding: 0 !important;
   margin: 0 !important;
   border: 0 !important;
-  border-radius: 0 !important;    
+  border-radius: 0 !important;
 }
 
 .environment .ant-select-arrow {

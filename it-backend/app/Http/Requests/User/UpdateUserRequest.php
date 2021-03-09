@@ -42,7 +42,13 @@ class UpdateUserRequest extends FormRequest
             return response()->json('User not found', 422);
         }
 
-        $user->update($this->validated());
+        $attributes = $this->validated();
+
+        if ($this->has('password')) {
+            $attributes['password'] = bcrypt($this->get('password'));
+        }
+
+        $user->update($attributes);
 
         $user_formatted = UpdateUserResponse::from($user->refresh())->toArray();
         return response()->json($user_formatted, 200);

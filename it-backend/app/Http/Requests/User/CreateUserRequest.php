@@ -35,7 +35,19 @@ class CreateUserRequest extends FormRequest
 
     public function perform()
     {
-        $user = User::query()->create($this->validated());
+        if ($this->has('password')) {
+            $this->merge([
+                'password' => bcrypt($this->get('password')),
+            ]);
+        }
+
+        $attributes = $this->validated();
+
+        if ($this->has('password')) {
+            $attributes['password'] = bcrypt($this->get('password'));
+        }
+
+        $user = User::query()->create($attributes);
         $user_formatted = CreateUserResponse::from($user->refresh())->toArray();
         return response()->json($user_formatted, 201);
     }

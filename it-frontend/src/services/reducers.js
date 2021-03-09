@@ -5,6 +5,7 @@ import AuthReducer from './auth/reducer';
 import ProjectsReducer from './dashboard/projects/reducer';
 import IssuesReducer from './dashboard/issues/reducer';
 import SettingsReducer from './dashboard/settings/reducer';
+import AdminReducer from './dashboard/admin/reducer';
 
 export const rootReducer = combineReducers({
   app: AppReducer,
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
   projects: ProjectsReducer,
   issues: IssuesReducer,
   settings: SettingsReducer,
+  admin: AdminReducer,
 });

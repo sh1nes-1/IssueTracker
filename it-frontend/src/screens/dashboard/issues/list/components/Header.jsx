@@ -35,7 +35,7 @@ function IssuesHeader({ isLoading, project, onProjectSettingsClick, onEnvironmen
           <Select
             placeholder="All Environments"
             mode="multiple"
-            className="environment title fullWidth"
+            className="environment title fullWidth borderless"
             bordered={false}
             showSearch={false}
             showArrow 
@@ -50,7 +50,7 @@ function IssuesHeader({ isLoading, project, onProjectSettingsClick, onEnvironmen
         <Col span={8}>
           <Select              
             placeholder="Last 14 Days"
-            className="period title gray fullWidth"
+            className="period title gray fullWidth borderless"
             bordered={false}
             showSearch={false}
             showArrow
