@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Issue\IssueController;
 use App\Http\Controllers\Project\Environment\EnvironmentController;
 use App\Http\Controllers\Project\ProjectController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,6 +25,12 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::get('profile', [AuthController::class, 'profile']);
+    });
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('/', [UserController::class, 'create']);
+        Route::post('/{id}', [UserController::class, 'update']);
     });
 
     Route::group(['prefix' => 'projects'], function () {

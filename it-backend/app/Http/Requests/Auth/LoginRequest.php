@@ -37,7 +37,12 @@ class LoginRequest extends FormRequest
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        $refresh_token = auth()->claims(['type' => 'refresh_token'])->setTTL(43200)->tokenById(auth()->user()->id);
+        $user = auth()->user();
+        if ($user->status !== 'active') {
+            return response()->json(['message' => 'Account is not active'], 401);
+        }
+
+        $refresh_token = auth()->claims(['type' => 'refresh_token'])->setTTL(43200)->tokenById($user->id);
         $response_formatted = LoginResponse::from($access_token, $refresh_token)->toArray();
         return response()->json($response_formatted, 200);
     }

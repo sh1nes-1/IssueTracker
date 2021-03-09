@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use App\Models\Project\Project;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -22,6 +22,8 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'status',
+        'role',
     ];
 
     /**
@@ -61,6 +63,11 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
     }
 
     public function projects()
