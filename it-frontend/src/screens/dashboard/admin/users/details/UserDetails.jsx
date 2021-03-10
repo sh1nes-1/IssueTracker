@@ -1,9 +1,11 @@
-import { Layout, PageHeader } from "antd";
+import { Layout, PageHeader, Spin } from "antd";
 import React, { useEffect } from "react";
 import history from '../../../../../history';
 import { connect } from 'react-redux';
 import { actions } from 'services';
 import { useParams } from "react-router-dom";
+import EditUser from "./components/EditUser";
+import { Content } from "antd/lib/layout/layout";
 
 function UserDetails({ user, getUserInfo }) {
   // @ts-ignore
@@ -27,8 +29,16 @@ function UserDetails({ user, getUserInfo }) {
         title="User details"
         ghost={false}
       />
-      {user?.name ?? 'Loading'}
-      
+
+      <Content className="pad-25 user-details-content">
+        {user ? 
+          <EditUser user={user} /> : 
+          <div className="spin-block">
+            <Spin size="large" className="spin" />
+          </div>
+        }
+        
+      </Content>
     </Layout>
   );
 }
