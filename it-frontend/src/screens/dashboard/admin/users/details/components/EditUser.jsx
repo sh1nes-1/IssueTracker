@@ -78,6 +78,15 @@ function EditUser({ user }) {
         <Input autoComplete='off' placeholder='Enter new password' />
       </Form.Item>
 
+      <Form.Item         
+        colon={true}
+        label="Projects"
+      >
+        {user.projects.length > 0 ?
+          user.projects.map(project => project.name).join(', ') : 
+          "User don't have projects"}
+      </Form.Item>
+
       <Form.Item {...tailLayout}>
       {/* disabled={isProcessing} */}
         <Button type="primary" htmlType="submit" >
