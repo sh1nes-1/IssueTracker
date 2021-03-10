@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\ProfileRequest;
 use App\Http\Requests\Auth\RefreshTokenRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -35,16 +36,12 @@ class AuthController extends Controller
     /**
      * Get the authenticated User.
      *
+     * @param ProfileRequest $request
      * @return JsonResponse
      */
-    public function profile()
+    public function profile(ProfileRequest $request)
     {
-        $user = auth()->user();
-
-        return response()->json([
-            'name' => $user->name,
-            'email' => $user->email,
-        ]);
+        return $request->perform();
     }
 
     /**

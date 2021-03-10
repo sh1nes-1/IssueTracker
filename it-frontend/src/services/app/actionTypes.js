@@ -6,3 +6,5 @@ export const GET_ACCOUNT_REQUEST = 'app.get_account_request';
 export const GET_ACCOUNT_SUCCESS = 'app.get_account_success';
 export const GET_ACCOUNT_FAIL    = 'app.get_account_fail';
 export const GET_ACCOUNT_ERROR   = 'app.get_account_error';
+
+export const SET_USER_ROLE = 'app.set_user_role';

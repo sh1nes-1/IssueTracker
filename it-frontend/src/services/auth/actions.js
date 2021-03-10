@@ -10,7 +10,8 @@ export function signIn(email, password) {
 
       HttpService.post('/auth/login/', { email, password }, 
         (response) => {
-          localStorage.setItem('user', response.user);
+          //localStorage.setItem('user', JSON.stringify(response.user));
+          localStorage.setItem('user_role', response.user.role);
           localStorage.setItem('access_token', response.access_token);
           localStorage.setItem('refresh_token', response.refresh_token);
 

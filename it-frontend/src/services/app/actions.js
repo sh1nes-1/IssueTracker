@@ -7,11 +7,14 @@ export function retrieve() {
     try {
       dispatch({ type: actionTypes.GET_ACCOUNT_REQUEST });
 
-      HttpService.get('/profile', null, 
+      HttpService.get('/auth/profile', null, 
         (response) => {
+          //localStorage.setItem('user', JSON.stringify(response.user));
+          localStorage.setItem('user_role', response.user.role);
+          
           dispatch({ 
             type: actionTypes.GET_ACCOUNT_SUCCESS, 
-            user: response.user
+            user: response.user,
           });
         }, 
         () => dispatch({ type: actionTypes.GET_ACCOUNT_FAIL })

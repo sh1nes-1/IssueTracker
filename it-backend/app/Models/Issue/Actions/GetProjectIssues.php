@@ -77,7 +77,7 @@ class GetProjectIssues
 
         $sort_by = $this->parameters['sort_by'] ?? 'last_seen';
         if ($sort_by === 'last_seen') {
-            $issues_query->latest();
+            $issues_query->orderByDesc('updated_at');
         }
 
         $date_from = $this->parameters['date_from'] ?? null;

@@ -1,3 +1,5 @@
+import { store } from 'configureStore';
+import { actions, ActionTypes } from 'services';
 import HttpService from 'services/HttpService';
 import history from '../history';
 
@@ -28,6 +30,8 @@ async function refreshToken() {
           (response) => {
             console.log(`Token refreshed and got new: ${response.access_token}`);
 
+            //localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('user_role', response.user.role);
             localStorage.setItem('access_token', response.access_token);
             localStorage.setItem('refresh_token', response.refresh_token);
 
@@ -62,9 +66,18 @@ export function initApp() {
   try {
     const access_token = localStorage.getItem('access_token');
     const refresh_token = localStorage.getItem('refresh_token');
+    const user_role = localStorage.getItem('user_role');
+
+    if (user_role) {
+      store.dispatch({
+        type: ActionTypes.AppActionTypes.SET_USER_ROLE, 
+        role: user_role,
+      });
+    }
 
     HttpService.setToken(access_token);    
     HttpService.setRefreshToken(refresh_token);
+    store.dispatch(actions.AppActions.retrieve());
 
     HttpService.refreshTokenFunc = refreshToken;
     HttpService.logoutFunc = logout;

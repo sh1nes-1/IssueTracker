@@ -5,6 +5,7 @@ const initialState = Immutable({
   user: null,
   access_token: null,
   processing: false,
+  role: null,
 });
 
 export default function authReducer(state=initialState, {type, ...action}) {
@@ -28,17 +29,22 @@ export default function authReducer(state=initialState, {type, ...action}) {
     case actionTypes.GET_ACCOUNT_SUCCESS:
       return state.merge({
         processing: false,
-        user: action.user
+        user: action.user,
+        role: action.user.role,
       });
     case actionTypes.GET_ACCOUNT_FAIL:
       return state.merge({
         processing: false,
-        user: null
+        user: null,
       });
     case actionTypes.GET_ACCOUNT_ERROR:
       return state.merge({
         processing: false,
-        user: null
+      });
+
+    case actionTypes.SET_USER_ROLE:
+      return state.merge({
+        role: action.role,
       });
 
     default:

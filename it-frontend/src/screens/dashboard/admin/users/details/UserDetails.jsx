@@ -32,7 +32,7 @@ function UserDetails({ user, getUserInfo }) {
 
       <Content className="pad-25 user-details-content">
         {user ? 
-          <EditUser user={user} /> : 
+          <EditUser /> : 
           <div className="spin-block">
             <Spin size="large" className="spin" />
           </div>
