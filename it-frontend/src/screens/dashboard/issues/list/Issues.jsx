@@ -18,7 +18,8 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
   const params = queryString.parse(location.search);
   const project_id = params['project_id'] ?? null;
 
-  const [currentPage, setCurrentPage] = useState(params['page'] ?? 1);
+  const page = parseInt(params['page'] ? params['page'].toString() : '1'); // returns NaN if not a number and cannot used with ?? operator
+  const [currentPage, setCurrentPage] = useState(page);
   const [sortBy, setSortBy] = useState('last_seen');
   const [status, setStatus] = useState('unresolved');
   const [search, setSearch] = useState('');
@@ -59,6 +60,11 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
     .filter(issue => !issue.is_ignored)
     .filter(issue => status === 'unresolved' ? !issue.is_resolved : true);
 
+  const onPageChanged = (page) => {
+    history.push(`/dashboard/issues?project_id=${project_id}&page=${page}`);
+    setCurrentPage(page);
+  }
+
   return (
     <Layout>
       <IssuesHeader 
@@ -83,7 +89,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
           loading={isProcessingIssues}
           currentPage={currentPage}
           totalCount={totalIssuesCount}
-          onPageChanged={page => setCurrentPage(page)}
+          onPageChanged={onPageChanged}
           />
       </Content>
     </Layout>

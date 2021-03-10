@@ -12,7 +12,7 @@ function EnvironmentItem(item) {
 
   return (
     <List.Item 
-      className="pointer-list-item" 
+      className="cursor-pointer" 
       key={item.id} 
       onClick={onClick}
     >

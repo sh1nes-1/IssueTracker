@@ -11,7 +11,11 @@ const initialState = Immutable({
   isSuccessGetUsers: false,
   isErrorGetUsers: false,
   users: [],
+  totalCount: 0,
 
+  isProcessingUser: false,
+  isSuccessUser: false,
+  isErrorUser: false,
   selectedUser: null,
   
 });
@@ -49,7 +53,8 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
     case actionTypes.GET_USERS_SUCCESS:
       return state.merge({
         isProcessingGetUsers: false,
-        users: action.users
+        users: action.users,
+        totalCount: action.totalCount,
       });
     case actionTypes.GET_USERS_FAIL:
       return state.merge({
@@ -61,6 +66,27 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
         isProcessingGetUsers: false,
       });
 
+
+    case actionTypes.GET_USER_INFO_REQUEST:
+      return state.merge({
+        isProcessingUser: true,
+        isErrorUser: false,        
+      });
+    case actionTypes.GET_USER_INFO_SUCCESS:
+      return state.merge({
+        isProcessingUser: false,
+        selectedUser: action.user,
+      });
+    case actionTypes.GET_USER_INFO_FAIL:
+      return state.merge({
+        isProcessingUser: false,
+        isErrorUser: true,
+        selectedUser: null,
+      });
+    case actionTypes.GET_USER_INFO_ERROR:
+      return state.merge({
+        isProcessingUser: false,
+      });      
 
     case actionTypes.SELECT_USER_LOCAL:
       return state.merge({

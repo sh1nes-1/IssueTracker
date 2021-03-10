@@ -33,7 +33,8 @@ export function getUsers() {
         (response) => {
           dispatch({ 
             type: actionTypes.GET_USERS_SUCCESS, 
-            users: response.users 
+            users: response.users,
+            totalCount: response.total_count,
           });
         }, 
         () => dispatch({ type: actionTypes.GET_USERS_FAIL })
@@ -51,5 +52,26 @@ export function setSelectedUser(user) {
       type: actionTypes.SELECT_USER_LOCAL, 
       selectedUser: user,
     });
+  }
+}
+
+export function getUserInfo(user_id) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.GET_USER_INFO_REQUEST });
+
+      HttpService.get(`/users/${user_id}`, null, 
+        (response) => {
+          dispatch({ 
+            type: actionTypes.GET_USER_INFO_SUCCESS,
+            user: response.user,
+          })
+        }, 
+        () => dispatch({ type: actionTypes.GET_USER_INFO_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.GET_USER_INFO_ERROR });
+    }
   }
 }

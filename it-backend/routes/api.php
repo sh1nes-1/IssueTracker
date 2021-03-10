@@ -30,6 +30,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UserController::class, 'index']);
         Route::post('/', [UserController::class, 'create']);
+        Route::get('/{id}', [UserController::class, 'get']);
         Route::post('/{id}', [UserController::class, 'update']);
     });
 

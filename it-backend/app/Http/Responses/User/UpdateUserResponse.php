@@ -21,7 +21,7 @@ class UpdateUserResponse
     {
         return [
             'message' => 'User updated successfully',
-            'project' => [
+            'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->name,
                 'email' => $this->user->email,

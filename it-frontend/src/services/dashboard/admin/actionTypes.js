@@ -8,4 +8,9 @@ export const GET_USERS_SUCCESS = 'get_users.get_users_success';
 export const GET_USERS_FAIL    = 'get_users.get_users_fail';
 export const GET_USERS_ERROR   = 'get_users.get_users_error';
 
+export const GET_USER_INFO_REQUEST = 'get_user_info.get_user_info_request';
+export const GET_USER_INFO_SUCCESS = 'get_user_info.get_user_info_success';
+export const GET_USER_INFO_FAIL    = 'get_user_info.get_user_info_fail';
+export const GET_USER_INFO_ERROR   = 'get_user_info.get_user_info_error';
+
 export const SELECT_USER_LOCAL   = 'admin.set_selected_user_local';

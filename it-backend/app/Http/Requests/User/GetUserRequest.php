@@ -2,14 +2,12 @@
 
 namespace App\Http\Requests\User;
 
-use App\Http\Responses\User\GetAllUsersResponse;
+use App\Http\Responses\User\GetUserResponse;
 use App\Models\User\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class GetAllUsersRequest extends FormRequest
+class GetUserRequest extends FormRequest
 {
-    const USERS_PER_PAGE = 10;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -34,13 +32,13 @@ class GetAllUsersRequest extends FormRequest
 
     public function perform()
     {
-        $users_q = User::query();
-        $total = $users_q->count();
+        $user_id = $this->route('id');
+        $user = User::query()->find($user_id);
+        if (!$user) {
+            return response()->json('User not found', 404);
+        }
 
-        $users_q->paginate(self::USERS_PER_PAGE);
-        $users = $users_q->get();
-
-        $users_formatted = GetAllUsersResponse::from($users, $total)->toArray();
-        return response()->json($users_formatted, 200);
+        $user_formatted = GetUserResponse::from($user)->toArray();
+        return response()->json($user_formatted, 200);
     }
 }
