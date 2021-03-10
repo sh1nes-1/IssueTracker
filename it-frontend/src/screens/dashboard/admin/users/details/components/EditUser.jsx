@@ -1,5 +1,8 @@
-import React from "react";
-import { Button, Form, Input, Select } from "antd";
+import React, { useEffect } from "react";
+import { Button, Form, Input, message, Select } from "antd";
+import { connect } from 'react-redux';
+import { actions } from 'services';
+import { usePrevious } from "utils";
 
 const { Option } = Select;
 
@@ -19,12 +22,35 @@ const tailLayout = {
   },
 };
 
-function EditUser({ user }) {
+function EditUser({ user, updateUser, getUsers, isProcessing, isSuccess, isError, errorsUpdateUser }) {
   const [form] = Form.useForm();
+  const prevIsProcessing = usePrevious(isProcessing);
 
   const handleSubmit = (values) => {
-    
+    updateUser({
+      id: user.id,
+      ...values
+    });
   };
+
+  useEffect(() => {
+    if (prevIsProcessing !== undefined && prevIsProcessing !== isProcessing) {
+      if (isSuccess) {
+        message.success('User successfully updated!');
+        getUsers();
+      }
+  
+      if (isError && errorsUpdateUser) {
+        const fieldsErrors = Object.keys(errorsUpdateUser)
+          .map(key => Object({
+            name: key,
+            errors: errorsUpdateUser[key],
+          }));
+
+        form.setFields(fieldsErrors);
+      }
+    }
+  });
 
   return (
     <Form {...layout} form={form} onFinish={handleSubmit} className="modal-form" initialValues={user}>
@@ -75,7 +101,7 @@ function EditUser({ user }) {
         label="Password"
         name="password"
       >
-        <Input autoComplete='off' placeholder='Enter new password' />
+        <Input autoComplete='off' type='password' placeholder='Enter new password' />
       </Form.Item>
 
       <Form.Item         
@@ -88,17 +114,29 @@ function EditUser({ user }) {
       </Form.Item>
 
       <Form.Item {...tailLayout}>
-      {/* disabled={isProcessing} */}
-        <Button type="primary" htmlType="submit" >
+        <Button type="primary" htmlType="submit" disabled={isProcessing}>
           Update
         </Button>
-
-        {/* <Button type="link" htmlType="button">
-          <Link to='/register'>Register</Link>
-        </Button> */}
       </Form.Item>      
     </Form>
   );
 }
 
-export default EditUser;
+function mapStateToProps({ admin }) {
+  return {
+    user: admin.selectedUser,
+    isProcessing: admin.isProcessingUpdateUser,
+    isSuccess: admin.isSuccessUpdateUser,
+    isError: admin.isErrorUpdateUser,
+    errorsUpdateUser: admin.errorsUpdateUser,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    updateUser: (user) => dispatch(actions.AdminActions.updateUser(user)),
+    getUsers: () => dispatch(actions.AdminActions.getUsers()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditUser);

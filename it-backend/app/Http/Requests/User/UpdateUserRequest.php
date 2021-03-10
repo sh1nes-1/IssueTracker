@@ -28,7 +28,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users,email,'.$this->route('id'),
-            'password' => 'required|min:6',
+            'password' => 'min:6',
             'status' => 'in:active,disabled',
             'role' => 'in:user,admin',
         ];

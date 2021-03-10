@@ -7,6 +7,11 @@ const initialState = Immutable({
   isErrorCreateUser: false,
   errorsCreateUser: null,
 
+  isProcessingUpdateUser: false,
+  isSuccessUpdateUser: false,
+  isErrorUpdateUser: false,
+  errorsUpdateUser: null,
+
   isProcessingGetUsers: false,
   isSuccessGetUsers: false,
   isErrorGetUsers: false,
@@ -44,6 +49,29 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
         isProcessingCreateUser: false,
       });
 
+
+    case actionTypes.UPDATE_USER_REQUEST:
+      return state.merge({
+        isProcessingUpdateUser: true,
+        isErrorUpdateUser: false,
+        isSuccessUpdateUser: false
+      });
+    case actionTypes.UPDATE_USER_SUCCESS:
+      return state.merge({
+        isProcessingUpdateUser: false,
+        isSuccessUpdateUser: true
+      });
+    case actionTypes.UPDATE_USER_FAIL:
+      return state.merge({
+        isProcessingUpdateUser: false,
+        isErrorUpdateUser: true,
+        errorsUpdateUser: action.errors,
+      });
+    case actionTypes.UPDATE_USER_ERROR:
+      return state.merge({
+        isProcessingUpdateUser: false,
+      });    
+        
 
     case actionTypes.GET_USERS_REQUEST:
       return state.merge({

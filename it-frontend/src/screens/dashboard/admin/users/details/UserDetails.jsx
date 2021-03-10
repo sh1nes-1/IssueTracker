@@ -52,7 +52,6 @@ function mapStateToProps({ admin }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // @ts-ignore
     getUserInfo: (id) => dispatch(actions.AdminActions.getUserInfo(id)),
   }
 }

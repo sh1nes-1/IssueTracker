@@ -46,6 +46,28 @@ export function getUsers() {
   }
 }
 
+export function updateUser(user) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.UPDATE_USER_REQUEST });
+
+      HttpService.post(`/users/${user.id}`, user, 
+        () => dispatch({ type: actionTypes.UPDATE_USER_SUCCESS }), 
+        (response) => {
+          if (response?.errors) {
+            dispatch({ 
+              type: actionTypes.UPDATE_USER_FAIL,
+              errors: response.errors,
+            });
+          }
+        }
+      );
+    } catch (error) {
+      dispatch({ type: actionTypes.UPDATE_USER_ERROR });
+    }
+  }
+}
+
 export function setSelectedUser(user) {
   return function (dispatch) {
     dispatch({ 
