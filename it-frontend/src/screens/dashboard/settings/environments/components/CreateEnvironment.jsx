@@ -33,7 +33,7 @@ function CreateEnvironmentModal({ project_id, createEnvironment, isProcessing, i
   };
 
   useEffect(() => {
-    if (prevIsProcessing !== isProcessing) {
+    if (prevIsProcessing !== undefined && prevIsProcessing !== isProcessing) {
       if (isSuccess) {
         hideModal();
         getProjectInfo(project_id);

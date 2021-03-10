@@ -33,7 +33,7 @@ function CreateProjectModal({ createProject, getProjects, isProcessing, isSucces
   };
 
   useEffect(() => {
-    if (prevIsProcessing !== isProcessing) {
+    if (prevIsProcessing !== undefined && prevIsProcessing !== isProcessing) {
       if (isSuccess) {
         hideModal();
         getProjects();

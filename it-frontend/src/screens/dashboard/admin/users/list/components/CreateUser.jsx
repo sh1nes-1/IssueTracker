@@ -42,7 +42,7 @@ function CreateUserModal({ createUser, isProcessing, isSuccess, isError, errorsC
   };
 
   useEffect(() => {
-    if (prevIsProcessing !== isProcessing) {
+    if (prevIsProcessing !== undefined && prevIsProcessing !== isProcessing) {
       if (isSuccess) {
         message.success('User successfully created!');
         hideModal();
