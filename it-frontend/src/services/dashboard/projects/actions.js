@@ -84,3 +84,19 @@ export function setProjectLocal(project) {
     });
   }
 }
+
+export function deleteProject(project_id) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.DELETE_PROJECT_REQUEST });
+
+      HttpService.delete(`/projects/${project_id}`,
+        () => dispatch({ type: actionTypes.DELETE_PROJECT_SUCCESS }), 
+        () => dispatch({ type: actionTypes.DELETE_PROJECT_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.DELETE_PROJECT_ERROR });
+    }
+  }
+}

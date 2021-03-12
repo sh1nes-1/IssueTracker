@@ -38,13 +38,13 @@ export class HttpService {
           return response.json;
         }
 
-        throw response.json;
+        throw response;
       })
       .then(response => successCb ? successCb(response) : Promise.resolve(response))
       .catch(error => {
         console.log(`Got error: ${JSON.stringify(error)}`);
 
-        if (error?.message === 'Unauthenticated.' && this.logoutFunc) {
+        if (error?.status === 401 && this.logoutFunc) {
           this.logoutFunc();
         }
 
@@ -80,13 +80,51 @@ export class HttpService {
           return response.json;
         }
 
-        throw response.json;
+        throw response;
       })
       .then(response => successCb ? successCb(response) : Promise.resolve(response))
       .catch(error => {
-        console.log(`Got error: ${error}`);
+        console.log(`Got error: ${JSON.stringify(error)}`);
 
-        if (error?.message === 'Unauthenticated.' && this.logoutFunc) {
+        if (error?.status === 401 && this.logoutFunc) {
+          this.logoutFunc();
+        }
+
+        return errorCb ? errorCb(error) : Promise.resolve(error)
+      });
+  }
+
+  async delete(url, successCb, errorCb, tryRefreshToken = true, customToken = null) {
+    if (tryRefreshToken) {
+      await this.tryRefreshToken();
+    }
+
+    return fetch(ROOT_URL + url, {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${customToken ?? this.access_token}`
+        },
+    })
+      .then(async (response) => Object.create({
+          status: response.status,
+          json: await response.json()
+        })
+      )
+      .then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+          console.log(response.json);
+          return response.json;
+        }
+
+        throw response;
+      })
+      .then(response => successCb ? successCb(response) : Promise.resolve(response))
+      .catch(error => {
+        console.log(`Got error: ${JSON.stringify(error)}`);
+
+        if (error?.status === 401 && this.logoutFunc) {
           this.logoutFunc();
         }
 

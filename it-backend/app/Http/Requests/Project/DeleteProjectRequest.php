@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests\Project;
 
-use App\Http\Responses\Project\UpdateProjectResponse;
+use App\Http\Responses\Project\DeleteProjectResponse;
 use App\Models\Project\Project;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class UpdateProjectRequest extends FormRequest
+class DeleteProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,16 +26,9 @@ class UpdateProjectRequest extends FormRequest
      */
     public function rules()
     {
-        $project_id = $this->route('id');
-        $project = Project::query()->find($project_id);
-
-        $rules = [];
-
-        if ($project->name != $this->get('name')) {
-            $rules['name'] = 'required|string|min:3|max:32|unique:projects,name,NULL,id,user_id,'.Auth::id();
-        }
-
-        return $rules;
+        return [
+            //
+        ];
     }
 
     public function perform()
@@ -48,8 +40,9 @@ class UpdateProjectRequest extends FormRequest
             return response()->json(['message' => 'Project is not active'], 422);
         }
 
-        $project->update($this->validated());
-        $project_formatted = UpdateProjectResponse::from($project->refresh())->toArray();
+        $project->update(['status' => 'deleted']);
+
+        $project_formatted = DeleteProjectResponse::from($project)->toArray();
         return response()->json($project_formatted, 200);
     }
 }

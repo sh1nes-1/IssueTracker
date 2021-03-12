@@ -29,18 +29,30 @@ class CreateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:3|max:32|unique:projects,name,NULL,id,user_id,'.Auth::id(),
+            'name' => 'required|string|min:3|max:32'
         ];
     }
 
     public function perform()
     {
+        $user = auth()->user();
+        $name = $this->get('name');
+
+        $project_with_same_name = $user->projects()
+            ->where('name', $name)
+            ->where('status', 'active')
+            ->first();
+
+        if ($project_with_same_name !== null) {
+            return response()->json(['message' => 'Failed to create project with that name.'], 422);
+        }
+
         $secret_key_response = GenerateSecretKey::perform();
         if ($secret_key_response['status_code'] !== 200) {
             return response()->json(['message' => 'Failed to create project. Please try again later.'], 422);
         }
 
-        $project = auth()->user()->projects()->create($this->validated());
+        $project = $user->projects()->create($this->validated());
         $project->environments()->create([
             'name'       => self::DEFAULT_PROJECT_ENVIRONMENT,
             'secret_key' => $secret_key_response['secret_key'],

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Issue;
 
 use App\Models\Issue\Actions\CreateEvent;
 use App\Models\Issue\IssueLevel;
+use App\Models\Project\Project;
 use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Log;
@@ -45,6 +46,11 @@ class CreateEventRequest extends FormRequest
     public function perform()
     {
         $parameters = $this->validated();
+
+        $project = Project::query()->find($parameters['project_id']);
+        if ($project->status !== 'active') {
+            return response()->json(['message' => 'Project is not active'], 422);
+        }
 
         if (!isset($parameters['level'])) {
             $parameters['level'] = IssueLevel::ERROR;

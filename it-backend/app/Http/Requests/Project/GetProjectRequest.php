@@ -35,6 +35,11 @@ class GetProjectRequest extends FormRequest
     {
         $project_id = $this->route('id');
         $project = Project::query()->find($project_id);
+
+        if ($project->status !== 'active') {
+            return response()->json(['message' => 'Project is not active'], 422);
+        }
+
         $project_formatted = GetProjectResponse::from($project)->toArray();
         return response()->json($project_formatted, 200);
     }

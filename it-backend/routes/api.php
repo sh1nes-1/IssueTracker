@@ -37,8 +37,11 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
     Route::group(['prefix' => 'projects'], function () {
         Route::get('/', [ProjectController::class, 'index']);
         Route::post('/', [ProjectController::class, 'create']);
-        Route::get('/{id}', [ProjectController::class, 'get']);
-        Route::post('/{id}', [ProjectController::class, 'update']);
+        Route::group(['prefix' => '{id}'], function () {
+            Route::get('/', [ProjectController::class, 'get']);
+            Route::post('/', [ProjectController::class, 'update']);
+            Route::delete('/', [ProjectController::class, 'delete']);
+        });
     });
 
     Route::group(['prefix' => 'environments'], function () {

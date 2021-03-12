@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Typography, Card, Form, Input, message } from 'antd';
+import { Typography, Card, Form, Input, message, Button } from 'antd';
 import { connect } from 'react-redux';
 import { actions } from 'services';
 import { usePrevious } from "utils";
+import DeleteProjectModal from '../components/DeleteProjectModal';
 
 const { Title } = Typography;
 
@@ -40,7 +41,7 @@ function General({ isProcessingProject, project, updateProject, isProcessingChan
     }
   });
 
-  const onFinish = (values) => {
+  const onProjectNameFinish = (values) => {
     updateProject(project?.id, values.project_name);
     setProjectLocal({
       ...project,
@@ -60,7 +61,7 @@ function General({ isProcessingProject, project, updateProject, isProcessingChan
         className="setting-card"
         size="small"
       >
-        <Form {...layout} form={projectNameForm} onFinish={onFinish}>        
+        <Form {...layout} form={projectNameForm} onFinish={onProjectNameFinish}>        
           <Form.Item
             colon={false}
             labelAlign="left"
@@ -73,6 +74,25 @@ function General({ isProcessingProject, project, updateProject, isProcessingChan
               autoComplete="off"
             />
           </Form.Item>
+        </Form>
+      </Card>
+
+      <Card
+        title="Danger zone" 
+        bordered={true} 
+        className="setting-card border-red"
+        size="small"
+      >
+      <Form {...layout}>
+        <Form.Item
+          colon={false}
+          labelAlign="left"
+          label="Delete this project"
+          name="delete_project"
+          className="align-right"    
+        >
+          <DeleteProjectModal project={project} />
+        </Form.Item>
         </Form>
       </Card>
     </React.Fragment>

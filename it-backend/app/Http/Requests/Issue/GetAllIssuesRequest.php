@@ -40,6 +40,12 @@ class GetAllIssuesRequest extends FormRequest
     public function perform()
     {
         $project_id = $this->get('project_id');
+
+        $project = Project::query()->find($project_id);
+        if ($project->status !== 'active') {
+            return response()->json(['message' => 'Project is not active'], 422);
+        }
+
         $response = GetProjectIssues::perform($project_id, $this->all());
         if ($response['status_code'] !== 200) {
             return response()->json([

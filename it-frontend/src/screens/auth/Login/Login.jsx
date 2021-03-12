@@ -64,7 +64,7 @@ function Login({ signIn, isProcessing, isError }) {
 
             <Form.Item {...tailLayout}>
               <Button type="primary" htmlType="submit" disabled={isProcessing}>
-                Submit
+                Login
               </Button>
 
               {/* <Button type="link" htmlType="button">

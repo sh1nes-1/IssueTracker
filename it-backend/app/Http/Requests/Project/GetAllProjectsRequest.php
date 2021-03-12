@@ -31,7 +31,7 @@ class GetAllProjectsRequest extends FormRequest
 
     public function perform()
     {
-        $projects = auth()->user()->projects;
+        $projects = auth()->user()->projects()->where('status', 'active')->get();
         $projects_formatted = GetAllProjectsResponse::from($projects)->toArray();
         return response()->json($projects_formatted, 200);
     }

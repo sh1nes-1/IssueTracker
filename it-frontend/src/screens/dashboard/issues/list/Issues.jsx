@@ -11,10 +11,11 @@ import { actions } from 'services';
 import moment from 'moment';
 import 'moment/locale/uk';
 import history from '../../../../history';
+import { usePrevious } from 'utils';
 
 const { Content } = Layout;
 
-function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, getIssues, isProcessingProject, isProcessingIssues }) {
+function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, getIssues, isProcessingProject, isProcessingIssues, isErrorIssues }) {
   const params = queryString.parse(location.search);
   const project_id = params['project_id'] ?? null;
 
@@ -24,7 +25,8 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
   const [status, setStatus] = useState('unresolved');
   const [search, setSearch] = useState('');
   const [dateFrom, setDateFrom] = useState(moment().subtract(14, 'days').format('YYYY-MM-DD LTS'));
-  const [environments, setEnvironments] = useState([]);  
+  const [environments, setEnvironments] = useState([]);
+  const prevIsProcessingIssues = usePrevious(isProcessingIssues);
 
   useEffect(() => {
     if (project_id) {
@@ -51,7 +53,7 @@ function Issues({ location, project, issues, totalIssuesCount, getProjectInfo, g
     history.push(`/dashboard/settings/general?project_id=${project_id}`);
   }
 
-  if (!project_id) {
+  if (!project_id || (prevIsProcessingIssues !== undefined && prevIsProcessingIssues !== isProcessingIssues && isErrorIssues)) {
     return <Redirect to='/dashboard/projects'/>
   }
 

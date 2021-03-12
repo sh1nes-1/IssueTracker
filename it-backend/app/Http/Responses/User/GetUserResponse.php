@@ -39,6 +39,7 @@ class GetUserResponse
         return [
             'id' => $project->id,
             'name' => $project->name,
+            'status' => $project->status,
             'created_at' => $project->created_at,
         ];
     }

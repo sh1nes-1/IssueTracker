@@ -19,3 +19,8 @@ export const UPDATE_PROJECT_FAIL    = 'update_project.update_project_fail';
 export const UPDATE_PROJECT_ERROR   = 'update_project.update_project_error';
 
 export const SET_PROJECT_LOCAL = 'set_project_local';
+
+export const DELETE_PROJECT_REQUEST = 'delete_project.delete_project_request';
+export const DELETE_PROJECT_SUCCESS = 'delete_project.delete_project_success';
+export const DELETE_PROJECT_FAIL    = 'delete_project.delete_project_fail';
+export const DELETE_PROJECT_ERROR   = 'delete_project.delete_project_error';

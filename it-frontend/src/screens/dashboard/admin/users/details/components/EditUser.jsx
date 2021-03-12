@@ -109,7 +109,7 @@ function EditUser({ user, updateUser, getUsers, isProcessing, isSuccess, isError
         label="Projects"
       >
         {user.projects.length > 0 ?
-          user.projects.map(project => project.name).join(', ') : 
+          user.projects.map(project => project.status === 'active' ?  project.name : `${project.name} (deleted)`).join(', ') : 
           "User don't have projects"}
       </Form.Item>
 

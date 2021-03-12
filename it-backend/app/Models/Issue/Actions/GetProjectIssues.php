@@ -53,6 +53,10 @@ class GetProjectIssues
             throw new \Exception('Could not find project with given id');
         }
 
+        if ($this->project->status !== 'active') {
+            throw new \Exception('Project is not active');
+        }
+
         return $this;
     }
 

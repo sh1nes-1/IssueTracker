@@ -13,7 +13,8 @@ export default function authReducer(state=initialState, {type, ...action}) {
     case actionTypes.LOGIN_SUCCESS:
       return state.merge({
         user: action.user,
-        access_token: action.access_token
+        access_token: action.access_token,
+        role: action.user.role,
       });
     case actionTypes.SIGN_OUT:
       return state.merge({
