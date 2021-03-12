@@ -24,7 +24,7 @@ const tailLayout = {
   },
 };
 
-function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpdate, isSuccessUpdate, isErrorUpdate, isError, environment, getProjectInfo, updateEnvironment, generateNewSecretKey }) {
+function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpdate, isSuccessUpdate, isErrorUpdate, environment, getProjectInfo, updateEnvironment, generateNewSecretKey, isProcessingNewSecret }) {
   const [envNameForm] = Form.useForm();
   const [secretKeyForm] = Form.useForm();
   const prevIsProcessingUpdate = usePrevious(isProcessingUpdate);
@@ -121,7 +121,7 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpd
             className="align-right" 
             style={{ marginTop: '10px' }}
           >
-            <Button htmlType="submit">
+            <Button htmlType="submit" disabled={isProcessing || isProcessingNewSecret}>
               Generate New
             </Button>
           </Form.Item>
@@ -140,6 +140,8 @@ function mapStateToProps({ settings }) {
     isProcessingUpdate: settings.isProcessingUpdate,
     isErrorUpdate: settings.isErrorUpdate,
     isSuccessUpdate: settings.isSuccessUpdate,
+
+    isProcessingNewSecret: settings.isProcessingNewSecret,
   }
 }
 
