@@ -85,6 +85,15 @@ export function setProjectLocal(project) {
   }
 }
 
+export function setProjectsLocal(projects) {
+  return function (dispatch) {
+    dispatch({ 
+      type: actionTypes.SET_PROJECTS_LOCAL,
+      projects: projects, 
+    });
+  }
+}
+
 export function deleteProject(project_id) {
   return function (dispatch) {
     try {

@@ -2,10 +2,20 @@
   font-family: 'Rubik', 'Nunito', sans-serif;
 }
 
-.logo {
-  height: 32px;
-  margin: 16px;
-  background: rgba(255, 255, 255, 0.2);
+.logo {  
+  padding: 14px;
+  padding-left: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;  
+  /* background: #0a2946; */
+}
+
+.logo-text {
+  width: 124px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .pad-25 {

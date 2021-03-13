@@ -117,6 +117,11 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
         project: action.project,
       });
 
+      case actionTypes.SET_PROJECTS_LOCAL:
+        return state.merge({
+          projects: action.projects,
+        });      
+
 
     case actionTypes.DELETE_PROJECT_REQUEST:
       return state.merge({

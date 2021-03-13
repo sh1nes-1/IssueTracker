@@ -1,6 +1,6 @@
 import React from 'react';
-import {  Layout, Menu  } from 'antd';
-import { FolderOutlined, ContainerOutlined, SettingOutlined, LogoutOutlined, DashboardOutlined } from '@ant-design/icons';
+import {  Avatar, Layout, Menu, Space, Typography  } from 'antd';
+import { FolderOutlined, ContainerOutlined, SettingOutlined, LogoutOutlined, DashboardOutlined, UserOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom'
 import { matchRoutes } from "react-router-config";
@@ -9,10 +9,13 @@ import LogoutModal from './LogoutModal';
 import { logout } from 'services/startup';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import { connect } from 'react-redux';
+import { capitalize } from 'utils';
+import { actions } from 'services';
 
 const { Sider } = Layout;
+const { Text } = Typography;
 
-function Sidemenu({ routes, user_role }) {
+function Sidemenu({ routes, user, user_role, setProjectsLocal }) {
   const location = useLocation();
   const branch = matchRoutes(routes, location.pathname);
   const currentRouteKey = branch[branch.length - 1]?.route?.key?.toString() ?? "";
@@ -21,12 +24,21 @@ function Sidemenu({ routes, user_role }) {
   const isAdminRoute = currentRouteKey.includes('admin');
 
   const onLogout = () => {
+    setProjectsLocal([]);
     logout();
   }
 
   return (
     <Sider breakpoint="lg">
-      <div className="logo" />
+      <div className="logo">
+        <Space>
+          <Avatar size="default" icon={<UserOutlined />} style={{ backgroundColor: '#a5afcc' }} />
+          <div className="logo-text">
+            <Text style={{ color: 'white', fontSize: '14px' }}>{user?.name ?? ' '}</Text>
+            <div style={{ color: 'rgba(255, 255, 255, 0.65)', fontSize: '14px'}}>{capitalize(user_role)}</div>
+          </div>
+        </Space>
+      </div>
 
       <Menu theme="dark" mode="inline" selectedKeys={[currentRouteKey]} defaultOpenKeys={isAdminRoute ? ['admin'] : []}>
         <Menu.Item key="projects" icon={<FolderOutlined />}>
@@ -59,8 +71,15 @@ function Sidemenu({ routes, user_role }) {
 
 function mapStateToProps({ app }) {
   return {
-    user_role: app.role,
+    user: app.user,
+    user_role: app.role,    
   }
 }
 
-export default connect(mapStateToProps)(Sidemenu);
+function mapDispatchToProps(dispatch) {
+  return {
+    setProjectsLocal: (projects) => dispatch(actions.ProjectActions.setProjectsLocal(projects)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidemenu);
