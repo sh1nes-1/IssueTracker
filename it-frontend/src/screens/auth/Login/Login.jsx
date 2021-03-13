@@ -1,7 +1,6 @@
 import { Layout, Card, Button, Row, Input, Form } from 'antd';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { actions } from 'services';
 
 const layout = {

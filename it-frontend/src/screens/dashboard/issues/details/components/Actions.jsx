@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, message, Space } from 'antd';
 import { CheckOutlined, StopOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
