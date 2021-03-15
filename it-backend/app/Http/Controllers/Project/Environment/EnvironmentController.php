@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Project\Environment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\Environment\CreateEnvironmentRequest;
+use App\Http\Requests\Project\Environment\DeleteEnvironmentRequest;
 use App\Http\Requests\Project\Environment\GenerateNewSecretRequest;
 use App\Http\Requests\Project\Environment\GetEnvironmentRequest;
 use App\Http\Requests\Project\Environment\UpdateEnvironmentRequest;
@@ -32,6 +33,11 @@ class EnvironmentController extends Controller
     }
 
     public function generateNewSecret(GenerateNewSecretRequest $request)
+    {
+        return $request->perform();
+    }
+
+    public function delete(DeleteEnvironmentRequest $request)
     {
         return $request->perform();
     }

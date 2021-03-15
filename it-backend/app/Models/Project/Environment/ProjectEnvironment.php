@@ -14,6 +14,7 @@ class ProjectEnvironment extends Model
         'project_id',
         'name',
         'secret_key',
+        'status',
     ];
 
     public function project()

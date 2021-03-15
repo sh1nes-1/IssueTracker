@@ -19,6 +19,7 @@ class CreateProjectEnvironmentsTable extends Migration
             $table->string('name');
             $table->string('secret_key');
             $table->integer('issues_count')->default(0);
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

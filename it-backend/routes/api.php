@@ -46,9 +46,12 @@ Route::group(['middleware' => 'api', 'prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'environments'], function () {
         Route::post('/', [EnvironmentController::class, 'create']);
-        Route::post('/{id}', [EnvironmentController::class, 'update']);
-        Route::get('/{id}', [EnvironmentController::class, 'get']);
-        Route::post('/{id}/generateNewSecret', [EnvironmentController::class, 'generateNewSecret']);
+        Route::group(['prefix' => '{id}'], function () {
+            Route::post('/', [EnvironmentController::class, 'update']);
+            Route::get('/', [EnvironmentController::class, 'get']);
+            Route::post('/generateNewSecret', [EnvironmentController::class, 'generateNewSecret']);
+            Route::delete('/', [EnvironmentController::class, 'delete']);
+        });
     });
 
     Route::group(['prefix' => 'issues'], function () {
