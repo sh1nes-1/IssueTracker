@@ -6,6 +6,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { usePrevious } from 'utils';
 import queryString from 'query-string';
 import DeleteEnvironmentModal from './components/DeleteEnvironmentModal';
+import { API_HOST } from '../../../../config';
 
 const { Title } = Typography;
 
@@ -108,7 +109,17 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpd
         className="setting-card"
         size="small"
       >
-        <Form {...layout} form={secretKeyForm} onFinish={generateSecretKey}>        
+        <Form {...layout} form={secretKeyForm} onFinish={generateSecretKey} initialValues={{ api_url: API_HOST }}>
+          <Form.Item
+            colon={false}
+            labelAlign="left"
+            label="API URL"
+            name="api_url"
+            style={{ marginBottom: '10px' }}
+          >
+            <Input disabled={true} autoComplete="off" />
+          </Form.Item>
+
           <Form.Item
             colon={false}
             labelAlign="left"

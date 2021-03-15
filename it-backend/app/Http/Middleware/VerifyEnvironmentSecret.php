@@ -20,7 +20,7 @@ class VerifyEnvironmentSecret
         $environment_secret = $request->header('environment_secret');
         if ($environment_secret) {
             $environment = ProjectEnvironment::query()->where('secret_key', $environment_secret)->first();
-            if ($environment) {
+            if ($environment && $environment->status === 'active') {
                 $request->merge([
                     'project_id' => $environment->project_id,
                     'project_environment_id' => $environment->id,
