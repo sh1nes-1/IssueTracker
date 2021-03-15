@@ -17,6 +17,10 @@ const initialState = Immutable({
   isProcessingNewSecret: false,
   isSuccessNewSecret: false,
   isErrorNewSecret: false,
+
+  isProcessingDelete: false,
+  isSuccessDelete: false,
+  isErrorDelete: false,
 });
 
 export default function projectsReducer(state=initialState, {type, ...action}) {
@@ -113,6 +117,27 @@ export default function projectsReducer(state=initialState, {type, ...action}) {
         isProcessingNewSecret: false,
       });   
 
+
+    case actionTypes.DELETE_ENVIRONMENT_REQUEST:
+      return state.merge({
+        isProcessingDelete: true,
+        isErrorDelete: false,
+        isSuccessDelete: false
+      });
+    case actionTypes.DELETE_ENVIRONMENT_SUCCESS:
+      return state.merge({
+        isProcessingDelete: false,
+        isSuccessDelete: true
+      });
+    case actionTypes.DELETE_ENVIRONMENT_FAIL:
+      return state.merge({
+        isProcessingDelete: false,
+        isErrorDelete: true
+      });
+    case actionTypes.DELETE_ENVIRONMENT_ERROR:
+      return state.merge({
+        isProcessingDelete: false,
+      });
 
     default:
       return state;

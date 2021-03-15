@@ -78,3 +78,19 @@ export function generateNewSecretKey(environment_id) {
     }
   }
 }
+
+export function deleteEnvironment(environment_id) {
+  return function (dispatch) {
+    try {
+      dispatch({ type: actionTypes.DELETE_ENVIRONMENT_REQUEST });
+
+      HttpService.delete(`/environments/${environment_id}`,
+        () => dispatch({ type: actionTypes.DELETE_ENVIRONMENT_SUCCESS }), 
+        () => dispatch({ type: actionTypes.DELETE_ENVIRONMENT_FAIL })
+      );
+
+    } catch (error) {
+      dispatch({ type: actionTypes.DELETE_ENVIRONMENT_ERROR });
+    }
+  }
+}

@@ -18,3 +18,8 @@ export const GENERATE_NEW_SECRET_REQUEST = 'generate_new_secret.generate_new_sec
 export const GENERATE_NEW_SECRET_SUCCESS = 'generate_new_secret.generate_new_secret_success';
 export const GENERATE_NEW_SECRET_FAIL    = 'generate_new_secret.generate_new_secret_fail';
 export const GENERATE_NEW_SECRET_ERROR   = 'generate_new_secret.generate_new_secret_error';
+
+export const DELETE_ENVIRONMENT_REQUEST = 'delete_environment.delete_environment_request';
+export const DELETE_ENVIRONMENT_SUCCESS = 'delete_environment.delete_environment_success';
+export const DELETE_ENVIRONMENT_FAIL    = 'delete_environment.delete_environment_fail';
+export const DELETE_ENVIRONMENT_ERROR   = 'delete_environment.delete_environment_error';

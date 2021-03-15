@@ -5,6 +5,7 @@ import { actions } from 'services';
 import { useLocation, useParams } from 'react-router-dom';
 import { usePrevious } from 'utils';
 import queryString from 'query-string';
+import DeleteEnvironmentModal from './components/DeleteEnvironmentModal';
 
 const { Title } = Typography;
 
@@ -125,6 +126,25 @@ function EnvironmentSettings({ getEnvironmentInfo, isProcessing, isProcessingUpd
               Generate New
             </Button>
           </Form.Item>
+        </Form>
+      </Card>
+
+      <Card
+        title="Danger zone" 
+        bordered={true} 
+        className="setting-card border-red"
+        size="small"
+      >
+      <Form {...layout}>
+        <Form.Item
+          colon={false}
+          labelAlign="left"
+          label="Delete this environment"
+          name="delete_environment"
+          className="align-right"
+        >
+          <DeleteEnvironmentModal project_id={project_id} environment={environment} />
+        </Form.Item>
         </Form>
       </Card>      
     </React.Fragment>
