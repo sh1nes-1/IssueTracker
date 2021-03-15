@@ -43,6 +43,11 @@ class UpdateEnvironmentRequest extends FormRequest
     {
         $environment_id = $this->route('id');
         $environment = ProjectEnvironment::query()->find($environment_id);
+
+        if ($environment->status !== 'active') {
+            return response()->json(['message' => 'Environment is not active'], 422);
+        }
+
         $environment->update($this->validated());
         $environment_formatted = UpdateEnvironmentResponse::from($environment->refresh())->toArray();
         return response()->json($environment_formatted, 200);

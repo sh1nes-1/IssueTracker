@@ -11,7 +11,10 @@ class GetProjectResponse
     public function __construct($project)
     {
         $this->project = $project;
-        $this->environments = $this->project->environments->map(\Closure::fromCallable([$this, 'mapEnvironment']));
+        $this->environments = $this->project->environments()
+            ->where('status', 'active')
+            ->get()
+            ->map(\Closure::fromCallable([$this, 'mapEnvironment']));
     }
 
     public static function from($project)

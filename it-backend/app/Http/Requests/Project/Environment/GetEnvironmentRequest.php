@@ -44,6 +44,10 @@ class GetEnvironmentRequest extends FormRequest
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
+        if ($environment->status !== 'active') {
+            return response()->json(['message' => 'Environment is not active'], 422);
+        }
+
         $environment_formatted = GetEnvironmentResponse::from($environment)->toArray();
         return response()->json($environment_formatted, 200);
     }

@@ -42,6 +42,11 @@ class GenerateNewSecretRequest extends FormRequest
 
         $id = $this->route('id');
         $environment = ProjectEnvironment::query()->find($id);
+
+        if ($environment->status !== 'active') {
+            return response()->json(['message' => 'Environment is not active'], 422);
+        }
+
         $environment->update([
            'secret_key' =>  $secret_key_response['secret_key'],
         ]);
