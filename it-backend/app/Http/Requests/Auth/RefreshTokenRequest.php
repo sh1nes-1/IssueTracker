@@ -39,7 +39,7 @@ class RefreshTokenRequest extends FormRequest
 
         $access_token = auth()->refresh(true, true);
         $refresh_token = auth()->claims(['type' => 'refresh_token'])->setTTL(43200)->tokenById(auth()->user()->id);
-        $response_formatted = RefreshTokenResponse::from($access_token, $refresh_token)->toArray();
+        $response_formatted = RefreshTokenResponse::from($access_token, $refresh_token, auth()->user())->toArray();
         return response()->json($response_formatted, 200);
     }
 }
