@@ -142,13 +142,16 @@ export class HttpService {
 
   isAuthTokenValid() {
     if (!this.access_token ) {
+      console.log('Access token not found!');
       return false;
     }
 
     const decoded = jwt_decode(this.access_token);
-    const currentTime = Date.now() / 1000;
+    const currentTime = Math.round(Date.now() / 1000);
 
-    return decoded.exp > currentTime;
+    const isTokenValid = decoded.exp > currentTime;
+    console.log(`Is token valid: ${isTokenValid}`);
+    return isTokenValid;
   }
 
   async tryRefreshToken() {
